@@ -1,69 +1,32 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import styles from "./page.module.css";
 
+type Film = { title: string; year: string; image: string };
+const films: Film[] = [
+  { title: "Entre Rios", year: "2023", image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85" },
+  { title: "Casa de Dona Ilda", year: "2022", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85" },
+  { title: "No Fim do Horizonte", year: "2024", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85" },
+  { title: "Amazónia Viva", year: "2023", image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=85" },
+];
+
+function Icon({ name, size = 20 }: { name: "back" | "play" | "pause" | "skip" | "volume" | "screen" | "settings" | "plus" | "share" | "check" | "search" | "user" | "instagram" | "facebook" | "vimeo"; size?: number }) {
+  const p = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const content: Record<string, React.ReactNode> = {
+    back: <path d="m15 18-6-6 6-6M9 12h11" />, play: <path d="m9 6 9 6-9 6V6Z" fill="currentColor" stroke="none" />, pause: <><path d="M8 5v14M16 5v14" strokeWidth="3" /></>, skip: <><path d="M7 6a7 7 0 1 1-1.5 9.7" /><path d="m7 6 .1 4.5-4.2-.7M17 12h.01" /></>, volume: <><path d="M4 10v4h3l4 3V7l-4 3H4ZM15 9.5a4 4 0 0 1 0 5M17.5 7a7.2 7.2 0 0 1 0 10" /></>, screen: <><rect x="3" y="5" width="18" height="14" rx="1" /><path d="M7 16h10" /></>, settings: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.4 1.4-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L9 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H7.7v-2h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L9 9l1.4-1.4.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h2v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1L20 9l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2v2h-.2a1.7 1.7 0 0 0-1.7 1Z" /></>, plus: <><path d="M12 5v14M5 12h14" /></>, share: <><path d="M12 15V3M8 7l4-4 4 4M5 12v7h14v-7" /></>, check: <path d="m5 12 4 4L19 6" />, search: <><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></>, user: <><circle cx="12" cy="8" r="3" /><path d="M5 20c.6-3.3 3-5 7-5s6.4 1.7 7 5" /></>, instagram: <><rect x="4" y="4" width="16" height="16" rx="4" /><circle cx="12" cy="12" r="3" /><path d="M17.5 6.5h.01" /></>, facebook: <path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1Z" fill="currentColor" stroke="none" />, vimeo: <path d="M4 8c1.5-1.8 4.1-3.4 5.4-1.8 1 1.3.7 4.2 1.8 6.7.8 1.8 1.3 1.8 2.2.4.9-1.4 1.8-3.1 1.4-3.5-.4-.4-1.3.2-1.7.7.3-2.5 3.6-4.5 5.5-2.7 1.8 1.8-1.3 7-3.8 9.5-2.3 2.3-4.4 3.1-6.2.1C7.2 14.8 7 10.3 5.6 9.3 5 8.9 4.5 9.4 4 10V8Z" fill="currentColor" stroke="none" />,
+  };
+  return <svg {...p} aria-hidden="true">{content[name]}</svg>;
+}
+
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  const [playing, setPlaying] = useState(true); const [saved, setSaved] = useState(false); const [notice, setNotice] = useState("");
+  const notify = (text: string) => { setNotice(text); window.setTimeout(() => setNotice(""), 2300); };
+  return <main className={styles.page}>
+    <header className={styles.header}><nav className={styles.leftNav}><a href="#catalogo">Entrada</a><a href="#catalogo">Projetos</a><a className={styles.current} href="#top">aTV</a><a href="#footer">Contato</a></nav><a className={styles.brand} href="#top">aStudio</a><div className={styles.socials}><Icon name="instagram" size={16} /><Icon name="facebook" size={16} /><Icon name="vimeo" size={18} /></div></header>
+    <section className={styles.playerSection} id="top"><div className={styles.player}><div className={styles.playerImage} /><div className={styles.back}><Icon name="back" size={20} /> Voltar para aTV</div><div className={styles.centerControls}><button onClick={() => notify("Retroceder 10 segundos")}><Icon name="skip" size={39} /></button><button onClick={() => setPlaying(!playing)} className={styles.pause}>{playing ? <Icon name="pause" size={43} /> : <Icon name="play" size={43} />}</button><button onClick={() => notify("Avançar 10 segundos")}><Icon name="skip" size={39} /></button></div><div className={styles.progress}><span /><b /></div><div className={styles.playerControls}><button onClick={() => setPlaying(!playing)}>{playing ? <Icon name="pause" size={24} /> : <Icon name="play" size={24} />}</button><button><Icon name="volume" size={24} /></button><span>22:18 / 1:18:42</span><div className={styles.controlRight}><button><Icon name="screen" size={22} /></button><button><Icon name="settings" size={22} /></button><button><Icon name="screen" size={22} /></button><button><Icon name="screen" size={22} /></button></div></div></div></section>
+    <section className={styles.details}><div className={styles.copy}><h1>O Silêncio das Pedras</h1><div className={styles.meta}><span>Documentário</span><i /> <span>2024</span><i /> <span>1h 18min</span><strong>L</strong></div><p>Uma jornada intimista sobre memória, território e pertencimento.<br />Entre ruínas e lembranças, um encontro profundo com o que permanece.</p><div className={styles.actions}><button onClick={() => { setSaved(!saved); notify(saved ? "Removido da sua lista" : "Adicionado à sua lista"); }}>{saved ? <Icon name="check" size={19} /> : <Icon name="plus" size={19} />} Minha lista</button><button onClick={() => notify("Link copiado para a área de transferência")}><Icon name="share" size={18} /> Compartilhar</button></div></div><div className={styles.purchase}><div className={styles.checkCircle}><Icon name="check" size={21} /></div><div><h3>Compra concluída</h3><p>Aproveite o conteúdo.</p></div></div></section>
+    <section className={styles.recommendations} id="catalogo"><h2>Mais como este</h2><div className={styles.cardRow}>{films.map((film) => <article className={styles.card} key={film.title} style={{ backgroundImage: `url(${film.image})` }} onClick={() => notify(`A abrir ${film.title}`)}><div><h3>{film.title}</h3><p>Documentário <i /> {film.year} <strong>L</strong></p></div></article>)}</div><button className={styles.next} aria-label="Mais filmes" onClick={() => notify("Mais conteúdos em breve")}><Icon name="back" size={25} /></button></section>
+    <footer className={styles.footer} id="footer"><span>© 2024 aStudio. Todos os direitos reservados.</span><div><a href="#footer">Termos de uso</a><i /><a href="#footer">Privacidade</a><i /><a href="#footer">Suporte</a></div></footer>{notice && <div className={styles.toast}>{notice}</div>}
+  </main>;
 }
