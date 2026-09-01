@@ -1,3 +1,434 @@
-.page{min-height:100vh;background:#0c0c0d;color:#f7f4ef;font-family:'DM Sans',Arial,sans-serif}.header{height:78px;padding:0 5.5%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #252426;position:relative;z-index:2;background:#0b0b0c}.nav{position:absolute;left:5.5%;display:flex;align-items:center;gap:34px;font-size:13px;color:#a6a2a0}.nav a{height:78px;display:flex;align-items:center;position:relative;transition:.2s}.nav a:hover,.nav .active{color:#f5eee9}.nav .active{color:#ee2c5a;font-weight:600}.nav .active:after{content:'';height:2px;background:#ee2c5a;position:absolute;bottom:0;left:0;right:0}.brand{font-family:'Playfair Display',Georgia,serif;font-size:31px;letter-spacing:-1.8px;font-weight:500}.brand span{font-style:italic;font-weight:400}.headerTools{position:absolute;right:5.5%;display:flex;gap:20px}.headerTools button{background:none;color:#c3bfbc;padding:5px}.headerTools button:hover{color:#ed2b58}.hero{height:min(650px,calc(100vh - 78px));min-height:550px;position:relative;overflow:hidden}.heroImage{position:absolute;inset:0;background-image:linear-gradient(90deg,#0b0b0c 0%,rgba(11,11,12,.78) 22%,rgba(11,11,12,.17) 68%,rgba(11,11,12,.5) 100%),linear-gradient(0deg,#0c0c0d 0%,transparent 30%),url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2200&q=90');background-size:cover;background-position:center 47%;filter:saturate(.7)}.heroContent{position:absolute;left:10.5%;top:50%;transform:translateY(-44%);max-width:480px}.kicker,.sectionEyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2.8px;color:#ee2c5a;font-weight:600}.kicker{display:flex;align-items:center;gap:12px;margin-bottom:22px}.kicker span{width:28px;height:1px;background:#ee2c5a}.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(54px,6vw,86px);font-weight:500;line-height:.94;letter-spacing:-3px;margin-bottom:23px}.hero h1 em,.catalog h2 em,.about h2 em{color:#ee2c5a;font-style:italic;font-weight:400}.meta{display:flex;align-items:center;gap:11px;color:#d1cecb;font-size:13px}.meta i{height:3px;width:3px;border-radius:50%;background:#817c78}.meta b{font-size:10px;font-weight:500;border:1px solid #8d8883;padding:3px 6px;color:#e4e0dc}.description{color:#bcb8b5;line-height:1.7;font-size:14px;margin:18px 0 25px;max-width:415px}.heroActions{display:flex;gap:10px}.heroActions button{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:3px;font-size:13px;transition:.2s}.primary{background:#eb2a58;color:#fff}.primary:hover{background:#ff416d}.secondary{background:rgba(255,255,255,.1);color:#f8f4ee;border:1px solid rgba(255,255,255,.2)}.secondary:hover{background:rgba(255,255,255,.18)}.heroRail{position:absolute;right:5.5%;bottom:52px;color:#a9a39d;font-size:11px;display:flex;align-items:center;gap:13px}.heroRail div{width:80px;height:1px;background:#ee2c5a}.heroRail span:first-child{color:#ee2c5a}.catalog{padding:78px 5.5% 92px;background:#0c0c0d}.catalogHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:29px}.catalog h2,.about h2{font-family:'Playfair Display',Georgia,serif;font-size:42px;font-weight:500;line-height:1.1;letter-spacing:-1.5px;margin-top:12px}.filters{display:flex;align-items:center;gap:24px;color:#898480;font-size:12px}.filters button{background:none;color:inherit;padding:7px 0}.filters button:hover,.filters .filterActive{color:#f1eeea}.filters .filterActive{border-bottom:1px solid #ee2c5a}.filters .sort{margin-left:12px;border:1px solid #3d3a39;padding:10px 13px;border-radius:2px;color:#d5d0cb}.sort span{margin-left:24px;color:#ee2c5a;font-size:16px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px 18px}.card{cursor:pointer}.cardImage{height:250px;background-position:center;background-size:cover;position:relative;overflow:hidden;transition:transform .35s,filter .35s;filter:saturate(.78)}.card:hover .cardImage{transform:scale(1.025);filter:saturate(1)}.cardImage:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 48%)}.cardTag{position:absolute;z-index:1;top:13px;left:13px;background:rgba(12,12,13,.78);padding:6px 8px;font-size:9px;text-transform:uppercase;letter-spacing:1.3px}.cardPlay{position:absolute;z-index:1;inset:0;margin:auto;width:42px;height:42px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;opacity:0;transform:scale(.85);transition:.25s;background:rgba(0,0,0,.35)}.card:hover .cardPlay{opacity:1;transform:scale(1)}.cardBody{padding-top:13px;display:flex;justify-content:space-between;align-items:start;gap:10px}.card h3{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:500}.card p{display:flex;align-items:center;gap:8px;color:#8d8985;font-size:11px;margin-top:6px}.card p i{width:3px;height:3px;border-radius:50%;background:#ee2c5a}.price{display:flex;align-items:center;gap:6px;color:#d7d1cc;font-size:12px;white-space:nowrap;padding-top:2px}.price svg{color:#ee2c5a}.about{padding:105px 5.5%;background:#151416;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:35px;align-items:start}.about h2{font-size:43px;margin:0}.about>p:last-child{color:#a9a3a0;font-size:14px;line-height:1.8;max-width:290px;padding-top:4px}.footer{border-top:1px solid #2b292a;padding:28px 5.5%;display:flex;align-items:center;justify-content:space-between;color:#77716e;font-size:11px}.footer .brand{color:#e3ddd7;font-size:23px}.socials{display:flex;gap:18px;color:#ada7a2}.toast{position:fixed;z-index:5;bottom:25px;left:50%;transform:translateX(-50%);background:#f1ede8;color:#171516;padding:12px 19px;border-radius:3px;font-size:12px;box-shadow:0 10px 35px #000}
-@media(max-width:900px){.header{height:65px}.nav{left:5%;gap:17px;font-size:11px}.nav a{height:65px}.nav a:nth-child(3){display:none}.brand{font-size:25px}.headerTools{right:5%;gap:8px}.hero{height:620px;min-height:0}.heroImage{background-position:62% center}.heroContent{left:7%;right:7%;top:auto;bottom:75px;transform:none}.hero h1{font-size:58px}.heroRail{right:7%;bottom:28px}.catalog{padding:58px 5% 68px}.catalogHead{display:block}.filters{margin-top:25px;gap:18px;flex-wrap:wrap}.filters .sort{margin-left:auto}.grid{grid-template-columns:repeat(2,1fr);gap:32px 13px}.cardImage{height:230px}.about{padding:72px 7%;display:block}.about h2{margin:16px 0 23px;font-size:39px}.footer{padding:25px 6%;gap:18px;flex-wrap:wrap}.footer p{order:3;width:100%}}
-@media(max-width:520px){.nav a:nth-child(2){display:none}.hero{height:570px}.hero h1{font-size:49px;letter-spacing:-2px}.description{font-size:13px;margin:15px 0 20px}.heroActions button{padding:11px 12px;font-size:11px}.catalog h2{font-size:35px}.filters{font-size:11px;gap:14px}.filters .sort{width:100%;margin:3px 0 0;display:flex;justify-content:space-between}.grid{grid-template-columns:1fr 1fr}.cardImage{height:190px}.cardBody{display:block}.card h3{font-size:16px}.price{margin-top:9px}.about h2{font-size:34px}.footer{font-size:10px}}
+.page {
+  min-height: 100vh;
+  background: #000;
+  color: #f6f6f6;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+.header {
+  height: 72px;
+  border-bottom: 1px solid #1d1d1d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 4%;
+  font-size: 13px;
+}
+.leftNav {
+  position: absolute;
+  left: 4%;
+  display: flex;
+  gap: 37px;
+  height: 100%;
+  align-items: center;
+}
+.leftNav a {
+  color: #e7e7e7;
+}
+.leftNav a:hover {
+  color: #ee1b55;
+}
+.leftNav .current {
+  color: #f11d57;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #f11d57;
+}
+.brand {
+  font-size: 31px;
+  letter-spacing: -2px;
+  font-weight: 300;
+}
+.socials {
+  position: absolute;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.playerSection {
+  background: #000;
+  padding: 0 4%;
+}
+.player {
+  height: min(560px, 53vw);
+  min-height: 390px;
+  position: relative;
+  overflow: hidden;
+}
+.playerImage {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4),
+      transparent 40%,
+      rgba(0, 0, 0, 0.22)
+    ),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.82), transparent 25%),
+    url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2200&q=90");
+  background-size: cover;
+  background-position: center 48%;
+  filter: saturate(0.75);
+}
+.back {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.centerControls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25%;
+}
+.centerControls button {
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+.centerControls button:first-child {
+  transform: scaleX(-1);
+}
+.centerControls .pause {
+  font-size: 30px;
+}
+.progress {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #606166;
+}
+.progress span {
+  display: block;
+  background: #f1164c;
+  width: 28%;
+  height: 100%;
+}
+.progress b {
+  position: absolute;
+  left: 28%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: #ed194f;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.playerControls {
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #eee;
+  font-size: 13px;
+}
+.playerControls button {
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+.controlRight {
+  margin-left: auto;
+  display: flex;
+  gap: 26px;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  padding: 30px 4% 25px;
+}
+.copy h1 {
+  font-size: 29px;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+  font-size: 14px;
+}
+.meta i,
+.card p i {
+  height: 3px;
+  width: 3px;
+  background: #aaa;
+  border-radius: 50%;
+}
+.meta strong,
+.card p strong {
+  display: inline-flex;
+  background: #049f4a;
+  padding: 3px 7px;
+  color: white;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.copy > p {
+  color: #b4b4b4;
+  line-height: 1.7;
+  font-size: 14px;
+  margin-top: 14px;
+}
+.actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 17px;
+}
+.actions button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #171717;
+  color: #ddd;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+.actions button:hover {
+  background: #282828;
+}
+.purchase {
+  background: #161616;
+  border-radius: 7px;
+  width: 34%;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 25px;
+  margin-top: 1px;
+}
+.checkCircle {
+  width: 41px;
+  height: 41px;
+  border: 2px solid #0baa51;
+  color: #18bd61;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.purchase h3 {
+  font-size: 15px;
+  font-weight: 400;
+}
+.purchase p {
+  font-size: 13px;
+  color: #8f8f8f;
+  margin-top: 5px;
+}
+.recommendations {
+  padding: 0 4% 38px;
+  position: relative;
+}
+.recommendations h2 {
+  font-size: 17px;
+  font-weight: 400;
+  margin: 12px 0 16px;
+}
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.card {
+  height: 180px;
+  border-radius: 5px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+}
+.card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.85), transparent 70%);
+}
+.card > div {
+  position: absolute;
+  z-index: 1;
+  bottom: 15px;
+  left: 14px;
+}
+.card h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.card p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #d0d0d0;
+  font-size: 12px;
+}
+.card p strong {
+  font-size: 9px;
+  padding: 2px 5px;
+}
+.next {
+  position: absolute;
+  right: 1.4%;
+  bottom: 77px;
+  width: 42px;
+  height: 42px;
+  background: #1e2025;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.next svg {
+  transform: rotate(180deg);
+}
+.footer {
+  height: 78px;
+  background: #101010;
+  color: #707070;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  font-size: 12px;
+}
+.footer div {
+  display: flex;
+  gap: 17px;
+}
+.footer a:hover {
+  color: #ddd;
+}
+.footer i {
+  height: 15px;
+  border-left: 1px solid #555;
+}
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f4f4f4;
+  color: #111;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  box-shadow: 0 8px 30px #000;
+}
+.socials svg {
+  color: #eee;
+}
+.socials svg:hover {
+  color: #ee1b55;
+}
+@media (max-width: 800px) {
+  .header {
+    height: 60px;
+  }
+  .leftNav {
+    gap: 15px;
+    font-size: 11px;
+  }
+  .leftNav a:first-child,
+  .leftNav a:nth-child(2) {
+    display: none;
+  }
+  .brand {
+    font-size: 24px;
+  }
+  .socials {
+    gap: 10px;
+  }
+  .player {
+    height: 70vw;
+    min-height: 290px;
+  }
+  .centerControls {
+    gap: 11%;
+  }
+  .centerControls svg {
+    width: 29px;
+  }
+  .centerControls .pause svg {
+    width: 34px;
+  }
+  .back {
+    top: 16px;
+    font-size: 11px;
+  }
+  .progress {
+    bottom: 43px;
+  }
+  .playerControls {
+    bottom: 7px;
+    gap: 12px;
+  }
+  .controlRight {
+    gap: 13px;
+  }
+  .controlRight button:nth-child(1),
+  .controlRight button:nth-child(3) {
+    display: none;
+  }
+  .details {
+    display: block;
+    padding: 24px 4%;
+  }
+  .copy h1 {
+    font-size: 24px;
+  }
+  .purchase {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .cardRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .card {
+    height: 160px;
+  }
+  .card h3 {
+    font-size: 13px;
+  }
+  .card p {
+    font-size: 10px;
+  }
+  .footer {
+    height: auto;
+    padding: 25px 4%;
+    display: block;
+    text-align: center;
+    font-size: 10px;
+  }
+  .footer div {
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .recommendations {
+    padding-bottom: 30px;
+  }
+}
