@@ -209,13 +209,13 @@ export default function Home() {
               className={styles.primary}
               onClick={() => notify("O filme vai começar em breve")}
             >
-                <Icon name="play" size={16} /> Ver agora
+              <Icon name="play" size={16} /> Ver agora
             </button>
             <button
               className={styles.secondary}
-                onClick={() => notify("Mais detalhes em breve")}
+              onClick={() => notify("Mais detalhes em breve")}
             >
-                <Icon name="info" size={17} /> Saber mais
+              <Icon name="info" size={17} /> Saber mais
             </button>
           </div>
         </div>
@@ -265,7 +265,7 @@ export default function Home() {
                 <div>
                   <h3>{film.title}</h3>
                   <p>
-                    {film.year} <i /> Filme integral
+                      {film.year} <i /> Filme integral
                   </p>
                 </div>
                 <div className={styles.price}>
