@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 type Film = {
@@ -170,7 +171,7 @@ export default function Home() {
       <header className={styles.header}>
         <nav className={styles.nav}>
           <a className={styles.active} href="#inicio">
-            aTV
+            Roll
           </a>
           <a href="#catalogo">Filmes</a>
           <a href="#sobre">Sobre nós</a>
@@ -195,7 +196,7 @@ export default function Home() {
         <div className={styles.heroImage} />
         <div className={styles.heroContent}>
           <p className={styles.kicker}>
-            <span /> aTV original
+            <span /> Roll original
           </p>
           <h1>
             O Silêncio
@@ -229,10 +230,12 @@ export default function Home() {
         </div>
         
       </section>
+
+      
       <section className={styles.catalog} id="catalogo">
         <div className={styles.catalogHead}>
           <div>
-            <p className={styles.sectionEyebrow}>aTV / catálogo</p>
+            <p className={styles.sectionEyebrow}>Roll / catálogo</p>
             <h2>
               Histórias que <em>ficam.</em>
             </h2>
@@ -251,10 +254,10 @@ export default function Home() {
         </div>
         <div className={styles.grid}>
           {films.map((film) => (
-            <article
+            <Link
               className={styles.card}
               key={film.title}
-              onClick={() => notify(`A abrir ${film.title}`)}
+              href={`/filmes/${film.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
             >
               <div
                 className={styles.cardImage}
@@ -273,7 +276,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -360,13 +363,13 @@ export default function Home() {
   </div>
 
   <div className={styles.aboutFooter}>
-    <span>aTV</span>
+    <img src="/logos/ROLL_BRANCO.png" alt="Meu Logo" />
 
     <p>
       Conteúdo · Publicidade · Televisão · Cinema
     </p>
 
-    <span>01 — 03</span>
+    <span></span>
   </div>
 </section>
 
@@ -375,7 +378,7 @@ export default function Home() {
   <div className={styles.contactTop}>
     <p className={styles.sectionEyebrow}>vamos conversar</p>
 
-    <span className={styles.contactIndex}>04 — CONTACTO</span>
+    <span className={styles.contactIndex}></span>
   </div>
 
   <div className={styles.contactMain}>
@@ -394,9 +397,9 @@ export default function Home() {
     </div>
 
     <div className={styles.contactDetails}>
-      <a href="mailto:contacto@atv.pt" className={styles.contactItem}>
+      <a href="mailto:contacto@roll.pt" className={styles.contactItem}>
         <span className={styles.contactLabel}>email</span>
-        <span className={styles.contactValue}>contacto@atv.pt</span>
+        <span className={styles.contactValue}>contacto@roll.pt</span>
         <span className={styles.contactArrow}>↗</span>
       </a>
 
@@ -414,16 +417,16 @@ export default function Home() {
   </div>
 
   <div className={styles.contactBottom}>
-    <span>aTV</span>
+    <img src="/logos/ROLL_BRANCO.png" alt="Meu Logo" />
     <span>© 2024</span>
   </div>
 </section>
 
       <footer className={styles.footer} id="footer">
         <a className={styles.brand} href="#inicio">
-          a<span>TV</span>
+         <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
         </a>
-        <p>© 2024 aTV. Cinema independente, perto de si.</p>
+        <p>© 2024 Roll. Cinema independente, perto de si.</p>
         <div className={styles.socials}>
           <Icon name="instagram" size={17} />
           <Icon name="facebook" size={17} />

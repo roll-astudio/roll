@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	title: "aTV — A nossa história começa aqui",
-	description: "Streaming de filmes e séries escolhidos pela aTV.",
+	title: "Roll — A nossa história começa aqui",
+	description: "Streaming de filmes e séries escolhidos pela Roll.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

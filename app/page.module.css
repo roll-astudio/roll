@@ -654,6 +654,12 @@
   letter-spacing: 0.12em;
 }
 
+.aboutFooter img {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+}
+
 .aboutFooter span:first-child {
   color: #fff;
 
@@ -892,6 +898,12 @@
   font-size: 10px;
 
   letter-spacing: 0.12em;
+}
+
+.contactBottom img {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
 }
 
 .contactBottom span:first-child {
