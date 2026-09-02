@@ -8,6 +8,7 @@ type Film = {
   year: string;
   category: string;
   price: string;
+  description: string;
   image: string;
 };
 const films: Film[] = [
@@ -16,6 +17,7 @@ const films: Film[] = [
     year: "2023",
     category: "Documentário",
     price: "12,90 €",
+    description: "As histórias que fluem entre duas margens e transformam destinos.",
     image:
       "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=88",
   },
@@ -24,6 +26,7 @@ const films: Film[] = [
     year: "2022",
     category: "Documentário",
     price: "9,90 €",
+    description: "Memórias de uma casa, de uma vida e de um bairro que mudou.",
     image:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=88",
   },
@@ -32,6 +35,7 @@ const films: Film[] = [
     year: "2024",
     category: "Documentário",
     price: "14,90 €",
+    description: "Uma expedição sobre limites, coragem e descoberta.",
     image:
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=88",
   },
@@ -40,6 +44,7 @@ const films: Film[] = [
     year: "2023",
     category: "Natureza",
     price: "14,90 €",
+    description: "A força da floresta através de quem a protege todos os dias.",
     image:
       "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=88",
   },
@@ -48,6 +53,7 @@ const films: Film[] = [
     year: "2022",
     category: "Sociedade",
     price: "9,90 €",
+    description: "Retrato de uma geração que resiste ao silêncio e à indiferença.",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=88",
   },
@@ -56,6 +62,7 @@ const films: Film[] = [
     year: "2024",
     category: "Desporto",
     price: "12,90 €",
+    description: "Muito além das quatro linhas: sonhos, escolhas e futuros.",
     image:
       "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=88",
   },
@@ -64,6 +71,7 @@ const films: Film[] = [
     year: "2023",
     category: "Documentário",
     price: "12,90 €",
+    description: "Uma investigação sobre o mercado de energia e os seus impactos.",
     image:
       "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=88",
   },
@@ -166,10 +174,10 @@ export default function Home() {
           </a>
           <a href="#catalogo">Filmes</a>
           <a href="#sobre">Sobre nós</a>
-          <a href="#footer">Contacto</a>
+          <a href="#contacto">Contacto</a>
         </nav>
         <a className={styles.brand} href="#inicio">
-          a<span>TV</span>
+         <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
         </a>
         <div className={styles.headerTools}>
           <button
@@ -219,11 +227,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className={styles.heroRail}>
-          <span>01</span>
-          <div />
-          <span>03</span>
-        </div>
+        
       </section>
       <section className={styles.catalog} id="catalogo">
         <div className={styles.catalogHead}>
@@ -256,38 +260,165 @@ export default function Home() {
                 className={styles.cardImage}
                 style={{ backgroundImage: `url(${film.image})` }}
               >
-                <span className={styles.cardPlay}>
-                  <Icon name="play" size={15} />
-                </span>
-                <span className={styles.cardTag}>{film.category}</span>
-              </div>
-              <div className={styles.cardBody}>
-                <div>
-                  <h3>{film.title}</h3>
-                  <p>
-                      {film.year} <i /> Filme integral
-                  </p>
-                </div>
-                <div className={styles.price}>
-                  <Icon name="lock" size={15} /> {film.price}
+                <div className={styles.cardOverlay}>
+                  <div className={styles.cardCopy}>
+                    <h3>{film.title}</h3>
+                    <p className={styles.cardMeta}>
+                      {film.category} <i /> {film.year}
+                    </p>
+                    <p className={styles.cardDescription}>{film.description}</p>
+                  </div>
+                  <div className={styles.price}>
+                    <Icon name="lock" size={17} /> {film.price}
+                  </div>
                 </div>
               </div>
             </article>
           ))}
         </div>
       </section>
+
+      
       <section className={styles.about} id="sobre">
-        <p className={styles.sectionEyebrow}>o nosso olhar</p>
-        <h2>
-          Filmes para ver.
-          <br />
-          <em>Histórias para levar.</em>
-        </h2>
+  <div className={styles.aboutHeader}>
+    <p className={styles.sectionEyebrow}>sobre nós</p>
+
+    <h2>
+      Criamos para
+      <br />
+      <em>comunicar.</em>
+    </h2>
+
+    <p className={styles.aboutIntro}>
+      Produzimos conteúdos audiovisuais que aproximam pessoas, marcas e
+      histórias através de uma linguagem visual pensada para cada projecto.
+    </p>
+  </div>
+
+  <div className={styles.aboutContent}>
+    <div className={styles.aboutStatement}>
+      <span className={styles.aboutNumber}>  </span>
+
+      <div>
+        <h3>Do conceito à imagem final.</h3>
+
         <p>
-          Uma selecção independente de obras que aproximam pessoas, lugares e
-          ideias. Apoie os criadores e tenha acesso ilimitado aos seus filmes.
+          Somos uma equipa de produção audiovisual com experiência em
+          cinema, televisão, documentário e publicidade. Desenvolvemos
+          projectos para marcas, empresas, instituições e produtores que
+          procuram comunicar através de imagens com identidade.
         </p>
-      </section>
+
+        <p>
+          Da primeira ideia à última montagem, acompanhamos cada projecto
+          de forma próxima, combinando criatividade, produção e rigor para
+          criar conteúdos que fazem sentido para quem os vê.
+        </p>
+      </div>
+    </div>
+
+    <div className={styles.aboutServices}>
+      <div className={styles.aboutService}>
+        <span>01</span>
+
+        <div>
+          <h4>Conteúdo</h4>
+
+          <p>
+            Documentários, filmes, televisão e conteúdos digitais
+            desenvolvidos com uma linguagem própria.
+          </p>
+        </div>
+      </div>
+
+      <div className={styles.aboutService}>
+        <span>02</span>
+
+        <div>
+          <h4>Publicidade</h4>
+
+          <p>
+            Filmes e campanhas para marcas que procuram comunicar de
+            forma relevante, criativa e visualmente forte.
+          </p>
+        </div>
+      </div>
+
+      <div className={styles.aboutService}>
+        <span>03</span>
+
+        <div>
+          <h4>Produção</h4>
+
+          <p>
+            Acompanhamos cada projecto de ponta a ponta, da ideia e
+            pré-produção à filmagem, montagem e finalização.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div className={styles.aboutFooter}>
+    <span>aTV</span>
+
+    <p>
+      Conteúdo · Publicidade · Televisão · Cinema
+    </p>
+
+    <span>01 — 03</span>
+  </div>
+</section>
+
+
+      <section className={styles.contact} id="contacto">
+  <div className={styles.contactTop}>
+    <p className={styles.sectionEyebrow}>vamos conversar</p>
+
+    <span className={styles.contactIndex}>04 — CONTACTO</span>
+  </div>
+
+  <div className={styles.contactMain}>
+    <div className={styles.contactHeadline}>
+      <h2>
+        Tem uma história?
+        <br />
+        <em>Conte-nos.</em>
+      </h2>
+
+      <p>
+        Estamos sempre à procura de novas histórias, parceiros e projectos
+        com significado. Se tem uma ideia, um projecto ou simplesmente quer
+        saber mais sobre o nosso trabalho, fale connosco.
+      </p>
+    </div>
+
+    <div className={styles.contactDetails}>
+      <a href="mailto:contacto@atv.pt" className={styles.contactItem}>
+        <span className={styles.contactLabel}>email</span>
+        <span className={styles.contactValue}>contacto@atv.pt</span>
+        <span className={styles.contactArrow}>↗</span>
+      </a>
+
+      <a href="tel:+351210000000" className={styles.contactItem}>
+        <span className={styles.contactLabel}>telefone</span>
+        <span className={styles.contactValue}>+351 210 000 000</span>
+        <span className={styles.contactArrow}>↗</span>
+      </a>
+
+      <div className={styles.contactItem}>
+        <span className={styles.contactLabel}>estúdio</span>
+        <span className={styles.contactValue}>Ponta do Sol, Madeira</span>
+      </div>
+    </div>
+  </div>
+
+  <div className={styles.contactBottom}>
+    <span>aTV</span>
+    <span>© 2024</span>
+  </div>
+</section>
+
       <footer className={styles.footer} id="footer">
         <a className={styles.brand} href="#inicio">
           a<span>TV</span>
