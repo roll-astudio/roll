@@ -17,11 +17,6 @@ export default function MuxDemoPlayer({ duration }: { duration: string }) {
         aria-label="Começar a ver Fora de Jogo"
       >
         <span className={styles.watchPlayIcon}>▶</span>
-        <span>
-          <strong>Ver agora</strong>
-          <small>Fora de Jogo · {duration}</small>
-        </span>
-        <span className={styles.watchCtaArrow}>↗</span>
       </button>
     );
   }
