@@ -110,26 +110,10 @@ export default async function FilmPage({
         <span className={styles.headerLabel}>Roll / filme</span>
       </header>
 
-      {hasAccess && (
-        <section className={styles.watchSection} aria-label="Ver Fora de Jogo">
-          <div className={styles.watchIntro}>
-            <div>
-              <p className={styles.accessLabel}><span /> acesso ativo</p>
-              <h2>O teu filme está <em>pronto.</em></h2>
-            </div>
-            <p className={styles.watchNote}>Continua a ver onde quiseres.<br />O teu acesso é ilimitado.</p>
-          </div>
-          <MuxDemoPlayer />
-          <div className={styles.playerCaption}>
-            <span><b /> A reproduzir em qualidade adaptativa</span>
-            <span>Fora de Jogo · {film.duration}</span>
-          </div>
-        </section>
-      )}
-
       <section className={styles.hero}>
         <div className={styles.heroImage} style={{ backgroundImage: `url(${film.image})` }} />
         <div className={styles.heroShade} />
+        {hasAccess && <MuxDemoPlayer duration={film.duration} />}
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>{film.category} <i /> {film.year}</p>
           <h1 className={styles.title}>{film.title}</h1>

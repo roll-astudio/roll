@@ -2,9 +2,30 @@
 
 import Script from "next/script";
 import { createElement } from "react";
+import { useState } from "react";
 import styles from "./page.module.css";
 
-export default function MuxDemoPlayer() {
+export default function MuxDemoPlayer({ duration }: { duration: string }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  if (!isPlaying) {
+    return (
+      <button
+        className={styles.watchCta}
+        type="button"
+        onClick={() => setIsPlaying(true)}
+        aria-label="Começar a ver Fora de Jogo"
+      >
+        <span className={styles.watchPlayIcon}>▶</span>
+        <span>
+          <strong>Ver agora</strong>
+          <small>Fora de Jogo · {duration}</small>
+        </span>
+        <span className={styles.watchCtaArrow}>↗</span>
+      </button>
+    );
+  }
+
   return (
     <div className={styles.playerFrame}>
       <Script

@@ -28,64 +28,68 @@
   font-size: 12px;
 }
 
-.watchSection {
-  padding: 64px 8% 74px;
-  background: #111110;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.watchIntro {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 28px;
-}
-
-.accessLabel {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: #ea1b57;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.accessLabel span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ea1b57;
-  box-shadow: 0 0 0 4px rgba(234, 27, 87, 0.14);
-}
-
-.watchIntro h2 {
-  margin-top: 15px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.5rem, 5vw, 4.8rem);
-  font-weight: 400;
-  letter-spacing: -0.06em;
-  line-height: 0.95;
-}
-
-.watchIntro h2 em { color: #ea1b57; }
-
-.watchNote {
-  color: #a9a39c;
-  font-size: 13px;
-  line-height: 1.6;
-  text-align: right;
-}
-
 .playerFrame {
-  position: relative;
+  position: absolute;
+  z-index: 3;
+  top: 14%;
+  right: 5%;
+  width: min(47vw, 720px);
   overflow: hidden;
   background: #050505;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
   aspect-ratio: 16 / 9;
 }
+
+.watchCta {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: 11%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #f4f2ee;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.watchCta:hover { transform: translateY(-50%) scale(1.04); }
+
+.watchPlayIcon {
+  display: grid;
+  flex: 0 0 58px;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  padding-left: 3px;
+  border-radius: 50%;
+  background: #ea1b57;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 10px 30px rgba(234, 27, 87, 0.3);
+}
+
+.watchCta strong,
+.watchCta small {
+  display: block;
+}
+
+.watchCta strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.watchCta small {
+  margin-top: 6px;
+  color: #9e9891;
+  font-size: 12px;
+}
+
+.watchCtaArrow { color: #ea1b57; font-size: 22px; }
 
 .muxPlayer {
   display: block;
@@ -332,11 +336,9 @@
     padding: 0 6% 62px;
   }
 
-  .watchSection { padding: 42px 6% 50px; }
-  .watchIntro { display: block; margin-bottom: 22px; }
-  .watchIntro h2 { font-size: clamp(2.8rem, 13vw, 4.8rem); }
-  .watchNote { margin-top: 18px; text-align: left; }
-  .playerCaption { flex-direction: column; gap: 6px; }
+  .playerFrame { top: 14%; right: 6%; width: 88%; }
+  .watchCta { top: 26%; right: 10%; }
+  .watchPlayIcon { flex-basis: 50px; width: 50px; height: 50px; }
 
   .title {
     font-size: clamp(3.6rem, 18vw, 5rem);
