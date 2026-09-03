@@ -18,7 +18,8 @@ const films: Film[] = [
     year: "2023",
     category: "Documentário",
     price: "12,90 €",
-    description: "As histórias que fluem entre duas margens e transformam destinos.",
+    description:
+      "As histórias que fluem entre duas margens e transformam destinos.",
     image:
       "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=88",
   },
@@ -54,7 +55,8 @@ const films: Film[] = [
     year: "2022",
     category: "Sociedade",
     price: "9,90 €",
-    description: "Retrato de uma geração que resiste ao silêncio e à indiferença.",
+    description:
+      "Retrato de uma geração que resiste ao silêncio e à indiferença.",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=88",
   },
@@ -72,7 +74,8 @@ const films: Film[] = [
     year: "2023",
     category: "Documentário",
     price: "12,90 €",
-    description: "Uma investigação sobre o mercado de energia e os seus impactos.",
+    description:
+      "Uma investigação sobre o mercado de energia e os seus impactos.",
     image:
       "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=88",
   },
@@ -178,7 +181,7 @@ export default function Home() {
           <a href="#contacto">Contacto</a>
         </nav>
         <a className={styles.brand} href="#inicio">
-         <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
+          <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
         </a>
         <div className={styles.headerTools}>
           <button
@@ -228,10 +231,8 @@ export default function Home() {
             </button>
           </div>
         </div>
-        
       </section>
 
-      
       <section className={styles.catalog} id="catalogo">
         <div className={styles.catalogHead}>
           <div>
@@ -282,40 +283,45 @@ export default function Home() {
       </section>
 
       
-      <section className={styles.about} id="sobre">
+<section className={styles.about} id="sobre">
   <div className={styles.aboutHeader}>
-    <p className={styles.sectionEyebrow}>sobre nós</p>
+    
+    <div className={styles.aboutTop}>
+      <p className={styles.sectionEyebrow}>sobre nós</p>
+      <span className={styles.aboutLine}></span>
+    </div>
 
-    <h2>
-      Criamos para
-      <br />
-      <em>comunicar.</em>
-    </h2>
+    <div className={styles.aboutMain}>
+      <h2>
+        Damos espaço a histórias <br /> <em>independentes.</em>
+      </h2>
 
-    <p className={styles.aboutIntro}>
-      Produzimos conteúdos audiovisuais que aproximam pessoas, marcas e
-      histórias através de uma linguagem visual pensada para cada projecto.
-    </p>
+      <p className={styles.aboutIntro}>
+        A Roll é uma estrutura dedicada à distribuição e comercialização de
+        conteúdos audiovisuais, aproximando filmes e projectos independentes
+        do público e do mercado.
+      </p>
+    </div>
+
   </div>
 
   <div className={styles.aboutContent}>
     <div className={styles.aboutStatement}>
-      <span className={styles.aboutNumber}>  </span>
+      <span className={styles.aboutNumber}> </span>
 
       <div>
-        <h3>Do conceito à imagem final.</h3>
+        <h3>A aStudio cria. A Roll faz chegar mais longe.</h3>
 
         <p>
-          Somos uma equipa de produção audiovisual com experiência em
-          cinema, televisão, documentário e publicidade. Desenvolvemos
-          projectos para marcas, empresas, instituições e produtores que
-          procuram comunicar através de imagens com identidade.
+          Trabalhamos com conteúdos produzidos pela aStudio e com produtores
+          independentes que procuram novas formas de apresentar e comercializar
+          os seus trabalhos.
         </p>
 
         <p>
-          Da primeira ideia à última montagem, acompanhamos cada projecto
-          de forma próxima, combinando criatividade, produção e rigor para
-          criar conteúdos que fazem sentido para quem os vê.
+          Através da Roll, filmes, documentários e outros conteúdos audiovisuais
+          podem encontrar novos públicos e oportunidades de distribuição,
+          criando uma ponte entre quem produz e quem procura novas histórias.
         </p>
       </div>
     </div>
@@ -325,11 +331,11 @@ export default function Home() {
         <span>01</span>
 
         <div>
-          <h4>Conteúdo</h4>
+          <h4>Produção</h4>
 
           <p>
-            Documentários, filmes, televisão e conteúdos digitais
-            desenvolvidos com uma linguagem própria.
+            A aStudio desenvolve e produz conteúdos audiovisuais para diferentes
+            formatos e públicos.
           </p>
         </div>
       </div>
@@ -338,11 +344,11 @@ export default function Home() {
         <span>02</span>
 
         <div>
-          <h4>Publicidade</h4>
+          <h4>Distribuição</h4>
 
           <p>
-            Filmes e campanhas para marcas que procuram comunicar de
-            forma relevante, criativa e visualmente forte.
+            A Roll disponibiliza e promove conteúdos da aStudio e de produtores
+            independentes, aproximando-os de novos públicos.
           </p>
         </div>
       </div>
@@ -351,86 +357,110 @@ export default function Home() {
         <span>03</span>
 
         <div>
-          <h4>Produção</h4>
+          <h4>Comercialização</h4>
 
           <p>
-            Acompanhamos cada projecto de ponta a ponta, da ideia e
-            pré-produção à filmagem, montagem e finalização.
+            Criamos oportunidades para que conteúdos independentes possam
+            chegar ao mercado e ser comercializados.
           </p>
         </div>
       </div>
     </div>
   </div>
-
-  <div className={styles.aboutFooter}>
-    <img src="/logos/ROLL_BRANCO.png" alt="Meu Logo" />
-
-    <p>
-      Conteúdo · Publicidade · Televisão · Cinema
-    </p>
-
-    <span></span>
-  </div>
 </section>
 
 
       <section className={styles.contact} id="contacto">
-  <div className={styles.contactTop}>
-    <p className={styles.sectionEyebrow}>vamos conversar</p>
+        <div className={styles.contactTop}>
+          <p className={styles.sectionEyebrow}>vamos conversar</p>
 
-    <span className={styles.contactIndex}></span>
-  </div>
+          <span className={styles.contactIndex}></span>
+        </div>
 
-  <div className={styles.contactMain}>
-    <div className={styles.contactHeadline}>
-      <h2>
-        Tem uma história?
-        <br />
-        <em>Conte-nos.</em>
-      </h2>
+        <div className={styles.contactMain}>
+          <div className={styles.contactHeadline}>
+            <h2>
+              Tem uma história?
+              <br />
+              <em>Conte-nos.</em>
+            </h2>
 
-      <p>
-        Estamos sempre à procura de novas histórias, parceiros e projectos
-        com significado. Se tem uma ideia, um projecto ou simplesmente quer
-        saber mais sobre o nosso trabalho, fale connosco.
-      </p>
-    </div>
+            <p>
+              Estamos sempre à procura de novas histórias, parceiros e projectos
+              com significado. Se tem uma ideia, um projecto ou simplesmente
+              quer saber mais sobre o nosso trabalho, fale connosco.
+            </p>
+          </div>
 
-    <div className={styles.contactDetails}>
-      <a href="mailto:contacto@roll.pt" className={styles.contactItem}>
-        <span className={styles.contactLabel}>email</span>
-        <span className={styles.contactValue}>contacto@roll.pt</span>
-        <span className={styles.contactArrow}>↗</span>
-      </a>
+          <div className={styles.contactDetails}>
+            <a href="mailto:contacto@roll.pt" className={styles.contactItem}>
+              <span className={styles.contactLabel}>email</span>
+              <span className={styles.contactValue}>contacto@roll.pt</span>
+              <span className={styles.contactArrow}>↗</span>
+            </a>
 
-      <a href="tel:+351210000000" className={styles.contactItem}>
-        <span className={styles.contactLabel}>telefone</span>
-        <span className={styles.contactValue}>+351 210 000 000</span>
-        <span className={styles.contactArrow}>↗</span>
-      </a>
+            <a href="tel:+351210000000" className={styles.contactItem}>
+              <span className={styles.contactLabel}>telefone</span>
+              <span className={styles.contactValue}>+351 210 000 000</span>
+              <span className={styles.contactArrow}>↗</span>
+            </a>
 
-      <div className={styles.contactItem}>
-        <span className={styles.contactLabel}>estúdio</span>
-        <span className={styles.contactValue}>Ponta do Sol, Madeira</span>
-      </div>
-    </div>
-  </div>
-
-  <div className={styles.contactBottom}>
-    <img src="/logos/ROLL_BRANCO.png" alt="Meu Logo" />
-    <span>© 2024</span>
-  </div>
-</section>
+            <div className={styles.contactItem}>
+              <span className={styles.contactLabel}>estúdio</span>
+              <span className={styles.contactValue}>Ponta do Sol, Madeira</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <footer className={styles.footer} id="footer">
-        <a className={styles.brand} href="#inicio">
-         <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
-        </a>
-        <p>© 2024 Roll. Cinema independente, perto de si.</p>
-        <div className={styles.socials}>
-          <Icon name="instagram" size={17} />
-          <Icon name="facebook" size={17} />
-          <Icon name="vimeo" size={19} />
+        <div className={styles.footerTop}>
+          <div className={styles.footerIntro}>
+            <a
+              className={styles.footerBrand}
+              href="#inicio"
+              aria-label="Roll — voltar ao início"
+            >
+              <img src="/logos/ROLL_CORES.png" alt="Roll" />
+            </a>
+            <p>Filmes com tempo, intenção e espaço para ficar.</p>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <span className={styles.footerLabel}>explorar</span>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <span className={styles.footerLabel}>fale connosco</span>
+            <a href="mailto:contacto@roll.pt">contacto@roll.pt</a>
+            <span>Ponta do Sol, Madeira</span>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <span className={styles.footerLabel}>acompanhe</span>
+            <div className={styles.socials}>
+              <a href="#footer" aria-label="Instagram">
+                <Icon name="instagram" size={17} />
+              </a>
+              <a href="#footer" aria-label="Facebook">
+                <Icon name="facebook" size={17} />
+              </a>
+              <a href="#footer" aria-label="Vimeo">
+                <Icon name="vimeo" size={19} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.footerBottom}>
+          <span>© 2024 Roll</span>
+          <span>Cinema independente, perto de si.</span>
+          <a href="#inicio">
+            Voltar ao início <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </footer>
       {notice && <div className={styles.toast}>{notice}</div>}

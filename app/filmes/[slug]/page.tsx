@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
+import MuxDemoPlayer from "./MuxDemoPlayer";
 
 type Film = {
   title: string;
@@ -97,6 +98,7 @@ export default async function FilmPage({
 }) {
   const { slug } = await params;
   const film = films[slug];
+  const hasAccess = slug === "fora-de-jogo";
 
   if (!film) notFound();
 
@@ -108,6 +110,23 @@ export default async function FilmPage({
         <span className={styles.headerLabel}>Roll / filme</span>
       </header>
 
+      {hasAccess && (
+        <section className={styles.watchSection} aria-label="Ver Fora de Jogo">
+          <div className={styles.watchIntro}>
+            <div>
+              <p className={styles.accessLabel}><span /> acesso ativo</p>
+              <h2>O teu filme está <em>pronto.</em></h2>
+            </div>
+            <p className={styles.watchNote}>Continua a ver onde quiseres.<br />O teu acesso é ilimitado.</p>
+          </div>
+          <MuxDemoPlayer />
+          <div className={styles.playerCaption}>
+            <span><b /> A reproduzir em qualidade adaptativa</span>
+            <span>Fora de Jogo · {film.duration}</span>
+          </div>
+        </section>
+      )}
+
       <section className={styles.hero}>
         <div className={styles.heroImage} style={{ backgroundImage: `url(${film.image})` }} />
         <div className={styles.heroShade} />
@@ -116,7 +135,11 @@ export default async function FilmPage({
           <h1 className={styles.title}>{film.title}</h1>
           <p className={styles.lead}>{film.description}</p>
           <div className={styles.actions}>
-            <button className={styles.primary}>Comprar acesso · {film.price}</button>
+            {hasAccess ? (
+              <span className={styles.owned}><span>✓</span> Na tua biblioteca</span>
+            ) : (
+              <button className={styles.primary}>Comprar acesso · {film.price}</button>
+            )}
             <span className={styles.duration}>{film.duration} <i /> Acesso ilimitado</span>
           </div>
         </div>
