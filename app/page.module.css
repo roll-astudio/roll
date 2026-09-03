@@ -1253,6 +1253,14 @@
     gap: 38px;
   }
 
+  /* As linhas de identidade laterais ficam demasiado apertadas no mobile. */
+  .about::before,
+  .about::after,
+  .contact::before,
+  .contact::after {
+    display: none;
+  }
+
   .about {
     padding-top: 110px;
   }
@@ -1303,7 +1311,10 @@
   .filters button { flex: 0 0 auto; }
   .contact { padding: 56px 7vw 64px; }
   .contactTop { margin-bottom: 48px; }
-  .contactMain { gap: 48px; }
+  .contactMain {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
   .contact .sectionEyebrow, .about .sectionEyebrow {
     font-size: clamp(12px, 3.5vw, 20px);
     gap: 10px;
@@ -1338,8 +1349,6 @@
   .catalog { padding-inline: 7vw; padding-bottom: 76px; }
   .filters { width: calc(100% + 14vw); margin-left: -7vw; padding-inline: 7vw; }
   .about { padding: 76px 10vw 52px; }
-  .about::before { left: 10vw; }
-  .about::after { right: 10vw; }
   .aboutHeader { margin-bottom: 64px; }
   .aboutTop { margin-bottom: 38px; }
   .aboutMain { grid-template-columns: 1fr; gap: 28px; }
@@ -1351,9 +1360,24 @@
   .aboutService, .aboutService:first-child { padding: 28px 0; }
   .aboutService > span { margin-bottom: 22px; }
   .contact { padding: 72px 10vw 64px; }
-  .contact::before { left: 10vw; }
-  .contact::after { right: 10vw; }
   .contactHeadline h2 { font-size: clamp(42px, 13vw, 68px); }
+  .contactItem {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 14px;
+    min-height: 0;
+    padding: 18px 0;
+  }
+  .contactLabel {
+    grid-column: 1 / -1;
+  }
+  .contactValue {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .contactArrow {
+    grid-column: 2;
+    grid-row: 2;
+  }
   .footer { padding-inline: 10vw; }
   .footerTop { grid-template-columns: 1fr 1fr; gap: 34px 18px; }
   .footerIntro p { max-width: 28ch; font-size: 13px; }
