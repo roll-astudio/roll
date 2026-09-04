@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
-import MuxDemoPlayer from "./MuxDemoPlayer";
+import FilmWatchExperience from "./FilmWatchExperience";
 
 type Film = {
   title: string;
@@ -124,24 +124,7 @@ export default async function FilmPage({
         </div>
       </header>
 
-      <section className={styles.hero}>
-        <div className={styles.heroImage} style={{ backgroundImage: `url(${film.image})` }} />
-        <div className={styles.heroShade} />
-        {hasAccess && <MuxDemoPlayer duration={film.duration} />}
-        <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>{film.category} <i /> {film.year}</p>
-          <h1 className={styles.title}>{film.title}</h1>
-          <p className={styles.lead}>{film.description}</p>
-          <div className={styles.actions}>
-            {hasAccess ? (
-              <span className={styles.owned}><span>✓</span> Na tua biblioteca</span>
-            ) : (
-              <button className={styles.primary}>Comprar acesso · {film.price}</button>
-            )}
-            <span className={styles.duration}>{film.duration} <i /> Acesso ilimitado</span>
-          </div>
-        </div>
-      </section>
+      <FilmWatchExperience film={film} isOwned={hasAccess} />
 
       <section className={styles.details}>
         <div>
