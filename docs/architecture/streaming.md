@@ -68,6 +68,8 @@ Utilizador autenticado abre /filmes/{slug}
 
 Sem entitlement: UI de compra, sem token, sem segmentos de vídeo.
 
+Guia passo a passo (contas Mux, Direct Upload, webhook, JWT, trailer vs filme, código): [Mux — upload, guardar e reproduzir](../guides/mux-implementacao-upload-reproducao.md).
+
 ## Qualidade e restrições
 
 - **On-demand apenas** (`stream-type="on-demand"`), não live.

@@ -33,6 +33,8 @@ Detalhe por área:
 - [Autenticação](./authentication.md)
 - [Storage](./storage.md)
 
+Guia operacional (upload → webhook → JWT → player, para implementação): [Mux — upload, guardar e reproduzir](../guides/mux-implementacao-upload-reproducao.md)
+
 ## Diagrama lógico
 
 ```text
