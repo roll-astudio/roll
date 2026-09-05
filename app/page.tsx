@@ -3,6 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
+import Button from "../components/button/Button";
+import Card from "../components/card/Card";
+import Header from "../components/header/Header";
+import Nav from "../components/nav/Nav";
+import Footer from "../components/footer/Footer";
 
 type Film = {
   title: string;
@@ -171,30 +176,30 @@ export default function Home() {
   };
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
+      <Header>
+        <Nav>
           <a className={styles.active} href="#inicio">
             Roll
           </a>
           <a href="#catalogo">Filmes</a>
           <a href="#sobre">Sobre nós</a>
           <a href="#contacto">Contacto</a>
-        </nav>
+        </Nav>
         <a className={styles.brand} href="#inicio">
           <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
         </a>
         <div className={styles.headerTools}>
-          <button
+          <Button
             aria-label="Pesquisar"
             onClick={() => notify("A pesquisa estará disponível em breve")}
           >
             <Icon name="search" size={18} />
-          </button>
-          <button aria-label="Conta">
+          </Button>
+          <Button aria-label="Conta">
             <Icon name="user" size={19} />
-          </button>
+          </Button>
         </div>
-      </header>
+      </Header>
       <section className={styles.hero} id="inicio">
         <div className={styles.heroImage} />
         <div className={styles.heroContent}>
@@ -217,18 +222,18 @@ export default function Home() {
             Entre ruínas e lembranças, um encontro profundo com o que permanece.
           </p>
           <div className={styles.heroActions}>
-            <button
+            <Button
               className={styles.primary}
               onClick={() => notify("O filme vai começar em breve")}
             >
               <Icon name="play" size={16} /> Ver agora
-            </button>
-            <button
+            </Button>
+            <Button
               className={styles.secondary}
               onClick={() => notify("Mais detalhes em breve")}
             >
               <Icon name="info" size={17} /> Saber mais
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -242,41 +247,43 @@ export default function Home() {
             </h2>
           </div>
           <div className={styles.filters}>
-            <button className={styles.filterActive}>Todos</button>
-            <button>Documentários</button>
-            <button>Ficção</button>
-            <button
+            <Button className={styles.filterActive}>Todos</Button>
+            <Button>Documentários</Button>
+            <Button>Ficção</Button>
+            <Button
               className={styles.sort}
               onClick={() => notify("A ordenar pelos mais recentes")}
             >
               Mais recentes <span>⌄</span>
-            </button>
+            </Button>
           </div>
         </div>
         <div className={styles.grid}>
           {films.map((film) => (
             <Link
-              className={styles.card}
+              className={styles.cardLink}
               key={film.title}
               href={`/filmes/${film.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
             >
-              <div
-                className={styles.cardImage}
-                style={{ backgroundImage: `url(${film.image})` }}
-              >
-                <div className={styles.cardOverlay}>
-                  <div className={styles.cardCopy}>
-                    <h3>{film.title}</h3>
-                    <p className={styles.cardMeta}>
-                      {film.category} <i /> {film.year}
-                    </p>
-                    <p className={styles.cardDescription}>{film.description}</p>
-                  </div>
-                  <div className={styles.price}>
-                    <Icon name="lock" size={17} /> {film.price}
+              <Card className={styles.card}>
+                <div
+                  className={styles.cardImage}
+                  style={{ backgroundImage: `url(${film.image})` }}
+                >
+                  <div className={styles.cardOverlay}>
+                    <div className={styles.cardCopy}>
+                      <h3>{film.title}</h3>
+                      <p className={styles.cardMeta}>
+                        {film.category} <i /> {film.year}
+                      </p>
+                      <p className={styles.cardDescription}>{film.description}</p>
+                    </div>
+                    <div className={styles.price}>
+                      <Icon name="lock" size={17} /> {film.price}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </Link>
           ))}
         </div>
@@ -413,7 +420,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className={styles.footer} id="footer">
+      <Footer id="footer">
         <div className={styles.footerTop}>
           <div className={styles.footerIntro}>
             <a
@@ -462,7 +469,7 @@ export default function Home() {
             Voltar ao início <span aria-hidden="true">↗</span>
           </a>
         </div>
-      </footer>
+      </Footer>
       {notice && <div className={styles.toast}>{notice}</div>}
     </main>
   );
