@@ -8,83 +8,7 @@ import Card from "../components/card/Card";
 import Header from "../components/header/Header";
 import Nav from "../components/nav/Nav";
 import Footer from "../components/footer/Footer";
-
-type Film = {
-  title: string;
-  year: string;
-  category: string;
-  price: string;
-  description: string;
-  image: string;
-};
-const films: Film[] = [
-  {
-    title: "Entre Rios",
-    year: "2023",
-    category: "Documentário",
-    price: "12,90 €",
-    description:
-      "As histórias que fluem entre duas margens e transformam destinos.",
-    image:
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Casa de Dona Ilda",
-    year: "2022",
-    category: "Documentário",
-    price: "9,90 €",
-    description: "Memórias de uma casa, de uma vida e de um bairro que mudou.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "No Fim do Horizonte",
-    year: "2024",
-    category: "Documentário",
-    price: "14,90 €",
-    description: "Uma expedição sobre limites, coragem e descoberta.",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Amazónia Viva",
-    year: "2023",
-    category: "Natureza",
-    price: "14,90 €",
-    description: "A força da floresta através de quem a protege todos os dias.",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Última Chamada",
-    year: "2022",
-    category: "Sociedade",
-    price: "9,90 €",
-    description:
-      "Retrato de uma geração que resiste ao silêncio e à indiferença.",
-    image:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Fora de Jogo",
-    year: "2024",
-    category: "Desporto",
-    price: "12,90 €",
-    description: "Muito além das quatro linhas: sonhos, escolhas e futuros.",
-    image:
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "FactorENERGIA",
-    year: "2023",
-    category: "Documentário",
-    price: "12,90 €",
-    description:
-      "Uma investigação sobre o mercado de energia e os seus impactos.",
-    image:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=88",
-  },
-];
+import { films } from "../lib/films";
 
 function Icon({
   name,
@@ -263,7 +187,7 @@ export default function Home() {
             <Link
               className={styles.cardLink}
               key={film.title}
-              href={`/filmes/${film.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+              href={`/filmes/${film.slug}`}
             >
               <Card className={styles.card}>
                 <div

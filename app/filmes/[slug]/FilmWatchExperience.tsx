@@ -3,17 +3,10 @@
 import Script from "next/script";
 import { createElement, useState } from "react";
 import styles from "./page.module.css";
+import type { Film } from "../../../lib/films";
 
 type FilmWatchExperienceProps = {
-  film: {
-    title: string;
-    year: string;
-    category: string;
-    price: string;
-    image: string;
-    description: string;
-    duration: string;
-  };
+  film: Film;
   isOwned: boolean;
 };
 
