@@ -1,8 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { createElement } from "react";
-import { useState } from "react";
+import { createElement, useState } from "react";
 import styles from "./page.module.css";
 
 export default function MuxDemoPlayer({ duration }: { duration: string }) {
