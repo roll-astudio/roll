@@ -170,17 +170,6 @@ export default function Home() {
               Histórias que <em>ficam.</em>
             </h2>
           </div>
-          <div className={styles.filters}>
-            <Button className={styles.filterActive}>Todos</Button>
-            <Button>Documentários</Button>
-            <Button>Ficção</Button>
-            <Button
-              className={styles.sort}
-              onClick={() => notify("A ordenar pelos mais recentes")}
-            >
-              Mais recentes <span>⌄</span>
-            </Button>
-          </div>
         </div>
         <div className={styles.grid}>
           {films.map((film) => (

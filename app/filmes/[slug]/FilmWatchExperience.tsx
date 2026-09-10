@@ -31,7 +31,6 @@ export default function FilmWatchExperience({
           <p className={styles.lead}>{film.description}</p>
           <div className={styles.actions}>
             {isOwned ? (
-              <>
                 <button
                   className={styles.watchButton}
                   type="button"
@@ -41,21 +40,6 @@ export default function FilmWatchExperience({
                   <span className={styles.watchButtonIcon}>▶</span>
                   Ver filme
                 </button>
-                <button
-                  className={styles.iconButton}
-                  type="button"
-                  aria-label="Adicionar à biblioteca"
-                >
-                  ＋
-                </button>
-                <button
-                  className={styles.iconButton}
-                  type="button"
-                  aria-label="Avaliar filme"
-                >
-                  ♡
-                </button>
-              </>
             ) : (
               <button className={styles.primary}>
                 Comprar acesso · {film.price}
