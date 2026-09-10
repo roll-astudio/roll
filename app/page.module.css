@@ -8,38 +8,8 @@
   padding-top: 72px;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  height: 72px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 0 4%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(6, 6, 6, 0.84);
-  backdrop-filter: blur(14px);
-  font-size: 13px;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  min-width: 0;
-}
-
-.nav a {
-  color: #c9c7c2;
-  transition: color 0.2s ease;
-}
-
-.nav a:hover,
-.nav a:focus-visible {
-  color: #fff;
+.cardLink {
+  display: block;
 }
 
 .active {
@@ -270,7 +240,8 @@
 .primary:hover,
 .secondary:hover,
 .filters button:hover,
-.card:hover {
+.card:hover,
+.cardLink:hover .card {
   transform: translateY(-2px);
 }
 
@@ -1038,16 +1009,6 @@
   color: #777;
 }
 
-.footer {
-  position: relative;
-  padding: 76px 5vw 28px;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(181, 28, 61, 0.16), transparent 30%),
-    #090909;
-  border-top: 1px solid #252525;
-  color: #a6a29d;
-}
-
 .footerTop {
   max-width: 1200px;
   margin: 0 auto;
@@ -1205,21 +1166,6 @@
     padding-top: 60px;
   }
 
-  .header {
-    height: 60px;
-    grid-template-columns: auto 1fr auto;
-    gap: 14px;
-  }
-
-  .nav {
-    gap: 14px;
-    font-size: 11px;
-  }
-
-  .nav a:nth-child(2) {
-    display: none;
-  }
-
   .active::after {
     bottom: -18px;
   }
@@ -1269,10 +1215,6 @@
     padding: 56px 0 64px;
   }
 
-  .footer {
-    padding: 58px 7vw 24px;
-  }
-
   .footerTop {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 42px 24px;
@@ -1292,7 +1234,6 @@
 
 /* Mobile layout refinements */
 @media (max-width: 800px) {
-  .header { padding-inline: 16px; }
   .hero { min-height: calc(100svh - 60px); }
   .heroImage { background-position: 62% center; }
   .catalog { padding-inline: 6vw; }
@@ -1336,7 +1277,6 @@
 }
 
 @media (max-width: 600px) {
-  .nav a:not(:first-child) { display: none; }
   .brand img { height: 48px; }
   .headerTools { gap: 6px; }
   .headerTools button { width: 32px; height: 32px; }
@@ -1378,7 +1318,6 @@
     grid-column: 2;
     grid-row: 2;
   }
-  .footer { padding-inline: 10vw; }
   .footerTop { grid-template-columns: 1fr 1fr; gap: 34px 18px; }
   .footerIntro p { max-width: 28ch; font-size: 13px; }
   .footerColumn { min-width: 0; font-size: 12px; }

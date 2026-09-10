@@ -12,7 +12,7 @@
 | **Acesso** | Playback IDs **assinados** (JWT Mux) só com entitlement válido |
 | **Prova no repo** | `MuxDemoPlayer` usa `mux-player` e um `playback-id` de demo |
 
-O ID actual no protótipo (`EcHgOK9coz5K4rjSwOkoE7Y7O01201YMIC200RI6lNxnhs`) é **público e só para demo**. Em produção os playback IDs são restritos e o cliente recebe um token de curta duração, emitido na app Next.js (Route Handler ou Server Action) depois de validar sessão e entitlement no **Supabase**. Não há um backend próprio para isto.
+O ID actual no protótipo (`ERXhvaQVhJT94aM1h7dPnPDbXbG5XjgguK5D6Md1hqRY`) é **público e só para demo**. Em produção os playback IDs são restritos e o cliente recebe um token de curta duração, emitido na app Next.js (Route Handler ou Server Action) depois de validar sessão e entitlement no **Supabase**. Não há um backend próprio para isto.
 
 ## Opções consideradas
 

@@ -1,0 +1,33 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-width: 0;
+}
+
+.nav a {
+  color: #c9c7c2;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: #fff;
+}
+
+@media (max-width: 800px) {
+  .nav {
+    gap: 14px;
+    font-size: 11px;
+  }
+
+  .nav a:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav a:not(:first-child) {
+    display: none;
+  }
+}

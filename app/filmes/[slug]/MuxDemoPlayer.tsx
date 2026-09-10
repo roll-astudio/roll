@@ -29,8 +29,8 @@ export default function MuxDemoPlayer({ duration }: { duration: string }) {
       />
       {createElement("mux-player", {
         class: styles.muxPlayer,
-        "playback-id": "EcHgOK9coz5K4rjSwOkoE7Y7O01201YMIC200RI6lNxnhs",
-        "metadata-video-title": "Fora de Jogo",
+        "playback-id": "RXhvaQVhJT94aM1h7dPnPDbXbG5XjgguK5D6Md1hqRY",
+        "metadata-video-title": "SPOT 3_",
         "metadata-viewer-user-id": "roll-demo-viewer",
         "stream-type": "on-demand",
         playsinline: true,

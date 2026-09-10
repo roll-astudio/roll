@@ -1,0 +1,21 @@
+.footer {
+  position: relative;
+  padding: 76px 5vw 28px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(181, 28, 61, 0.16), transparent 30%),
+    #090909;
+  border-top: 1px solid #252525;
+  color: #a6a29d;
+}
+
+@media (max-width: 800px) {
+  .footer {
+    padding: 58px 7vw 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding-inline: 10vw;
+  }
+}

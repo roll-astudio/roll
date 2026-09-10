@@ -3,83 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
-
-type Film = {
-  title: string;
-  year: string;
-  category: string;
-  price: string;
-  description: string;
-  image: string;
-};
-const films: Film[] = [
-  {
-    title: "Entre Rios",
-    year: "2023",
-    category: "Documentário",
-    price: "12,90 €",
-    description:
-      "As histórias que fluem entre duas margens e transformam destinos.",
-    image:
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Casa de Dona Ilda",
-    year: "2022",
-    category: "Documentário",
-    price: "9,90 €",
-    description: "Memórias de uma casa, de uma vida e de um bairro que mudou.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "No Fim do Horizonte",
-    year: "2024",
-    category: "Documentário",
-    price: "14,90 €",
-    description: "Uma expedição sobre limites, coragem e descoberta.",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Amazónia Viva",
-    year: "2023",
-    category: "Natureza",
-    price: "14,90 €",
-    description: "A força da floresta através de quem a protege todos os dias.",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Última Chamada",
-    year: "2022",
-    category: "Sociedade",
-    price: "9,90 €",
-    description:
-      "Retrato de uma geração que resiste ao silêncio e à indiferença.",
-    image:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "Fora de Jogo",
-    year: "2024",
-    category: "Desporto",
-    price: "12,90 €",
-    description: "Muito além das quatro linhas: sonhos, escolhas e futuros.",
-    image:
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=88",
-  },
-  {
-    title: "FactorENERGIA",
-    year: "2023",
-    category: "Documentário",
-    price: "12,90 €",
-    description:
-      "Uma investigação sobre o mercado de energia e os seus impactos.",
-    image:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=88",
-  },
-];
+import Button from "../components/button/Button";
+import Card from "../components/card/Card";
+import Header from "../components/header/Header";
+import Nav from "../components/nav/Nav";
+import Footer from "../components/footer/Footer";
+import { films } from "../lib/films";
 
 function Icon({
   name,
@@ -171,30 +100,30 @@ export default function Home() {
   };
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
+      <Header>
+        <Nav>
           <a className={styles.active} href="#inicio">
             Roll
           </a>
           <a href="#catalogo">Filmes</a>
           <a href="#sobre">Sobre nós</a>
           <a href="#contacto">Contacto</a>
-        </nav>
+        </Nav>
         <a className={styles.brand} href="#inicio">
           <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
         </a>
         <div className={styles.headerTools}>
-          <button
+          <Button
             aria-label="Pesquisar"
             onClick={() => notify("A pesquisa estará disponível em breve")}
           >
             <Icon name="search" size={18} />
-          </button>
-          <button aria-label="Conta">
+          </Button>
+          <Button aria-label="Conta">
             <Icon name="user" size={19} />
-          </button>
+          </Button>
         </div>
-      </header>
+      </Header>
       <section className={styles.hero} id="inicio">
         <div className={styles.heroImage} />
         <div className={styles.heroContent}>
@@ -217,18 +146,18 @@ export default function Home() {
             Entre ruínas e lembranças, um encontro profundo com o que permanece.
           </p>
           <div className={styles.heroActions}>
-            <button
+            <Button
               className={styles.primary}
               onClick={() => notify("O filme vai começar em breve")}
             >
               <Icon name="play" size={16} /> Ver agora
-            </button>
-            <button
+            </Button>
+            <Button
               className={styles.secondary}
               onClick={() => notify("Mais detalhes em breve")}
             >
               <Icon name="info" size={17} /> Saber mais
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -242,41 +171,43 @@ export default function Home() {
             </h2>
           </div>
           <div className={styles.filters}>
-            <button className={styles.filterActive}>Todos</button>
-            <button>Documentários</button>
-            <button>Ficção</button>
-            <button
+            <Button className={styles.filterActive}>Todos</Button>
+            <Button>Documentários</Button>
+            <Button>Ficção</Button>
+            <Button
               className={styles.sort}
               onClick={() => notify("A ordenar pelos mais recentes")}
             >
               Mais recentes <span>⌄</span>
-            </button>
+            </Button>
           </div>
         </div>
         <div className={styles.grid}>
           {films.map((film) => (
             <Link
-              className={styles.card}
+              className={styles.cardLink}
               key={film.title}
-              href={`/filmes/${film.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+              href={`/filmes/${film.slug}`}
             >
-              <div
-                className={styles.cardImage}
-                style={{ backgroundImage: `url(${film.image})` }}
-              >
-                <div className={styles.cardOverlay}>
-                  <div className={styles.cardCopy}>
-                    <h3>{film.title}</h3>
-                    <p className={styles.cardMeta}>
-                      {film.category} <i /> {film.year}
-                    </p>
-                    <p className={styles.cardDescription}>{film.description}</p>
-                  </div>
-                  <div className={styles.price}>
-                    <Icon name="lock" size={17} /> {film.price}
+              <Card className={styles.card}>
+                <div
+                  className={styles.cardImage}
+                  style={{ backgroundImage: `url(${film.image})` }}
+                >
+                  <div className={styles.cardOverlay}>
+                    <div className={styles.cardCopy}>
+                      <h3>{film.title}</h3>
+                      <p className={styles.cardMeta}>
+                        {film.category} <i /> {film.year}
+                      </p>
+                      <p className={styles.cardDescription}>{film.description}</p>
+                    </div>
+                    <div className={styles.price}>
+                      <Icon name="lock" size={17} /> {film.price}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </Link>
           ))}
         </div>
@@ -413,7 +344,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className={styles.footer} id="footer">
+      <Footer id="footer">
         <div className={styles.footerTop}>
           <div className={styles.footerIntro}>
             <a
@@ -462,7 +393,7 @@ export default function Home() {
             Voltar ao início <span aria-hidden="true">↗</span>
           </a>
         </div>
-      </footer>
+      </Footer>
       {notice && <div className={styles.toast}>{notice}</div>}
     </main>
   );
