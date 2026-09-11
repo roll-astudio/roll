@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
@@ -341,7 +342,7 @@ export default function Home() {
               href="#inicio"
               aria-label="Roll — voltar ao início"
             >
-              <img src="/logos/ROLL_CORES.png" alt="Roll" />
+              <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
             </a>
             <p>Filmes com tempo, intenção e espaço para ficar.</p>
           </div>

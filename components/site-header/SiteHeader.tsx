@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Header from "../header/Header";
 import Nav from "../nav/Nav";
 import Button from "../button/Button";
@@ -76,7 +77,7 @@ export default function SiteHeader({ rootPath = "", onSearch }: SiteHeaderProps)
         </a>
       </Nav>
       <a className={styles.brand} href={href("#inicio")} aria-label="Roll — início">
-        <img src="/logos/ROLL_CORES.png" alt="Roll" />
+        <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
       </a>
       <div className={styles.headerTools}>
         <Button aria-label="Pesquisar" onClick={onSearch}>
