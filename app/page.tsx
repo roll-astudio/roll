@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
-import Header from "../components/header/Header";
-import Nav from "../components/nav/Nav";
 import Footer from "../components/footer/Footer";
+import SiteHeader from "../components/site-header/SiteHeader";
 import { films } from "../lib/films";
 
 function Icon({
@@ -19,6 +19,7 @@ function Icon({
     | "info"
     | "search"
     | "user"
+    | "menu"
     | "instagram"
     | "facebook"
     | "vimeo"
@@ -56,6 +57,7 @@ function Icon({
         <path d="M5 20c.6-3.3 3-5 7-5s6.4 1.7 7 5" />
       </>
     ),
+    menu: <path d="M4 7h16M4 12h16M4 17h16" />,
     instagram: (
       <>
         <rect x="4" y="4" width="16" height="16" rx="4" />
@@ -94,36 +96,14 @@ function Icon({
 
 export default function Home() {
   const [notice, setNotice] = useState("");
+  const [catalogFiltersOpen, setCatalogFiltersOpen] = useState(false);
   const notify = (message: string) => {
     setNotice(message);
     window.setTimeout(() => setNotice(""), 2200);
   };
   return (
     <main className={styles.page}>
-      <Header>
-        <Nav>
-          <a className={styles.active} href="#inicio">
-            Roll
-          </a>
-          <a href="#catalogo">Filmes</a>
-          <a href="#sobre">Sobre nós</a>
-          <a href="#contacto">Contacto</a>
-        </Nav>
-        <a className={styles.brand} href="#inicio">
-          <img src="/logos/ROLL_CORES.png" alt="Meu Logo" />
-        </a>
-        <div className={styles.headerTools}>
-          <Button
-            aria-label="Pesquisar"
-            onClick={() => notify("A pesquisa estará disponível em breve")}
-          >
-            <Icon name="search" size={18} />
-          </Button>
-          <Button aria-label="Conta">
-            <Icon name="user" size={19} />
-          </Button>
-        </div>
-      </Header>
+      <SiteHeader onSearch={() => notify("A pesquisa estará disponível em breve")} />
       <section className={styles.hero} id="inicio">
         <div className={styles.heroImage} />
         <div className={styles.heroContent}>
@@ -164,11 +144,32 @@ export default function Home() {
 
       <section className={styles.catalog} id="catalogo">
         <div className={styles.catalogHead}>
+          <Button
+            className={styles.catalogMenuButton}
+            aria-label="Abrir filtros do catálogo"
+            aria-expanded={catalogFiltersOpen}
+            onClick={() => setCatalogFiltersOpen((open) => !open)}
+          >
+            <Icon name="menu" size={18} />
+          </Button>
           <div>
             <p className={styles.sectionEyebrow}>Roll / catálogo</p>
             <h2>
               Histórias que <em>ficam.</em>
             </h2>
+          </div>
+          <div
+            className={`${styles.filters} ${catalogFiltersOpen ? styles.catalogFiltersOpen : ""}`}
+          >
+            <Button className={styles.filterActive}>Todos</Button>
+            <Button>Documentários</Button>
+            <Button>Ficção</Button>
+            <Button
+              className={styles.sort}
+              onClick={() => notify("A ordenar pelos mais recentes")}
+            >
+              Mais recentes <span>⌄</span>
+            </Button>
           </div>
         </div>
         <div className={styles.grid}>
@@ -341,7 +342,7 @@ export default function Home() {
               href="#inicio"
               aria-label="Roll — voltar ao início"
             >
-              <img src="/logos/ROLL_CORES.png" alt="Roll" />
+              <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
             </a>
             <p>Filmes com tempo, intenção e espaço para ficar.</p>
           </div>

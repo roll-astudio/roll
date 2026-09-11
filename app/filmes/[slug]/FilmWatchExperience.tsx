@@ -46,7 +46,7 @@ export default function FilmWatchExperience({
               </button>
             )}
             <span className={styles.duration}>
-              {film.duration} <i /> Acesso ilimitado
+              {film.duration} 
             </span>
           </div>
         </div>
