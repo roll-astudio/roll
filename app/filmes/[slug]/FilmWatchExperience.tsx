@@ -41,20 +41,7 @@ export default function FilmWatchExperience({
                   <span className={styles.watchButtonIcon}>▶</span>
                   Ver filme
                 </button>
-                <button
-                  className={styles.iconButton}
-                  type="button"
-                  aria-label="Adicionar à biblioteca"
-                >
-                  ＋
-                </button>
-                <button
-                  className={styles.iconButton}
-                  type="button"
-                  aria-label="Avaliar filme"
-                >
-                  ♡
-                </button>
+                
               </>
             ) : (
               <button className={styles.primary}>
@@ -62,7 +49,7 @@ export default function FilmWatchExperience({
               </button>
             )}
             <span className={styles.duration}>
-              {film.duration} <i /> Acesso ilimitado
+              {film.duration} 
             </span>
           </div>
         </div>
