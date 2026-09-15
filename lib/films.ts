@@ -16,8 +16,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Vai buscar os filmes à tabela 'movies'
-const { data: rawFilms } = await supabase.from("movies").select("*");
+// Vai buscar os filmes à tabela 'films'
+const { data: rawFilms } = await supabase.from("films").select("*");
 
 // Transforma os dados da base de dados para o tipo Film exato que a aplicação espera
 export const films: Film[] = (rawFilms || []).map((film: any) => ({
