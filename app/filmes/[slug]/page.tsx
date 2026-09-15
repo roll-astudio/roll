@@ -2,10 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 import FilmWatchExperience from "./FilmWatchExperience";
-import { films, getFilmBySlug } from "../../../lib/films";
+import { getFilms, getFilmBySlug } from "../../../lib/films";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const films = await getFilms();
   return films.map(({ slug }) => ({ slug }));
 }
 
@@ -15,7 +16,7 @@ export default async function FilmPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const film = getFilmBySlug(slug);
+  const film = await getFilmBySlug(slug);
   const hasAccess = slug === "fora-de-jogo";
 
   if (!film) notFound();
