@@ -176,7 +176,7 @@ export default function HomeClient({ films }: { films: Film[] }) {
           {films.map((film) => (
             <Link
               className={styles.cardLink}
-              key={film.title}
+              key={film.slug}
               href={`/filmes/${film.slug}`}
             >
               <Card className={styles.card}>
