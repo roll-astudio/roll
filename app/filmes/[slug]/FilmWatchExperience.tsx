@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { createElement, useState } from "react";
+import { createElement, useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 import type { Film } from "../../../lib/films";
 
@@ -15,6 +15,13 @@ export default function FilmWatchExperience({
   isOwned,
 }: FilmWatchExperienceProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isPlaying) {
+      playerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [isPlaying]);
 
   return (
     <>
@@ -53,7 +60,7 @@ export default function FilmWatchExperience({
       </section>
 
       {isPlaying && isOwned && (
-        <div className={styles.playerFrame}>
+        <div ref={playerRef} className={styles.playerFrame}>
           <div className={styles.playerBar}>
             <span>← &nbsp; {film.title}</span>
             <div>

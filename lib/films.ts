@@ -14,13 +14,29 @@ export type Film = {
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase =
+  supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+
+type SupabaseFilm = {
+  slug?: string;
+  title?: string;
+  year?: string | number;
+  category?: string;
+  price?: string | number;
+  duration?: string;
+  image?: string;
+  description?: string;
+  long_description?: string;
+  longDescription?: string;
+};
 
 export async function getFilms(): Promise<Film[]> {
+  if (!supabase) return [];
+
   // Vai buscar os filmes à tabela 'films'
-  const { data: rawFilms, error } = await supabase.from("films").select("*");
+  const { data: rawFilms } = await supabase.from("films").select("*");
   // Transforma os dados da base de dados para o tipo Film exato que a aplicação espera
-  return (rawFilms || []).map((film: any) => ({
+  return (rawFilms as SupabaseFilm[] | null || []).map((film) => ({
     slug: film.slug ?? "",
     title: film.title ?? "",
     year: String(film.year ?? ""),
