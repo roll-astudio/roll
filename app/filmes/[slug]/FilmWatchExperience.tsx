@@ -4,6 +4,7 @@ import Script from "next/script";
 import { createElement, useState } from "react";
 import styles from "./page.module.css";
 import type { Film } from "../../../lib/films";
+import { useRef } from "react";
 
 type FilmWatchExperienceProps = {
   film: Film;
@@ -16,6 +17,7 @@ export default function FilmWatchExperience({
 }: FilmWatchExperienceProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const ref = useRef<HTMLDivElement>(null);
   return (
     <>
       <section className={styles.hero}>
@@ -37,9 +39,7 @@ export default function FilmWatchExperience({
                   onClick={() => {
                     setIsPlaying(true);
                     requestAnimationFrame(() => {
-                      document
-                        .getElementById("film-player")
-                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
                     });
                   }}
                   aria-label={`Começar a ver ${film.title}`}
@@ -60,7 +60,7 @@ export default function FilmWatchExperience({
       </section>
 
       {isPlaying && isOwned && (
-        <div id="film-player" className={styles.playerFrame}>
+        <div ref={ref} className={styles.playerFrame}>
           <div className={styles.playerBar}>
             <span>← &nbsp; {film.title}</span>
             <div>
