@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../header/Header";
 import Nav from "../nav/Nav";
 import Button from "../button/Button";
+import { DEMO_USER_ID } from "../../lib/user-constants";
 import styles from "./SiteHeader.module.css";
 
 type SiteHeaderProps = {
@@ -83,9 +85,13 @@ export default function SiteHeader({ rootPath = "", onSearch }: SiteHeaderProps)
         <Button aria-label="Pesquisar" onClick={onSearch}>
           <Icon name="search" size={18} />
         </Button>
-        <Button aria-label="Conta">
+        <Link
+          href={`/utilizador/${DEMO_USER_ID}`}
+          className={styles.accountLink}
+          aria-label="Abrir conta"
+        >
           <Icon name="user" size={19} />
-        </Button>
+        </Link>
       </div>
     </Header>
   );
