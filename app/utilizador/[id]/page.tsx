@@ -16,20 +16,18 @@ export default async function UserPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
-
       <section className={styles.content}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>a tua conta</p>
-          <h1 className={styles.title}>Olá, <em>{user.name}</em>.</h1>
-          <p className={styles.lead}>Os teus filmes estão aqui.</p>
+          <h1 className={styles.title}>
+            Olá, <em>{user.name}</em>.
+          </h1>
+          <p className={styles.lead}>Aqui estão os filmes que compraste.</p>
         </div>
 
         <section className={styles.library} aria-labelledby="library-title">
-          <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>a tua biblioteca</p>
-            <h2 id="library-title" className={styles.sectionTitle}>Filmes <em>comprados</em></h2>
-          </div>
+          <h2 id="library-title" className={styles.sectionTitle}>
+            Os meus filmes
+          </h2>
 
           {user.films.length > 0 ? (
             <div className={styles.films}>
@@ -46,13 +44,8 @@ export default async function UserPage({
                   />
                   <div className={styles.filmInfo}>
                     <h3>{film.title}</h3>
-                    <p>
-                      {film.year}
-                      {film.category && <span> · {film.category}</span>}
-                      {film.duration && <span> · {film.duration}</span>}
-                    </p>
+                    <p>{film.year}</p>
                   </div>
-                  <span className={styles.arrow} aria-hidden="true">↗</span>
                 </Link>
               ))}
             </div>
