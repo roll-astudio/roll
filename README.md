@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Roll
 
-## Getting Started
+Projeto [Next.js](https://nextjs.org) com [Supabase](https://supabase.com) como base de dados.
 
-First, run the development server:
+## Requisitos
+
+- Node.js
+
+A Supabase CLI já está incluída nas dependências do projeto e é usada através de `npx supabase`.
+
+## Configuração
+
+1. Instalar as dependências:
+
+```bash
+npm install
+```
+
+2. Criar o ficheiro `.env.local` com base no `.env.example` e preencher os valores.
+
+## Correr o projeto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) no browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Base de dados
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O projeto já está ligado ao projeto remoto Supabase. Para autenticar a CLI:
 
-## Learn More
+```bash
+npx supabase login
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Migrations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+As migrations estão em `supabase/migrations`. Para as aplicar no projeto remoto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx supabase db push
+```
 
-## Deploy on Vercel
+### Seeds
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Os dados de seed estão em `supabase/seed.sql`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Atenção:** o comando abaixo apaga todos os dados da base de dados remota antes de aplicar as migrations e o seed. Só usar se for isso mesmo que se pretende.
+
+```bash
+npx supabase db reset --linked
+```
