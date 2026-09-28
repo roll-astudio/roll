@@ -16,6 +16,8 @@ export default async function UserPage({
 
   return (
     <main className={styles.page}>
+      <SiteHeader rootPath="/" />
+
       <section className={styles.content}>
         <div className={styles.intro}>
           <h1 className={styles.title}>
