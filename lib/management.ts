@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 export type ManagementProducer = { id: string; name: string };
 
 export type ManagementFilm = {
+  id: string;
   producerId: string;
   slug: string;
   title: string;
@@ -87,6 +88,7 @@ export async function getManagement(
     films: filmList.map((film) => {
       const sales = purchases.filter((p) => p.id_film === film.id_film);
       return {
+        id: film.id_film as string,
         producerId: film.id_producer as string,
         slug: film.slug ?? "",
         title: film.title,

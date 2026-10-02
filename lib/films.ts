@@ -10,6 +10,8 @@ export type Film = {
   image: string;
   description: string;
   longDescription: string;
+  videoUrl: string;
+  published: boolean;
   producer: { name: string; username: string } | null;
 };
 
@@ -29,18 +31,24 @@ type SupabaseFilm = {
   description?: string;
   long_description?: string;
   longDescription?: string;
+  video_url?: string | null;
+  is_published?: boolean | null;
   producers?:
     | { company_name?: string; username?: string | null }
     | { company_name?: string; username?: string | null }[]
     | null;
 };
 
-export async function getFilms(): Promise<Film[]> {
+// Por omissão só devolve filmes ativos (publicados); o admin pode pedir todos
+export async function getFilms(includeUnpublished = false): Promise<Film[]> {
   if (!supabase) return [];
 
   // Vai buscar os filmes à tabela 'films'
-  const { data: rawFilms } = await supabase.from("films")
+  let query = supabase
+    .from("films")
     .select("*, producers(company_name, username)");
+  if (!includeUnpublished) query = query.eq("is_published", true);
+  const { data: rawFilms } = await query;
   // Transforma os dados da base de dados para o tipo Film exato que a aplicação espera
   return (rawFilms as SupabaseFilm[] | null || []).map((film) => {
     const producer = Array.isArray(film.producers)
@@ -59,6 +67,8 @@ export async function getFilms(): Promise<Film[]> {
     image: film.image ?? "",
     description: film.description ?? "",
     longDescription: film.long_description ?? film.longDescription ?? "",
+    videoUrl: film.video_url ?? "",
+    published: !!film.is_published,
     producer:
       producer?.company_name && producer.username
         ? { name: producer.company_name, username: producer.username }
@@ -67,8 +77,8 @@ export async function getFilms(): Promise<Film[]> {
   });
 }
 
-export async function getFilmBySlug(slug: string) {
-  const films = await getFilms();
+export async function getFilmBySlug(slug: string, includeUnpublished = false) {
+  const films = await getFilms(includeUnpublished);
   return films.find((film) => film.slug === slug);
 }
 

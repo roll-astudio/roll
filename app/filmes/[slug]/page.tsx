@@ -20,7 +20,7 @@ export default async function FilmPage({
 }) {
   const { slug } = await params;
   const { ver } = await searchParams;
-  const film = await getFilmBySlug(slug);
+  const film = await getFilmBySlug(slug, true);
 
   if (!film) notFound();
 
@@ -37,6 +37,20 @@ export default async function FilmPage({
       .limit(1)
       .maybeSingle();
     hasAccess = !!purchase;
+  }
+
+  // Filmes desativados só se vêem a quem já os comprou e aos admins
+  if (!film.published && !hasAccess) {
+    let isAdmin = false;
+    if (auth.user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", auth.user.id)
+        .maybeSingle();
+      isAdmin = profile?.role === "admin";
+    }
+    if (!isAdmin) notFound();
   }
 
   return (

@@ -4,6 +4,8 @@ import SiteHeader from "../../components/site-header/SiteHeader";
 import { getManagement } from "../../lib/management";
 import { isUuidV4 } from "../../lib/users";
 import { createClient } from "../../lib/supabase/server";
+import Button from "../../components/button/Button";
+import { setFilmPublished } from "./filmes/actions";
 import Filters from "./Filters";
 import GestaoNav from "./GestaoNav";
 import styles from "./page.module.css";
@@ -144,9 +146,10 @@ export default async function ManagementPage({
                   <tr>
                     <th>Filme</th>
                     <th>Produtor</th>
-                    <th>Estado</th>
                     <th className={styles.num}>Compras</th>
                     <th className={styles.num}>Total</th>
+                    <th className={styles.num}></th>
+                    <th className={styles.num}>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -160,13 +163,40 @@ export default async function ManagementPage({
                         )}
                       </td>
                       <td className={styles.muted}>{film.producer}</td>
-                      <td>
-                        <span className={`${styles.badge} ${film.published ? styles.badgeOn : ""}`}>
-                          {film.published ? "Publicado" : "Rascunho"}
-                        </span>
-                      </td>
                       <td className={styles.num}>{film.buyers}</td>
                       <td className={styles.num}>{euro.format(film.total)}</td>
+                      <td className={styles.num}>
+                        <Button
+                          variant="secondary"
+                          href={`/gestao/filmes/${film.id}/editar`}
+                          className={styles.small}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M12 20h9" />
+                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                          </svg>
+                          Editar
+                        </Button>
+                      </td>
+                      <td className={styles.num}>
+                        <form
+                          className={styles.switchForm}
+                          action={setFilmPublished.bind(null, film.id, !film.published)}
+                        >
+                          <button
+                            type="submit"
+                            role="switch"
+                            aria-checked={film.published}
+                            aria-label={`${film.published ? "Desativar" : "Ativar"} ${film.title}`}
+                            title={film.published ? "Ativo — clicar para desativar" : "Desativado — clicar para ativar"}
+                            className={`${styles.switch} ${film.published ? styles.switchOn : ""}`}
+                          >
+                            <span className={styles.track} aria-hidden="true">
+                              <span className={styles.knob} />
+                            </span>
+                          </button>
+                        </form>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -16,6 +16,16 @@ function PlayIcon() {
   );
 }
 
+// Vídeo de demonstração, usado por filmes sem URL do Mux
+const DEMO_PLAYBACK_ID = "RXhvaQVhJT94aM1h7dPnPDbXbG5XjgguK5D6Md1hqRY";
+
+// Aceita https://stream.mux.com/<id>.m3u8, https://player.mux.com/<id> ou só o <id>
+function getPlaybackId(videoUrl: string) {
+  const match = videoUrl.match(/mux\.com\/([A-Za-z0-9]+)/);
+  if (match) return match[1];
+  return /^[A-Za-z0-9]+$/.test(videoUrl) ? videoUrl : DEMO_PLAYBACK_ID;
+}
+
 type FilmWatchExperienceProps = {
   film: Film;
   isOwned: boolean;
@@ -101,8 +111,8 @@ export default function FilmWatchExperience({
           />
           {createElement("mux-player", {
             class: styles.muxPlayer,
-            "playback-id": "RXhvaQVhJT94aM1h7dPnPDbXbG5XjgguK5D6Md1hqRY",
-            "metadata-video-title": "SPOT 3_",
+            "playback-id": getPlaybackId(film.videoUrl),
+            "metadata-video-title": film.title,
             "metadata-viewer-user-id": "roll-demo-viewer",
             "stream-type": "on-demand",
             playsinline: true,
