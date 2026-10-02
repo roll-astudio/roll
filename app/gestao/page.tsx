@@ -5,6 +5,7 @@ import { getManagement } from "../../lib/management";
 import { isUuidV4 } from "../../lib/users";
 import { createClient } from "../../lib/supabase/server";
 import Filters from "./Filters";
+import GestaoNav from "./GestaoNav";
 import styles from "./page.module.css";
 
 const euro = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" });
@@ -70,6 +71,8 @@ export default async function ManagementPage({
           </h1>
           <p className={styles.lead}>Todos os filmes e vendas da Roll.</p>
         </div>
+
+        <GestaoNav active="geral" />
 
         <Filters
           producer={producerId}

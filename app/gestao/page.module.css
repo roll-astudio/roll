@@ -146,3 +146,58 @@
 
 .panelOpen { color: #ec0750; font-weight: 600; font-size: .95rem; }
 .panelOpen:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.subnav { display: flex; gap: 8px; margin-bottom: 36px; }
+
+.subnav a {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  color: #c9c7c2;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: background .2s ease;
+}
+
+.subnav a:hover, .subnav a:focus-visible { background: rgba(255, 255, 255, .16); }
+.subnav .subnavActive { background: #ec0750; color: #fff; }
+
+.users { display: grid; gap: 14px; }
+
+.user {
+  padding: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 10px;
+  background: #101214;
+}
+
+.userHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+
+.userHead h3 { margin: 0; font-size: 1.2rem; letter-spacing: -0.03em; }
+.userHead .muted { font-size: .9rem; }
+.userTotal { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.userFilms {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.userFilms li {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+  font-size: .95rem;
+}
+
+.userFilms li:last-child { border-bottom: 0; padding-bottom: 0; }
+.userFilms a:hover { color: #ec0750; }
+.userFilms .date { flex: none; width: 70px; color: #939497; }
+.userFilms .price { margin-left: auto; font-variant-numeric: tabular-nums; }

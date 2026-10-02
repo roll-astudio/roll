@@ -110,3 +110,62 @@ export async function getManagement(
     }),
   };
 }
+
+export type ManagementUserPurchase = {
+  id: string;
+  date: string;
+  film: string;
+  slug: string;
+  price: number;
+};
+
+export type ManagementUser = {
+  id: string;
+  name: string;
+  role: string;
+  joined: string;
+  purchases: ManagementUserPurchase[];
+  total: number;
+};
+
+// Todos os utilizadores do site com as respetivas compras
+export async function getManagementUsers(
+  supabase: SupabaseClient,
+): Promise<ManagementUser[]> {
+  const [{ data: profileRows }, { data: purchaseRows }] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("id, name, role, created_at")
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("purchases")
+      .select("id_purchase, id_user, price_paid, purchased_at, films(title, slug)")
+      .order("purchased_at", { ascending: false }),
+  ]);
+
+  const byUser = new Map<string, ManagementUserPurchase[]>();
+  for (const purchase of purchaseRows ?? []) {
+    const film = Array.isArray(purchase.films) ? purchase.films[0] : purchase.films;
+    const list = byUser.get(purchase.id_user) ?? [];
+    list.push({
+      id: purchase.id_purchase as string,
+      date: String(purchase.purchased_at),
+      film: film?.title ?? "—",
+      slug: film?.slug ?? "",
+      price: Number(purchase.price_paid),
+    });
+    byUser.set(purchase.id_user, list);
+  }
+
+  return (profileRows ?? []).map((profile) => {
+    const purchases = byUser.get(profile.id) ?? [];
+    return {
+      id: profile.id as string,
+      name: profile.name || "Utilizador Roll",
+      role: profile.role as string,
+      joined: String(profile.created_at),
+      purchases,
+      total: purchases.reduce((sum, p) => sum + p.price, 0),
+    };
+  });
+}
