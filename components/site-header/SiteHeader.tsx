@@ -3,15 +3,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Header from "../header/Header";
 import Nav from "../nav/Nav";
 import Button from "../button/Button";
 import { createClient } from "../../lib/supabase/client";
 import styles from "./SiteHeader.module.css";
-
-type SiteHeaderProps = {
-  rootPath?: string;
-};
 
 function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
   const paths = {
@@ -41,7 +38,8 @@ function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
   );
 }
 
-export default function SiteHeader({ rootPath = "" }: SiteHeaderProps) {
+export default function SiteHeader() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
 
@@ -56,8 +54,8 @@ export default function SiteHeader({ rootPath = "" }: SiteHeaderProps) {
     });
     return () => data.subscription.unsubscribe();
   }, []);
-  const href = (hash: string) => `${rootPath}${hash}`;
   const closeMenu = () => setMobileMenuOpen(false);
+  const isActive = (path: string) => pathname === path;
 
   return (
     <Header>
@@ -73,20 +71,34 @@ export default function SiteHeader({ rootPath = "" }: SiteHeaderProps) {
         className={mobileMenuOpen ? styles.mobileNavOpen : undefined}
         data-mobile-open={mobileMenuOpen}
       >
-        <a href={href("#inicio")}>Roll</a>
-        <a className={styles.active} href={href("#inicio")} onClick={closeMenu}>
+        <Link href="/" onClick={closeMenu}>
+          Roll
+        </Link>
+        <Link
+          className={isActive("/sobre-nos") || isActive("/contacto") ? undefined : styles.active}
+          href="/#catalogo"
+          onClick={closeMenu}
+        >
           Filmes
-        </a>
-        <a href={href("#sobre")} onClick={closeMenu}>
+        </Link>
+        <Link
+          className={isActive("/sobre-nos") ? styles.active : undefined}
+          href="/sobre-nos"
+          onClick={closeMenu}
+        >
           Sobre nós
-        </a>
-        <a href={href("#contacto")} onClick={closeMenu}>
+        </Link>
+        <Link
+          className={isActive("/contacto") ? styles.active : undefined}
+          href="/contacto"
+          onClick={closeMenu}
+        >
           Contacto
-        </a>
+        </Link>
       </Nav>
-      <a className={styles.brand} href={href("#inicio")} aria-label="Roll — início">
+      <Link className={styles.brand} href="/" aria-label="Roll — início">
         <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
-      </a>
+      </Link>
       <div className={styles.headerTools}>
         {userName && <span className={styles.userName}>{userName}</span>}
         <Link

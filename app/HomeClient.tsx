@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
-import Footer from "../components/footer/Footer";
+import SiteFooter from "../components/site-footer/SiteFooter";
 import SiteHeader from "../components/site-header/SiteHeader";
 import type { Film } from "../lib/films";
 
@@ -20,9 +19,6 @@ function Icon({
     | "search"
     | "user"
     | "menu"
-    | "instagram"
-    | "facebook"
-    | "vimeo"
     | "lock"
     | "check"
     | "arrow";
@@ -60,27 +56,6 @@ function Icon({
       </>
     ),
     menu: <path d="M4 7h16M4 12h16M4 17h16" />,
-    instagram: (
-      <>
-        <rect x="4" y="4" width="16" height="16" rx="4" />
-        <circle cx="12" cy="12" r="3" />
-        <path d="M17.5 6.5h.01" />
-      </>
-    ),
-    facebook: (
-      <path
-        d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1Z"
-        fill="currentColor"
-        stroke="none"
-      />
-    ),
-    vimeo: (
-      <path
-        d="M4 8c1.5-1.8 4.1-3.4 5.4-1.8 1 1.3.7 4.2 1.8 6.7.8 1.8 1.3 1.8 2.2.4.9-1.4 1.8-3.1 1.4-3.5-.4-.4-1.3.2-1.7.7.3-2.5 3.6-4.5 5.5-2.7 1.8 1.8-1.3 7-3.8 9.5-2.3 2.3-4.4 3.1-6.2.1C7.2 14.8 7 10.3 5.6 9.3 5 8.9 4.5 9.4 4 10V8Z"
-        fill="currentColor"
-        stroke="none"
-      />
-    ),
     lock: (
       <>
         <rect x="5" y="10" width="14" height="10" rx="2" />
@@ -135,26 +110,17 @@ export default function HomeClient({
             <p className={styles.description}>{featured.description}</p>
             <div className={styles.heroActions}>
               {ownedSlugs.includes(featured.slug) ? (
-                <Link
-                  className={styles.primary}
-                  href={`/filmes/${featured.slug}?ver=1`}
-                >
+                <Button variant="primary" href={`/filmes/${featured.slug}?ver=1`}>
                   <Icon name="play" size={16} /> Ver filme
-                </Link>
+                </Button>
               ) : (
-                <Link
-                  className={styles.primary}
-                  href={`/filmes/${featured.slug}/comprar`}
-                >
+                <Button variant="primary" href={`/filmes/${featured.slug}/comprar`}>
                   <Icon name="lock" size={16} /> Comprar · {featured.price}
-                </Link>
+                </Button>
               )}
-              <Link
-                className={styles.secondary}
-                href={`/filmes/${featured.slug}`}
-              >
+              <Button variant="secondary" href={`/filmes/${featured.slug}`}>
                 <Icon name="info" size={17} /> Saber mais
-              </Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -228,186 +194,12 @@ export default function HomeClient({
       </section>
 
 
-<section className={styles.about} id="sobre">
-  <div className={styles.aboutHeader}>
-
-    <div className={styles.aboutTop}>
-      <p className={styles.sectionEyebrow}>sobre nós</p>
-      <span className={styles.aboutLine}></span>
-    </div>
-
-    <div className={styles.aboutMain}>
-      <h2>
-        Damos espaço a histórias <br /> <em>independentes.</em>
-      </h2>
-
-      <p className={styles.aboutIntro}>
-        A Roll é uma estrutura dedicada à distribuição e comercialização de
-        conteúdos audiovisuais, aproximando filmes e projectos independentes
-        do público e do mercado.
-      </p>
-    </div>
-
-  </div>
-
-  <div className={styles.aboutContent}>
-    <div className={styles.aboutStatement}>
-      <span className={styles.aboutNumber}> </span>
-
-      <div>
-        <h3>A aStudio cria. A Roll faz chegar mais longe.</h3>
-
-        <p>
-          Trabalhamos com conteúdos produzidos pela aStudio e com produtores
-          independentes que procuram novas formas de apresentar e comercializar
-          os seus trabalhos.
-        </p>
-
-        <p>
-          Através da Roll, filmes, documentários e outros conteúdos audiovisuais
-          podem encontrar novos públicos e oportunidades de distribuição,
-          criando uma ponte entre quem produz e quem procura novas histórias.
-        </p>
-      </div>
-    </div>
-
-    <div className={styles.aboutServices}>
-      <div className={styles.aboutService}>
-        <span>01</span>
-
-        <div>
-          <h4>Produção</h4>
-
-          <p>
-            A aStudio desenvolve e produz conteúdos audiovisuais para diferentes
-            formatos e públicos.
-          </p>
-        </div>
-      </div>
-
-      <div className={styles.aboutService}>
-        <span>02</span>
-
-        <div>
-          <h4>Distribuição</h4>
-
-          <p>
-            A Roll disponibiliza e promove conteúdos da aStudio e de produtores
-            independentes, aproximando-os de novos públicos.
-          </p>
-        </div>
-      </div>
-
-      <div className={styles.aboutService}>
-        <span>03</span>
-
-        <div>
-          <h4>Comercialização</h4>
-
-          <p>
-            Criamos oportunidades para que conteúdos independentes possam
-            chegar ao mercado e ser comercializados.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
-      <section className={styles.contact} id="contacto">
-        <div className={styles.contactTop}>
-          <p className={styles.sectionEyebrow}>vamos conversar</p>
 
-          <span className={styles.contactIndex}></span>
-        </div>
+      
 
-        <div className={styles.contactMain}>
-          <div className={styles.contactHeadline}>
-            <h2>
-              Tem uma história?
-              <br />
-              <em>Conte-nos.</em>
-            </h2>
-
-            <p>
-              Estamos sempre à procura de novas histórias, parceiros e projectos
-              com significado. Se tem uma ideia, um projecto ou simplesmente
-              quer saber mais sobre o nosso trabalho, fale connosco.
-            </p>
-          </div>
-
-          <div className={styles.contactDetails}>
-            <a href="mailto:contacto@roll.pt" className={styles.contactItem}>
-              <span className={styles.contactLabel}>email</span>
-              <span className={styles.contactValue}>contacto@roll.pt</span>
-              <span className={styles.contactArrow}>↗</span>
-            </a>
-
-            <a href="tel:+351210000000" className={styles.contactItem}>
-              <span className={styles.contactLabel}>telefone</span>
-              <span className={styles.contactValue}>+351 210 000 000</span>
-              <span className={styles.contactArrow}>↗</span>
-            </a>
-
-            <div className={styles.contactItem}>
-              <span className={styles.contactLabel}>estúdio</span>
-              <span className={styles.contactValue}>Ponta do Sol, Madeira</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer id="footer">
-        <div className={styles.footerTop}>
-          <div className={styles.footerIntro}>
-            <a
-              className={styles.footerBrand}
-              href="#inicio"
-              aria-label="Roll — voltar ao início"
-            >
-              <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
-            </a>
-            <p>Filmes com tempo, intenção e espaço para ficar.</p>
-          </div>
-
-          <div className={styles.footerColumn}>
-            <span className={styles.footerLabel}>explorar</span>
-            <a href="#catalogo">Catálogo</a>
-            <a href="#sobre">Sobre nós</a>
-            <a href="#contacto">Contacto</a>
-          </div>
-
-          <div className={styles.footerColumn}>
-            <span className={styles.footerLabel}>fale connosco</span>
-            <a href="mailto:contacto@roll.pt">contacto@roll.pt</a>
-            <span>Ponta do Sol, Madeira</span>
-          </div>
-
-          <div className={styles.footerColumn}>
-            <span className={styles.footerLabel}>acompanhe</span>
-            <div className={styles.socials}>
-              <a href="#footer" aria-label="Instagram">
-                <Icon name="instagram" size={17} />
-              </a>
-              <a href="#footer" aria-label="Facebook">
-                <Icon name="facebook" size={17} />
-              </a>
-              <a href="#footer" aria-label="Vimeo">
-                <Icon name="vimeo" size={19} />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.footerBottom}>
-          <span>© 2024 Roll</span>
-          <span>Cinema independente, perto de si.</span>
-          <a href="#inicio">
-            Voltar ao início <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </Footer>
+      <SiteFooter />
       {notice && <div className={styles.toast}>{notice}</div>}
     </main>
   );

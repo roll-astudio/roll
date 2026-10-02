@@ -16,7 +16,7 @@ export default async function ProducerPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
+      <SiteHeader />
 
       <section className={styles.content}>
         <div className={styles.intro}>

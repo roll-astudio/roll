@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import Button from "../../../../components/button/Button";
 import SiteHeader from "../../../../components/site-header/SiteHeader";
 import { getFilmBySlug } from "../../../../lib/films";
 import { createClient } from "../../../../lib/supabase/server";
@@ -30,7 +30,7 @@ export default async function PurchaseSuccessPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
+      <SiteHeader />
 
       <section className={styles.content}>
         <h1 className={styles.title}>
@@ -55,12 +55,12 @@ export default async function PurchaseSuccessPage({
         <p className={styles.message}>Já tens acesso a este filme. Boa sessão!</p>
 
         <div className={styles.actions}>
-          <Link href={`/filmes/${slug}?ver=1`} className={styles.confirm}>
+          <Button variant="primary" href={`/filmes/${slug}?ver=1`}>
             Ver filme
-          </Link>
-          <Link href="/" className={styles.cancel}>
+          </Button>
+          <Button variant="secondary" href="/">
             Voltar ao catálogo
-          </Link>
+          </Button>
         </div>
       </section>
     </main>

@@ -49,19 +49,7 @@
 
 .error { margin: 0; color: #ff6b8b; font-size: .95rem; }
 
-.submit {
-  margin-top: 6px;
-  padding: 15px 22px;
-  border: 0;
-  border-radius: 999px;
-  background: #ec0750;
-  color: #fff;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.submit:disabled { opacity: .6; cursor: default; }
+.submit { margin-top: 6px; }
 
 .switch { margin: 0; color: #9a9b9e; font-size: .95rem; }
 .switch a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }

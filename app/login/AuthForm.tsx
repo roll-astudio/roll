@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 import { login, register, type AuthState } from "./actions";
+import Button from "../../components/button/Button";
 import styles from "./page.module.css";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
@@ -41,9 +42,9 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
 
       {state.error && <p className={styles.error} role="alert">{state.error}</p>}
 
-      <button type="submit" disabled={pending} className={styles.submit}>
+      <Button variant="primary" type="submit" disabled={pending} className={styles.submit}>
         {pending ? "A processar…" : isLogin ? "Entrar" : "Criar conta"}
-      </button>
+      </Button>
 
       <p className={styles.switch}>
         {isLogin ? (

@@ -41,7 +41,7 @@ export default async function FilmPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
+      <SiteHeader />
 
       <FilmWatchExperience
         film={film}

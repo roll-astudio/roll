@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import Button from "../../../components/button/Button";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 import { getUserLibrary } from "../../../lib/users";
 import { createClient } from "../../../lib/supabase/server";
@@ -25,7 +26,7 @@ export default async function UserPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
+      <SiteHeader />
 
       <section className={styles.content}>
         <div className={styles.intro}>
@@ -34,7 +35,9 @@ export default async function UserPage({
           </h1>
           <p className={styles.lead}>Aqui estão os filmes que compraste.</p>
           <form action={logout}>
-            <button type="submit" className={styles.logout}>Terminar sessão</button>
+            <Button variant="secondary" type="submit" className={styles.logout}>
+              Terminar sessão
+            </Button>
           </form>
         </div>
 

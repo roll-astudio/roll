@@ -1,3 +1,63 @@
 .button {
   font: inherit;
 }
+
+/* Base comum a todas as variantes: mesma forma, tamanho e tipografia */
+.styled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.styled:hover,
+.styled:focus-visible {
+  transform: translateY(-1px);
+}
+
+.styled:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.primary {
+  background: #ec0750;
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(236, 7, 80, 0.24);
+}
+
+.primary:hover:not(:disabled),
+.primary:focus-visible {
+  background: #ff1f63;
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+}
+
+.secondary:hover:not(:disabled),
+.secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 680px) {
+  .styled {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}

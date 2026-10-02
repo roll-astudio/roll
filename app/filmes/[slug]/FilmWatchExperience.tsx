@@ -3,9 +3,18 @@
 import Link from "next/link";
 import Script from "next/script";
 import { createElement, useState } from "react";
+import Button from "../../../components/button/Button";
 import styles from "./page.module.css";
 import type { Film } from "../../../lib/films";
 import { useRef } from "react";
+
+function PlayIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m9 6 9 6-9 6V6Z" fill="currentColor" />
+    </svg>
+  );
+}
 
 type FilmWatchExperienceProps = {
   film: Film;
@@ -44,8 +53,8 @@ export default function FilmWatchExperience({
           <p className={styles.lead}>{film.description}</p>
           <div className={styles.actions}>
             {isOwned ? (
-                <button
-                  className={styles.watchButton}
+                <Button
+                  variant="primary"
                   type="button"
                   onClick={() => {
                     setIsPlaying(true);
@@ -55,16 +64,12 @@ export default function FilmWatchExperience({
                   }}
                   aria-label={`Começar a ver ${film.title}`}
                 >
-                  <span className={styles.watchButtonIcon}>▶</span>
-                  Ver filme
-                </button>
+                  <PlayIcon /> Ver filme
+                </Button>
             ) : (
-              <Link
-                className={styles.primary}
-                href={`/filmes/${film.slug}/comprar`}
-              >
+              <Button variant="primary" href={`/filmes/${film.slug}/comprar`}>
                 Comprar acesso · {film.price}
-              </Link>
+              </Button>
             )}
             <span className={styles.duration}>
               {film.duration} 

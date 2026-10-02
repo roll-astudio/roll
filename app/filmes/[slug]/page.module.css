@@ -54,20 +54,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.watchButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 22px;
-  border-radius: 7px;
-  background: #e50920;
-  color: #fff;
-  font-weight: 600;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.watchButton:hover, .watchButton:focus-visible { background: #f21a31; transform: translateY(-1px); }
-.watchButtonIcon { font-size: 17px; line-height: 1; }
 
 .iconButton {
   display: grid;
@@ -276,15 +262,6 @@
   margin-top: 30px;
 }
 
-.primary {
-  padding: 15px 22px;
-  border-radius: 999px;
-  background: #c41545;
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 14px 34px rgba(196, 21, 69, 0.25);
-}
-
 .duration {
   display: inline-flex;
   align-items: center;
@@ -375,7 +352,6 @@
 
   .sectionTitle { max-width: 12ch; font-size: clamp(2.6rem, 12vw, 4.8rem); }
   .description { font-size: 15px; }
-  .primary { max-width: 100%; white-space: normal; text-align: left; }
 
   .footer {
     flex-direction: column;

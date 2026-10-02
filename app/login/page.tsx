@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 export default function LoginPage() {
   return (
     <main className={styles.page}>
-      <SiteHeader rootPath="/" />
+      <SiteHeader />
       <section className={styles.content}>
         <AuthForm mode="login" />
       </section>
