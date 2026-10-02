@@ -172,20 +172,17 @@ export default function HomeClient({
                   className={styles.poster}
                   image={film.image}
                   title={film.title}
-                  badge={
-                    ownedSlugs.includes(film.slug) ? (
-                      <>
-                        <Icon name="check" size={14} /> Comprado
-                      </>
-                    ) : undefined
-                  }
                 />
                 <div className={styles.cardBody}>
                   <h3>{film.title}</h3>
                   <p className={styles.cardMeta}>
                     {film.category} <i /> {film.year} <i /> {film.duration}
                   </p>
-                  {!ownedSlugs.includes(film.slug) && (
+                  {ownedSlugs.includes(film.slug) ? (
+                    <div className={`${styles.price} ${styles.owned}`}>
+                      <Icon name="check" size={16} /> Comprado
+                    </div>
+                  ) : (
                     <div className={styles.price}>
                       <Icon name="lock" size={16} /> {film.price}
                     </div>
