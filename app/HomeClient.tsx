@@ -143,7 +143,7 @@ export default function HomeClient({
                 <div className={styles.cardBody}>
                   <h3>{film.title}</h3>
                   <p className={styles.cardMeta}>
-                    {film.category} <i /> {film.year} <i /> {film.duration}
+                    {film.category} <i /> {film.year}
                   </p>
                   {ownedSlugs.includes(film.slug) ? (
                     <div className={`${styles.price} ${styles.owned}`}>

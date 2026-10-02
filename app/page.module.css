@@ -174,7 +174,9 @@
 }
 
 .catalog {
-  padding-top: clamp(48px, 6vw, 96px);
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-top: clamp(40px, 5vw, 64px);
 }
 
 .catalogHead {
@@ -191,8 +193,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 32px 20px;
 }
 
 .card {
@@ -274,9 +276,6 @@
 }
 
 @media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .heroRail {
     display: none;
   }
@@ -307,8 +306,13 @@
     font-size: 15px;
   }
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 12px;
   }
+  .cardBody { padding-top: 10px; }
+  .cardBody h3 { font-size: 15px; }
+  .cardMeta { gap: 6px; font-size: 11px; flex-wrap: wrap; }
+  .cardBody .price { margin-top: 6px; font-size: 12px; }
 }
 
 @media (max-width: 800px) {
