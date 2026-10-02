@@ -66,7 +66,6 @@ export default async function FilmPage({
       <section className={styles.details}>
         <div>
           <p className={styles.eyebrow}>sobre o filme</p>
-          <h2 className={styles.sectionTitle}>Uma história para <em>ficar.</em></h2>
         </div>
         <div className={styles.description}>
           <p>{film.longDescription}</p>
