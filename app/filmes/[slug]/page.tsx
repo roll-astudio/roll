@@ -73,10 +73,6 @@ export default async function FilmPage({
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <span>© 2024 Roll</span>
-        <span>Filmes e documentários independentes</span>
-      </footer>
     </main>
   );
 }

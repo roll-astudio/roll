@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
 import FilmPoster from "../components/film-poster/FilmPoster";
-import SiteFooter from "../components/site-footer/SiteFooter";
 import SiteHeader from "../components/site-header/SiteHeader";
 import type { Film } from "../lib/films";
 
@@ -194,7 +193,6 @@ export default function HomeClient({
 
       
 
-      <SiteFooter />
     </main>
   );
 }

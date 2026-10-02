@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "../../components/site-footer/SiteFooter";
 import SiteHeader from "../../components/site-header/SiteHeader";
 import styles from "./page.module.css";
 
@@ -50,7 +49,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   );
 }
