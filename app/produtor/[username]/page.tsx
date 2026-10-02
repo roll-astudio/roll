@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 import { getProducerByUsername } from "../../../lib/producers";
 import styles from "./page.module.css";
+import FilmPoster from "../../../components/film-poster/FilmPoster";
 
 export default async function ProducerPage({
   params,
@@ -39,10 +40,10 @@ export default async function ProducerPage({
                   href={`/filmes/${film.slug}`}
                   className={styles.film}
                 >
-                  <div
+                  <FilmPoster
                     className={styles.poster}
-                    style={{ backgroundImage: `url(${film.image})` }}
-                    aria-hidden="true"
+                    image={film.image}
+                    title={film.title}
                   />
                   <div className={styles.filmInfo}>
                     <h3>{film.title}</h3>

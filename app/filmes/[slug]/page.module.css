@@ -191,28 +191,34 @@
 
 .hero {
   position: relative;
-  min-height: 740px;
-  display: flex;
-  align-items: end;
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 620px);
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  padding: 72px 4%;
   overflow: hidden;
 }
 
+/* Cenário: a capa muito desfocada e escurecida, só dá ambiente (o texto não lê sobre ela) */
 .heroImage {
   position: absolute;
-  inset: 0;
-}
-
-.heroImage {
+  inset: -60px;
   background-position: center;
   background-size: cover;
-  filter: saturate(0.75);
+  filter: blur(48px) brightness(0.28) saturate(1.2);
+}
+
+.heroPoster {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 }
 
 .heroContent {
   position: relative;
   z-index: 1;
-  max-width: 620px;
-  padding: 0 4% 92px;
 }
 
 .eyebrow {
@@ -241,9 +247,10 @@
 }
 
 .title {
-  margin-top: 18px;
-  font-size: clamp(4rem, 9vw, 8rem);
-  line-height: 0.9;
+  margin-top: 14px;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .lead {
@@ -329,15 +336,18 @@
   .brand img { height: 48px; }
 
   .hero {
-    min-height: min(680px, calc(100svh - 64px));
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 40px 6% 56px;
   }
 
-  .heroContent {
-    padding: 0 6% 62px;
+  .heroPoster {
+    width: min(62%, 260px);
+    justify-self: center;
   }
 
   .title {
-    font-size: clamp(3.6rem, 18vw, 5rem);
+    font-size: clamp(2rem, 9vw, 2.75rem);
   }
 
   .lead {

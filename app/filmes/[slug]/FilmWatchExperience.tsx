@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { createElement, useState } from "react";
 import Button from "../../../components/button/Button";
+import FilmPoster from "../../../components/film-poster/FilmPoster";
 import styles from "./page.module.css";
 import type { Film } from "../../../lib/films";
 import { useRef } from "react";
@@ -46,6 +47,11 @@ export default function FilmWatchExperience({
         <div
           className={styles.heroImage}
           style={{ backgroundImage: `url(${film.image})` }}
+        />
+        <FilmPoster
+          className={styles.heroPoster}
+          image={film.image}
+          title={film.title}
         />
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>

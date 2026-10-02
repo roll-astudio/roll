@@ -6,6 +6,7 @@ import { getUserLibrary } from "../../../lib/users";
 import { createClient } from "../../../lib/supabase/server";
 import { logout } from "../../login/actions";
 import styles from "./page.module.css";
+import FilmPoster from "../../../components/film-poster/FilmPoster";
 
 export default async function UserPage({
   params,
@@ -54,10 +55,10 @@ export default async function UserPage({
                   href={`/filmes/${film.slug}`}
                   className={styles.film}
                 >
-                  <div
+                  <FilmPoster
                     className={styles.poster}
-                    style={{ backgroundImage: `url(${film.image})` }}
-                    aria-hidden="true"
+                    image={film.image}
+                    title={film.title}
                   />
                   <div className={styles.filmInfo}>
                     <h3>{film.title}</h3>

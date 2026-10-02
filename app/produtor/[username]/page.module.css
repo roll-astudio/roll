@@ -48,17 +48,6 @@
 
 .film { min-width: 0; display: block; }
 
-.poster {
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-  border-radius: 5px;
-  background-color: #17191b;
-  background-position: center;
-  background-size: cover;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, .16);
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-
 .film:hover .poster,
 .film:focus-visible .poster {
   transform: translateY(-5px);

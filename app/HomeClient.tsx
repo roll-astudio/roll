@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
+import FilmPoster from "../components/film-poster/FilmPoster";
 import SiteFooter from "../components/site-footer/SiteFooter";
 import SiteHeader from "../components/site-header/SiteHeader";
 import type { Film } from "../lib/films";
@@ -93,13 +94,16 @@ export default function HomeClient({
         <section className={styles.hero} id="inicio">
           <div
             className={styles.heroImage}
-            style={{
-              backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.38) 32%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.66)), url("${featured.image}")`,
-            }}
+            style={{ backgroundImage: `url("${featured.image}")` }}
+          />
+          <FilmPoster
+            className={styles.heroPoster}
+            image={featured.image}
+            title={featured.title}
           />
           <div className={styles.heroContent}>
             <p className={styles.kicker}>
-              <span /> Roll original
+              <span /> Em destaque
             </p>
             <h1>{featured.title}</h1>
             <div className={styles.meta}>
@@ -164,28 +168,28 @@ export default function HomeClient({
               href={`/filmes/${film.slug}`}
             >
               <Card className={styles.card}>
-                <div
-                  className={styles.cardImage}
-                  style={{ backgroundImage: `url(${film.image})` }}
-                >
-                  <div className={styles.cardOverlay}>
-                    <div className={styles.cardCopy}>
-                      <h3>{film.title}</h3>
-                      <p className={styles.cardMeta}>
-                        {film.category} <i /> {film.year}
-                      </p>
-                      <p className={styles.cardDescription}>{film.description}</p>
+                <FilmPoster
+                  className={styles.poster}
+                  image={film.image}
+                  title={film.title}
+                  badge={
+                    ownedSlugs.includes(film.slug) ? (
+                      <>
+                        <Icon name="check" size={14} /> Comprado
+                      </>
+                    ) : undefined
+                  }
+                />
+                <div className={styles.cardBody}>
+                  <h3>{film.title}</h3>
+                  <p className={styles.cardMeta}>
+                    {film.category} <i /> {film.year} <i /> {film.duration}
+                  </p>
+                  {!ownedSlugs.includes(film.slug) && (
+                    <div className={styles.price}>
+                      <Icon name="lock" size={16} /> {film.price}
                     </div>
-                    {ownedSlugs.includes(film.slug) ? (
-                      <div className={`${styles.price} ${styles.owned}`}>
-                        <Icon name="check" size={17} /> Comprado
-                      </div>
-                    ) : (
-                      <div className={styles.price}>
-                        <Icon name="lock" size={17} /> {film.price}
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
               </Card>
             </Link>
