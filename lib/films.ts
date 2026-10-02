@@ -10,6 +10,7 @@ export type Film = {
   image: string;
   description: string;
   longDescription: string;
+  producer: { name: string; username: string } | null;
 };
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -28,15 +29,24 @@ type SupabaseFilm = {
   description?: string;
   long_description?: string;
   longDescription?: string;
+  producers?:
+    | { company_name?: string; username?: string | null }
+    | { company_name?: string; username?: string | null }[]
+    | null;
 };
 
 export async function getFilms(): Promise<Film[]> {
   if (!supabase) return [];
 
   // Vai buscar os filmes à tabela 'films'
-  const { data: rawFilms } = await supabase.from("films").select("*");
+  const { data: rawFilms } = await supabase.from("films")
+    .select("*, producers(company_name, username)");
   // Transforma os dados da base de dados para o tipo Film exato que a aplicação espera
-  return (rawFilms as SupabaseFilm[] | null || []).map((film) => ({
+  return (rawFilms as SupabaseFilm[] | null || []).map((film) => {
+    const producer = Array.isArray(film.producers)
+      ? film.producers[0]
+      : film.producers;
+    return {
     slug: film.slug ?? "",
     title: film.title ?? "",
     year: String(film.year ?? ""),
@@ -49,7 +59,12 @@ export async function getFilms(): Promise<Film[]> {
     image: film.image ?? "",
     description: film.description ?? "",
     longDescription: film.long_description ?? film.longDescription ?? "",
-  }));
+    producer:
+      producer?.company_name && producer.username
+        ? { name: producer.company_name, username: producer.username }
+        : null,
+  };
+  });
 }
 
 export async function getFilmBySlug(slug: string) {

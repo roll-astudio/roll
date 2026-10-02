@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Script from "next/script";
 import { createElement, useState } from "react";
 import styles from "./page.module.css";
@@ -30,6 +31,14 @@ export default function FilmWatchExperience({
             {film.category} <i /> {film.year}
           </p>
           <h1 className={styles.title}>{film.title}</h1>
+          {film.producer && (
+            <p className={styles.producer}>
+              Produzido por{" "}
+              <Link href={`/produtor/${film.producer.username}`}>
+                {film.producer.name}
+              </Link>
+            </p>
+          )}
           <p className={styles.lead}>{film.description}</p>
           <div className={styles.actions}>
             {isOwned ? (

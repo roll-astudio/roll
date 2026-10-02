@@ -9,9 +9,9 @@ on conflict (id) do update
 set name = excluded.name,
     role = excluded.role;
 
-insert into public.producers (id_producer, id_user, company_name)
-values ('11111111-1111-4111-8111-111111111111', '00000000-0000-4000-8000-000000000001', 'Produtora Geral')
-on conflict do nothing;
+insert into public.producers (id_producer, id_user, company_name, username)
+values ('11111111-1111-4111-8111-111111111111', '00000000-0000-4000-8000-000000000001', 'Produtora Geral', 'produtora-geral')
+on conflict (id_producer) do update set username = excluded.username;
 
 -- 7. SEED DATA: Inserção dos 7 filmes
 insert into public.films (
@@ -46,3 +46,34 @@ where slug in ('entre-rios', 'fora-de-jogo', 'amazonia-viva')
     where existing_purchase.id_user = '22222222-2222-4222-8222-222222222222'
       and existing_purchase.id_film = public.films.id_film
   );
+
+
+-- 9. SEED DATA: produtores para as páginas públicas /produtor/[username]
+insert into auth.users (id, email)
+values
+  ('33333333-3333-4333-8333-333333333333', 'astudio@teste.com'),
+  ('44444444-4444-4444-8444-444444444444', 'universal@teste.com')
+on conflict do nothing;
+
+insert into public.profiles (id, name, role)
+values
+  ('33333333-3333-4333-8333-333333333333', 'A Studio', 'producer'),
+  ('44444444-4444-4444-8444-444444444444', 'Universal', 'producer')
+on conflict (id) do update
+set name = excluded.name,
+    role = excluded.role;
+
+insert into public.producers (id_producer, id_user, company_name, username)
+values
+  ('55555555-5555-4555-8555-555555555555', '33333333-3333-4333-8333-333333333333', 'A Studio', 'a-studio'),
+  ('66666666-6666-4666-8666-666666666666', '44444444-4444-4444-8444-444444444444', 'Universal', 'universal')
+on conflict (id_producer) do update
+set company_name = excluded.company_name,
+    username = excluded.username;
+
+-- Distribui os filmes pelos produtores
+update public.films set id_producer = '55555555-5555-4555-8555-555555555555'
+where slug in ('entre-rios', 'casa-de-dona-ilda', 'no-fim-do-horizonte');
+
+update public.films set id_producer = '66666666-6666-4666-8666-666666666666'
+where slug in ('amazonia-viva', 'ultima-chamada');

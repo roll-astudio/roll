@@ -383,3 +383,18 @@
     padding-inline: 6%;
   }
 }
+
+.producer {
+  margin: 14px 0 0;
+  color: #c9c7c2;
+  font-size: 15px;
+}
+
+.producer a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.producer a:hover,
+.producer a:focus-visible { color: #ea1b57; }
