@@ -80,6 +80,15 @@ export default function HomeClient({
   featured: Film | null;
   ownedSlugs: string[];
 }) {
+  // Produtoras com filmes na lista, com o número de filmes de cada uma
+  const producers = new Map<string, { name: string; count: number }>();
+  for (const film of films) {
+    if (!film.producer) continue;
+    const entry = producers.get(film.producer.username);
+    if (entry) entry.count += 1;
+    else producers.set(film.producer.username, { name: film.producer.name, count: 1 });
+  }
+
   return (
     <main className={styles.page}>
       <SiteHeader />
@@ -160,6 +169,24 @@ export default function HomeClient({
           ))}
         </div>
       </section>
+
+      {producers.size > 0 && (
+        <section className={`${styles.catalog} ${styles.producers}`}>
+          <div className={styles.catalogHead}>
+            <h2>Produtoras</h2>
+          </div>
+          <ul className={styles.producerList}>
+            {[...producers].map(([username, { name, count }]) => (
+              <li key={username}>
+                <Link href={`/produtor/${username}`} className={styles.producerLink}>
+                  <span>{name}</span>
+                  <small>{count} {count === 1 ? "filme" : "filmes"}</small>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
 
 

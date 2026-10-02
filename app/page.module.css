@@ -170,7 +170,7 @@
 }
 
 .catalog {
-  padding: 0 4% 120px;
+  padding: 0 4% 64px;
 }
 
 .catalog {
@@ -334,4 +334,48 @@
 .owned {
   color: #4ade80;
   font-weight: 600;
+}
+
+.producers {
+  padding-top: 0;
+}
+
+.producerList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.producerLink {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.producerLink small {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.producerLink:hover,
+.producerLink:focus-visible {
+  border-color: rgba(234, 27, 87, 0.5);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+@media (max-width: 600px) {
+  .producerList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .producerLink { padding: 14px 16px; font-size: 15px; }
 }
