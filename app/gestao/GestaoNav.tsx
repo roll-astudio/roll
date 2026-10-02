@@ -5,7 +5,7 @@ export default function GestaoNav({ active }: { active: "geral" | "utilizadores"
   return (
     <nav className={styles.subnav} aria-label="Gestão">
       <Link href="/gestao" className={active === "geral" ? styles.subnavActive : undefined}>
-        Visão geral
+        Produtoras
       </Link>
       <Link
         href="/gestao/utilizadores"
