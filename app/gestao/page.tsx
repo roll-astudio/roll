@@ -44,6 +44,19 @@ export default async function ManagementPage({
     month,
   );
 
+  // Resumo por produtora (respeita os filtros ativos)
+  const producerRows = producers
+    .filter((producer) => !producerId || producer.id === producerId)
+    .map((producer) => {
+      const producerSales = sales.filter((sale) => sale.producerId === producer.id);
+      return {
+        ...producer,
+        films: films.filter((film) => film.producerId === producer.id).length,
+        buyers: producerSales.length,
+        total: producerSales.reduce((sum, sale) => sum + sale.price, 0),
+      };
+    });
+
   const totalAmount = sales.reduce((sum, sale) => sum + sale.price, 0);
 
   return (
@@ -79,6 +92,45 @@ export default async function ManagementPage({
             <strong>{euro.format(totalAmount)}</strong>
           </div>
         </div>
+
+        <section className={styles.section} aria-labelledby="producers-title">
+          <h2 id="producers-title" className={styles.sectionTitle}>Produtoras</h2>
+          <div className={styles.scroll}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Produtora</th>
+                  <th className={styles.num}>Filmes</th>
+                  <th className={styles.num}>Compras</th>
+                  <th className={styles.num}>Total</th>
+                  <th className={styles.num}>Painel</th>
+                </tr>
+              </thead>
+              <tbody>
+                {producerRows.map((producer) => (
+                  <tr key={producer.id}>
+                    <td>
+                      <Link href={`/admin/${producer.id}${month ? `?mes=${month}` : ""}`}>
+                        {producer.name}
+                      </Link>
+                    </td>
+                    <td className={styles.num}>{producer.films}</td>
+                    <td className={styles.num}>{producer.buyers}</td>
+                    <td className={styles.num}>{euro.format(producer.total)}</td>
+                    <td className={styles.num}>
+                      <Link
+                        className={styles.panelOpen}
+                        href={`/admin/${producer.id}${month ? `?mes=${month}` : ""}`}
+                      >
+                        Abrir ↗
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
         <section className={styles.section} aria-labelledby="films-title">
           <h2 id="films-title" className={styles.sectionTitle}>Filmes</h2>

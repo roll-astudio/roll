@@ -143,3 +143,6 @@
 @media (max-width: 680px) {
   .stats { grid-template-columns: 1fr; }
 }
+
+.panelOpen { color: #ec0750; font-weight: 600; font-size: .95rem; }
+.panelOpen:hover { text-decoration: underline; text-underline-offset: 3px; }
