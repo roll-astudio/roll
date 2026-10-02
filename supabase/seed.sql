@@ -77,3 +77,40 @@ where slug in ('entre-rios', 'casa-de-dona-ilda', 'no-fim-do-horizonte');
 
 update public.films set id_producer = '66666666-6666-4666-8666-666666666666'
 where slug in ('amazonia-viva', 'ultima-chamada');
+
+-- 10. SEED DATA: compras de vários clientes em meses diferentes (página /admin/[id])
+insert into auth.users (id, email)
+values
+  ('77777777-7777-4777-8777-777777777771', 'joao@teste.com'),
+  ('77777777-7777-4777-8777-777777777772', 'ana@teste.com'),
+  ('77777777-7777-4777-8777-777777777773', 'rui@teste.com')
+on conflict do nothing;
+
+insert into public.profiles (id, name, role)
+values
+  ('77777777-7777-4777-8777-777777777771', 'João Pereira', 'client'),
+  ('77777777-7777-4777-8777-777777777772', 'Ana Costa', 'client'),
+  ('77777777-7777-4777-8777-777777777773', 'Rui Santos', 'client')
+on conflict (id) do update
+set name = excluded.name,
+    role = excluded.role;
+
+insert into public.purchases (id_user, id_film, price_paid, purchased_at)
+select v.id_user::uuid, f.id_film, f.price, v.purchased_at::timestamptz
+from (values
+  ('77777777-7777-4777-8777-777777777771', 'entre-rios',          '2026-07-05'),
+  ('77777777-7777-4777-8777-777777777772', 'entre-rios',          '2026-08-12'),
+  ('77777777-7777-4777-8777-777777777773', 'entre-rios',          '2026-08-20'),
+  ('77777777-7777-4777-8777-777777777771', 'casa-de-dona-ilda',   '2026-08-02'),
+  ('77777777-7777-4777-8777-777777777772', 'no-fim-do-horizonte', '2026-09-03'),
+  ('77777777-7777-4777-8777-777777777773', 'amazonia-viva',       '2026-07-18'),
+  ('77777777-7777-4777-8777-777777777771', 'amazonia-viva',       '2026-09-09'),
+  ('77777777-7777-4777-8777-777777777772', 'ultima-chamada',      '2026-09-21'),
+  ('77777777-7777-4777-8777-777777777773', 'fora-de-jogo',        '2026-08-30'),
+  ('77777777-7777-4777-8777-777777777772', 'factorenergia',       '2026-09-14')
+) as v(id_user, slug, purchased_at)
+join public.films f on f.slug = v.slug
+where not exists (
+  select 1 from public.purchases p
+  where p.id_user = v.id_user::uuid and p.id_film = f.id_film
+);
