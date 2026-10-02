@@ -31,7 +31,7 @@
   display: none;
 }
 
-/* Destaque: versão condensada da página do filme, dentro de um cartão com cantos redondos */
+/* Destaque: versão condensada da página do filme, em largura total */
 .hero {
   position: relative;
   display: grid;
@@ -39,11 +39,8 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-  margin: 32px 4% 0;
-  padding: 36px 5%;
+  padding: 48px 4%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
   background: #0c0c0c;
 }
 
@@ -392,8 +389,7 @@
   .hero {
     grid-template-columns: 96px minmax(0, 1fr);
     gap: 18px;
-    margin: 24px 4% 0;
-    padding: 18px 14px;
+    padding: 28px 6%;
   }
   .heroContent h1 {
     font-size: 1.35rem;
@@ -433,7 +429,7 @@
   .brand img { height: 48px; }
   .headerTools { gap: 6px; }
   .headerTools button { width: 32px; height: 32px; }
-  .hero { margin-inline: 7vw; }
+  .hero { padding-inline: 7vw; }
   .meta { gap: 8px; margin-top: 20px; font-size: 12px; }
   .description { margin-top: 18px; font-size: 14px; line-height: 1.6; }
   .heroActions { gap: 9px; margin-top: 22px; }
