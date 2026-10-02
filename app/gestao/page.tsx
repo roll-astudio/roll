@@ -4,18 +4,26 @@ import SiteHeader from "../../components/site-header/SiteHeader";
 import { getManagement } from "../../lib/management";
 import { isUuidV4 } from "../../lib/users";
 import { createClient } from "../../lib/supabase/server";
-import ProducerFilter from "./ProducerFilter";
+import Filters from "./Filters";
 import styles from "./page.module.css";
 
 const euro = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" });
+function monthLabel(month: string) {
+  const [year, m] = month.split("-").map(Number);
+  const name = new Intl.DateTimeFormat("pt-PT", { month: "long" }).format(
+    new Date(year, m - 1, 1),
+  );
+  return `${name} ${year}`;
+}
+
 const dateFormat = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short" });
 
 export default async function ManagementPage({
   searchParams,
 }: {
-  searchParams: Promise<{ produtor?: string }>;
+  searchParams: Promise<{ produtor?: string; mes?: string }>;
 }) {
-  const { produtor } = await searchParams;
+  const { produtor, mes } = await searchParams;
 
   // Só administradores
   const supabase = await createClient();
@@ -29,7 +37,12 @@ export default async function ManagementPage({
   if (profile?.role !== "admin") redirect("/");
 
   const producerId = produtor && isUuidV4(produtor) ? produtor : undefined;
-  const { producers, films, sales } = await getManagement(supabase, producerId);
+  const month = mes && /^\d{4}-(0[1-9]|1[0-2])$/.test(mes) ? mes : undefined;
+  const { producers, months, films, sales } = await getManagement(
+    supabase,
+    producerId,
+    month,
+  );
 
   const totalAmount = sales.reduce((sum, sale) => sum + sale.price, 0);
 
@@ -45,7 +58,12 @@ export default async function ManagementPage({
           <p className={styles.lead}>Todos os filmes e vendas da Roll.</p>
         </div>
 
-        <ProducerFilter producers={producers} selected={producerId} />
+        <Filters
+          producer={producerId}
+          month={month}
+          producers={producers.map((p) => ({ value: p.id, label: p.name }))}
+          months={months.map((value) => ({ value, label: monthLabel(value) }))}
+        />
 
         <div className={styles.stats}>
           <div className={styles.stat}>

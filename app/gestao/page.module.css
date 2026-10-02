@@ -40,6 +40,8 @@
   letter-spacing: -0.045em;
 }
 
+.filters { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+
 .filter {
   display: inline-flex;
   align-items: center;
