@@ -62,12 +62,12 @@ export default function SiteFooter() {
             >
               <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
             </Link>
-            <p>Filmes com tempo, intenção e espaço para ficar.</p>
+            <p>Filmes e documentários independentes.</p>
           </div>
 
           <div className={styles.footerColumn}>
             <span className={styles.footerLabel}>explorar</span>
-            <Link href="/#catalogo">Catálogo</Link>
+            <Link href="/">Filmes</Link>
             <Link href="/sobre-nos">Sobre nós</Link>
             <Link href="/contacto">Contacto</Link>
           </div>
@@ -96,7 +96,7 @@ export default function SiteFooter() {
 
         <div className={styles.footerBottom}>
           <span>© 2024 Roll</span>
-          <span>Cinema independente, perto de si.</span>
+          <span>Filmes e documentários independentes</span>
           <Link href="/">
             Voltar ao início <span aria-hidden="true">↗</span>
           </Link>

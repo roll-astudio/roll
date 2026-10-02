@@ -27,10 +27,6 @@
   background: #ea1b57;
 }
 
-.catalogMenuButton {
-  display: none;
-}
-
 /* Destaque: versão condensada da página do filme, em largura total */
 .hero {
   position: relative;
@@ -148,15 +144,7 @@
   margin-top: 18px;
 }
 
-.filterActive, .filters button, .sort {
-  border-radius: 999px;
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.filters button:hover, .card:hover, .cardLink:hover .card {
+.card:hover, .cardLink:hover .card {
   transform: translateY(-2px);
 }
 
@@ -190,82 +178,15 @@
 }
 
 .catalogHead {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 28px;
   margin-bottom: 28px;
 }
 
-.catalogMenuButton {
-  grid-area: menu;
-}
-
-.catalogHead > div:first-child {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.catalog .sectionEyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  color: #b51c3d;
-  font-family: "DM Sans", Arial, sans-serif;
-  font-size: 18px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.catalog .sectionEyebrow::before, .catalog .sectionEyebrow::after {
-  content: "";
-  display: block;
-  height: 1px;
-  background: #b51c3d;
-  flex-shrink: 0;
-}
-
-.catalog .sectionEyebrow::before {
-  width: 56px;
-}
-
-.catalog .sectionEyebrow::after {
-  flex: 1.5;
-  min-width: 140px;
-}
-
 .catalogHead h2 {
-  font-size: clamp(2rem, 4vw, 3.6rem);
-}
-
-.filters {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.filters button {
-  padding: 11px 16px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e9e5df;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 13px;
-}
-
-.filterActive {
-  background: #ea1b57;
-  border-color: #ea1b57;
+  margin: 0;
   color: #fff;
-}
-
-.sort {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .grid {
@@ -352,27 +273,9 @@
   color: currentColor;
 }
 
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 22px;
-  z-index: 60;
-  transform: translateX(-50%);
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
-  font-size: 13px;
-}
-
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .catalogHead {
-    align-items: start;
-    flex-direction: column;
   }
   .heroRail {
     display: none;
@@ -410,19 +313,6 @@
 
 @media (max-width: 800px) {
   .catalog { padding-inline: 6vw; }
-  .catalogHead { gap: 24px; }
-  .catalog .sectionEyebrow { font-size: clamp(12px, 3.2vw, 18px); }
-  .catalog .sectionEyebrow::after { min-width: 20px; }
-  .filters {
-    width: calc(100% + 12vw);
-    margin-left: -6vw;
-    padding-inline: 6vw;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .filters::-webkit-scrollbar { display: none; }
-  .filters button { flex: 0 0 auto; }
 }
 
 @media (max-width: 600px) {
@@ -434,42 +324,8 @@
   .description { margin-top: 18px; font-size: 14px; line-height: 1.6; }
   .heroActions { gap: 9px; margin-top: 22px; }
   .catalog { padding-inline: 7vw; padding-bottom: 76px; }
-  .filters { width: calc(100% + 14vw); margin-left: -7vw; padding-inline: 7vw; }
 }
 
-@media (max-width: 680px) {
-  .catalogHead {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: start;
-    gap: 18px 12px;
-  }
-  .catalogHead > div:first-child {
-    grid-column: 2;
-  }
-  .catalogMenuButton {
-    display: grid;
-    grid-column: 1;
-    grid-row: 1;
-    width: 34px;
-    height: 34px;
-    place-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #f5f5f5;
-  }
-  .filters {
-    grid-column: 1 / -1;
-    display: none;
-    width: 100%;
-    margin-left: 0;
-    padding-inline: 0;
-  }
-  .catalogFiltersOpen {
-    display: flex;
-  }
-}
 
 .owned {
   color: #4ade80;

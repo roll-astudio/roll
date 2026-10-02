@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	title: "Roll — A nossa história começa aqui",
-	description: "Streaming de filmes e séries escolhidos pela Roll.",
+	title: "Roll — Filmes e documentários",
+	description: "Filmes e documentários independentes para ver online.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

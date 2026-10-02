@@ -21,15 +21,12 @@ export default function ContactPage() {
         <div className={styles.contactMain}>
           <div className={styles.contactHeadline}>
             <h2>
-              Tem uma história?
-              <br />
-              <em>Conte-nos.</em>
+              Fale <em>connosco</em>
             </h2>
 
             <p>
-              Estamos sempre à procura de novas histórias, parceiros e projectos
-              com significado. Se tem uma ideia, um projecto ou simplesmente
-              quer saber mais sobre o nosso trabalho, fale connosco.
+              Tem uma pergunta, uma sugestão ou quer propor um filme? Escreva-nos
+              e respondemos o mais depressa possível.
             </p>
           </div>
 

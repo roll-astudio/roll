@@ -112,7 +112,7 @@ export default function SiteHeader() {
         </Link>
         <Link
           className={isActive("/sobre-nos") || isActive("/contacto") ? undefined : styles.active}
-          href="/#catalogo"
+          href="/"
           onClick={closeMenu}
         >
           Filmes

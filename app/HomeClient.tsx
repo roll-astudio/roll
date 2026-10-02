@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
@@ -81,12 +80,6 @@ export default function HomeClient({
   featured: Film | null;
   ownedSlugs: string[];
 }) {
-  const [notice, setNotice] = useState("");
-  const [catalogFiltersOpen, setCatalogFiltersOpen] = useState(false);
-  const notify = (message: string) => {
-    setNotice(message);
-    window.setTimeout(() => setNotice(""), 2200);
-  };
   return (
     <main className={styles.page}>
       <SiteHeader />
@@ -130,35 +123,9 @@ export default function HomeClient({
         </section>
       )}
 
-      <section className={styles.catalog} id="catalogo">
+      <section className={styles.catalog}>
         <div className={styles.catalogHead}>
-          <Button
-            className={styles.catalogMenuButton}
-            aria-label="Abrir filtros do catálogo"
-            aria-expanded={catalogFiltersOpen}
-            onClick={() => setCatalogFiltersOpen((open) => !open)}
-          >
-            <Icon name="menu" size={18} />
-          </Button>
-          <div>
-            <p className={styles.sectionEyebrow}>Roll / catálogo</p>
-            <h2>
-              Histórias que <em>ficam.</em>
-            </h2>
-          </div>
-          <div
-            className={`${styles.filters} ${catalogFiltersOpen ? styles.catalogFiltersOpen : ""}`}
-          >
-            <Button className={styles.filterActive}>Todos</Button>
-            <Button>Documentários</Button>
-            <Button>Ficção</Button>
-            <Button
-              className={styles.sort}
-              onClick={() => notify("A ordenar pelos mais recentes")}
-            >
-              Mais recentes <span>⌄</span>
-            </Button>
-          </div>
+          <h2>Filmes</h2>
         </div>
         <div className={styles.grid}>
           {films.map((film) => (
@@ -201,7 +168,6 @@ export default function HomeClient({
       
 
       <SiteFooter />
-      {notice && <div className={styles.toast}>{notice}</div>}
     </main>
   );
 }
