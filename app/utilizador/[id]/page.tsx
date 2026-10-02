@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 import { getUserLibrary } from "../../../lib/users";
+import { createClient } from "../../../lib/supabase/server";
+import { logout } from "../../login/actions";
 import styles from "./page.module.css";
 
 export default async function UserPage({
@@ -10,6 +12,13 @@ export default async function UserPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  const supabase = await createClient();
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) redirect("/login");
+  // Cada utilizador só vê a sua própria página
+  if (auth.user.id !== id) redirect(`/utilizador/${auth.user.id}`);
+
   const user = await getUserLibrary(id);
 
   if (!user) notFound();
@@ -24,6 +33,9 @@ export default async function UserPage({
             Olá, <em>{user.name}</em>.
           </h1>
           <p className={styles.lead}>Aqui estão os filmes que compraste.</p>
+          <form action={logout}>
+            <button type="submit" className={styles.logout}>Terminar sessão</button>
+          </form>
         </div>
 
         <section className={styles.library} aria-labelledby="library-title">

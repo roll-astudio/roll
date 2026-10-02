@@ -76,3 +76,19 @@ export function pickRandomFilm(films: Film[]): Film | null {
   if (films.length === 0) return null;
   return films[Math.floor(Math.random() * films.length)];
 }
+
+export async function getPurchasedSlugs(userId: string): Promise<string[]> {
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("purchases")
+    .select("films!inner(slug)")
+    .eq("id_user", userId);
+
+  return (data ?? []).flatMap((purchase) => {
+    const film = Array.isArray(purchase.films)
+      ? purchase.films[0]
+      : purchase.films;
+    return film?.slug ? [film.slug] : [];
+  });
+}

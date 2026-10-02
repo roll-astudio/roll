@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 import FilmWatchExperience from "./FilmWatchExperience";
 import { getFilms, getFilmBySlug } from "../../../lib/films";
+import { createClient } from "../../../lib/supabase/server";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 
 export async function generateStaticParams() {
@@ -12,20 +13,41 @@ export async function generateStaticParams() {
 
 export default async function FilmPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ ver?: string }>;
 }) {
   const { slug } = await params;
+  const { ver } = await searchParams;
   const film = await getFilmBySlug(slug);
-  const hasAccess = slug === "fora-de-jogo";
 
   if (!film) notFound();
+
+  // O utilizador tem acesso se já comprou este filme
+  const supabase = await createClient();
+  const { data: auth } = await supabase.auth.getUser();
+  let hasAccess = false;
+  if (auth.user) {
+    const { data: purchase } = await supabase
+      .from("purchases")
+      .select("id_purchase, films!inner(slug)")
+      .eq("id_user", auth.user.id)
+      .eq("films.slug", slug)
+      .limit(1)
+      .maybeSingle();
+    hasAccess = !!purchase;
+  }
 
   return (
     <main className={styles.page}>
       <SiteHeader rootPath="/" />
 
-      <FilmWatchExperience film={film} isOwned={hasAccess} />
+      <FilmWatchExperience
+        film={film}
+        isOwned={hasAccess}
+        autoPlay={ver === "1"}
+      />
 
       <section className={styles.details}>
         <div>

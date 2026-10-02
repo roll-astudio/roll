@@ -10,13 +10,15 @@ import { useRef } from "react";
 type FilmWatchExperienceProps = {
   film: Film;
   isOwned: boolean;
+  autoPlay?: boolean;
 };
 
 export default function FilmWatchExperience({
   film,
   isOwned,
+  autoPlay = false,
 }: FilmWatchExperienceProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(autoPlay && isOwned);
 
   const ref = useRef<HTMLDivElement>(null);
   return (
@@ -57,9 +59,12 @@ export default function FilmWatchExperience({
                   Ver filme
                 </button>
             ) : (
-              <button className={styles.primary}>
+              <Link
+                className={styles.primary}
+                href={`/filmes/${film.slug}/comprar`}
+              >
                 Comprar acesso · {film.price}
-              </button>
+              </Link>
             )}
             <span className={styles.duration}>
               {film.duration} 

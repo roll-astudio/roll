@@ -24,6 +24,7 @@ function Icon({
     | "facebook"
     | "vimeo"
     | "lock"
+    | "check"
     | "arrow";
   size?: number;
 }) {
@@ -38,6 +39,7 @@ function Icon({
     strokeLinejoin: "round" as const,
   };
   const icons: Record<string, React.ReactNode> = {
+    check: <path d="m5 12.5 4.5 4.5L19 7" />,
     play: <path d="m9 6 9 6-9 6V6Z" fill="currentColor" stroke="none" />,
     info: (
       <>
@@ -97,9 +99,11 @@ function Icon({
 export default function HomeClient({
   films,
   featured,
+  ownedSlugs,
 }: {
   films: Film[];
   featured: Film | null;
+  ownedSlugs: string[];
 }) {
   const [notice, setNotice] = useState("");
   const [catalogFiltersOpen, setCatalogFiltersOpen] = useState(false);
@@ -109,7 +113,7 @@ export default function HomeClient({
   };
   return (
     <main className={styles.page}>
-      <SiteHeader onSearch={() => notify("A pesquisa estará disponível em breve")} />
+      <SiteHeader />
       {featured && (
         <section className={styles.hero} id="inicio">
           <div
@@ -130,12 +134,21 @@ export default function HomeClient({
             </div>
             <p className={styles.description}>{featured.description}</p>
             <div className={styles.heroActions}>
-              <Link
-                className={styles.primary}
-                href={`/filmes/${featured.slug}`}
-              >
-                <Icon name="play" size={16} /> Ver agora
-              </Link>
+              {ownedSlugs.includes(featured.slug) ? (
+                <Link
+                  className={styles.primary}
+                  href={`/filmes/${featured.slug}?ver=1`}
+                >
+                  <Icon name="play" size={16} /> Ver filme
+                </Link>
+              ) : (
+                <Link
+                  className={styles.primary}
+                  href={`/filmes/${featured.slug}/comprar`}
+                >
+                  <Icon name="lock" size={16} /> Comprar · {featured.price}
+                </Link>
+              )}
               <Link
                 className={styles.secondary}
                 href={`/filmes/${featured.slug}`}
@@ -197,9 +210,15 @@ export default function HomeClient({
                       </p>
                       <p className={styles.cardDescription}>{film.description}</p>
                     </div>
-                    <div className={styles.price}>
-                      <Icon name="lock" size={17} /> {film.price}
-                    </div>
+                    {ownedSlugs.includes(film.slug) ? (
+                      <div className={`${styles.price} ${styles.owned}`}>
+                        <Icon name="check" size={17} /> Comprado
+                      </div>
+                    ) : (
+                      <div className={styles.price}>
+                        <Icon name="lock" size={17} /> {film.price}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Card>

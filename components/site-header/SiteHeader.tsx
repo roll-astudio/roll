@@ -1,27 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "../header/Header";
 import Nav from "../nav/Nav";
 import Button from "../button/Button";
-import { DEMO_USER_ID } from "../../lib/user-constants";
+import { createClient } from "../../lib/supabase/client";
 import styles from "./SiteHeader.module.css";
 
 type SiteHeaderProps = {
   rootPath?: string;
-  onSearch?: () => void;
 };
 
-function Icon({ name, size = 20 }: { name: "search" | "user" | "menu"; size?: number }) {
+function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
   const paths = {
-    search: (
-      <>
-        <circle cx="11" cy="11" r="6.5" />
-        <path d="m16 16 4.5 4.5" />
-      </>
-    ),
     user: (
       <>
         <circle cx="12" cy="8" r="3" />
@@ -48,8 +41,21 @@ function Icon({ name, size = 20 }: { name: "search" | "user" | "menu"; size?: nu
   );
 }
 
-export default function SiteHeader({ rootPath = "", onSearch }: SiteHeaderProps) {
+export default function SiteHeader({ rootPath = "" }: SiteHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return;
+    const supabase = createClient();
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      const user = session?.user;
+      setUserName(
+        user ? String(user.user_metadata?.name || user.email || "") : null,
+      );
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
   const href = (hash: string) => `${rootPath}${hash}`;
   const closeMenu = () => setMobileMenuOpen(false);
 
@@ -82,13 +88,11 @@ export default function SiteHeader({ rootPath = "", onSearch }: SiteHeaderProps)
         <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
       </a>
       <div className={styles.headerTools}>
-        <Button aria-label="Pesquisar" onClick={onSearch}>
-          <Icon name="search" size={18} />
-        </Button>
+        {userName && <span className={styles.userName}>{userName}</span>}
         <Link
-          href={`/utilizador/${DEMO_USER_ID}`}
+          href="/conta" prefetch={false}
           className={styles.accountLink}
-          aria-label="Abrir conta"
+          aria-label={userName ? `Abrir conta de ${userName}` : "Abrir conta"}
         >
           <Icon name="user" size={19} />
         </Link>
