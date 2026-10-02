@@ -56,3 +56,8 @@ export async function getFilmBySlug(slug: string) {
   const films = await getFilms();
   return films.find((film) => film.slug === slug);
 }
+
+export function pickRandomFilm(films: Film[]): Film | null {
+  if (films.length === 0) return null;
+  return films[Math.floor(Math.random() * films.length)];
+}

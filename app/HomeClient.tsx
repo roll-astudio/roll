@@ -94,7 +94,13 @@ function Icon({
   );
 }
 
-export default function HomeClient({ films }: { films: Film[] }) {
+export default function HomeClient({
+  films,
+  featured,
+}: {
+  films: Film[];
+  featured: Film | null;
+}) {
   const [notice, setNotice] = useState("");
   const [catalogFiltersOpen, setCatalogFiltersOpen] = useState(false);
   const notify = (message: string) => {
@@ -104,43 +110,42 @@ export default function HomeClient({ films }: { films: Film[] }) {
   return (
     <main className={styles.page}>
       <SiteHeader onSearch={() => notify("A pesquisa estará disponível em breve")} />
-      <section className={styles.hero} id="inicio">
-        <div className={styles.heroImage} />
-        <div className={styles.heroContent}>
-          <p className={styles.kicker}>
-            <span /> Roll original
-          </p>
-          <h1>
-            O Silêncio
-            <br />
-            <em>das Pedras</em>
-          </h1>
-          <div className={styles.meta}>
-            <span>Documentário</span>
-            <i /> <span>2024</span>
-            <i /> <span>1h 18min</span>
-            <b>12</b>
+      {featured && (
+        <section className={styles.hero} id="inicio">
+          <div
+            className={styles.heroImage}
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.38) 32%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.66)), url("${featured.image}")`,
+            }}
+          />
+          <div className={styles.heroContent}>
+            <p className={styles.kicker}>
+              <span /> Roll original
+            </p>
+            <h1>{featured.title}</h1>
+            <div className={styles.meta}>
+              <span>{featured.category}</span>
+              <i /> <span>{featured.year}</span>
+              <i /> <span>{featured.duration}</span>
+            </div>
+            <p className={styles.description}>{featured.description}</p>
+            <div className={styles.heroActions}>
+              <Link
+                className={styles.primary}
+                href={`/filmes/${featured.slug}`}
+              >
+                <Icon name="play" size={16} /> Ver agora
+              </Link>
+              <Link
+                className={styles.secondary}
+                href={`/filmes/${featured.slug}`}
+              >
+                <Icon name="info" size={17} /> Saber mais
+              </Link>
+            </div>
           </div>
-          <p className={styles.description}>
-            Uma jornada intimista sobre memória, território e pertencimento.
-            Entre ruínas e lembranças, um encontro profundo com o que permanece.
-          </p>
-          <div className={styles.heroActions}>
-            <Button
-              className={styles.primary}
-              onClick={() => notify("O filme vai começar em breve")}
-            >
-              <Icon name="play" size={16} /> Ver agora
-            </Button>
-            <Button
-              className={styles.secondary}
-              onClick={() => notify("Mais detalhes em breve")}
-            >
-              <Icon name="info" size={17} /> Saber mais
-            </Button>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className={styles.catalog} id="catalogo">
         <div className={styles.catalogHead}>

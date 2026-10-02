@@ -106,7 +106,7 @@
 .heroContent h1 {
   font-size: clamp(3.5rem, 10vw, 7.4rem);
   margin-top: 18px;
-  max-width: 9ch;
+  max-width: 12ch;
 }
 
 .heroContent h1 em,
@@ -175,6 +175,7 @@
 .primary,
 .secondary {
   display: inline-flex;
+  text-decoration: none;
   align-items: center;
   gap: 10px;
   padding: 14px 22px;
