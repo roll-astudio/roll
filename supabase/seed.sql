@@ -1,7 +1,38 @@
+-- 0. Helper (só para o seed): cria um utilizador de teste que consegue fazer login
+-- com email + password. A password de todas as contas de teste está em
+-- DEV_PASSWORD abaixo (apenas para ambientes de desenvolvimento).
+create extension if not exists pgcrypto with schema extensions;
+
+create or replace function pg_temp.seed_auth_user(user_id uuid, user_email text, user_name text)
+returns void as $$
+declare
+  dev_password constant text := 'pontadosol'; -- DEV_PASSWORD
+begin
+  insert into auth.users (
+    instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+    raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+    confirmation_token, recovery_token, email_change_token_new, email_change
+  ) values (
+    '00000000-0000-0000-0000-000000000000', user_id, 'authenticated', 'authenticated',
+    user_email, extensions.crypt(dev_password, extensions.gen_salt('bf')), now(),
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    jsonb_build_object('name', user_name), now(), now(),
+    '', '', '', ''
+  ) on conflict (id) do nothing;
+
+  insert into auth.identities (
+    id, user_id, provider_id, identity_data, provider,
+    last_sign_in_at, created_at, updated_at
+  ) values (
+    gen_random_uuid(), user_id, user_id::text,
+    jsonb_build_object('sub', user_id::text, 'email', user_email, 'email_verified', true),
+    'email', now(), now(), now()
+  ) on conflict do nothing;
+end;
+$$ language plpgsql;
+
 -- 6. SEED DATA: Criar utilizador, perfil e produtora de teste
-insert into auth.users (id, email) 
-values ('00000000-0000-4000-8000-000000000001', 'produtor@teste.com')
-on conflict do nothing;
+select pg_temp.seed_auth_user('00000000-0000-4000-8000-000000000001', 'produtor@teste.com', 'Produtora Geral');
 
 insert into public.profiles (id, name, role)
 values ('00000000-0000-4000-8000-000000000001', 'Produtora Geral', 'producer')
@@ -26,9 +57,7 @@ insert into public.films (
   ('11111111-1111-4111-8111-111111111111', 'FactorENERGIA', 'factorenergia', 2023, 'Documentário', 12.90, '1h 02min', 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1800&q=90', 'Uma investigação sobre o mercado de energia e os seus impactos.', 'De onde vem a energia que move o nosso dia? FactorENERGIA investiga as escolhas que fazemos, os interesses que as moldam e o impacto que têm nas pessoas e no planeta.', true);
 
 -- 8. SEED DATA: utilizador de demonstração e filmes comprados
-insert into auth.users (id, email)
-values ('22222222-2222-4222-8222-222222222222', 'marta@teste.com')
-on conflict do nothing;
+select pg_temp.seed_auth_user('22222222-2222-4222-8222-222222222222', 'marta@teste.com', 'Marta Silva');
 
 insert into public.profiles (id, name, role)
 values ('22222222-2222-4222-8222-222222222222', 'Marta Silva', 'client')
@@ -49,11 +78,8 @@ where slug in ('entre-rios', 'fora-de-jogo', 'amazonia-viva')
 
 
 -- 9. SEED DATA: produtores para as páginas públicas /produtor/[username]
-insert into auth.users (id, email)
-values
-  ('33333333-3333-4333-8333-333333333333', 'astudio@teste.com'),
-  ('44444444-4444-4444-8444-444444444444', 'universal@teste.com')
-on conflict do nothing;
+select pg_temp.seed_auth_user('33333333-3333-4333-8333-333333333333', 'astudio@teste.com', 'A Studio');
+select pg_temp.seed_auth_user('44444444-4444-4444-8444-444444444444', 'universal@teste.com', 'Universal');
 
 insert into public.profiles (id, name, role)
 values
@@ -79,12 +105,9 @@ update public.films set id_producer = '66666666-6666-4666-8666-666666666666'
 where slug in ('amazonia-viva', 'ultima-chamada');
 
 -- 10. SEED DATA: compras de vários clientes em meses diferentes (página /admin/[id])
-insert into auth.users (id, email)
-values
-  ('77777777-7777-4777-8777-777777777771', 'joao@teste.com'),
-  ('77777777-7777-4777-8777-777777777772', 'ana@teste.com'),
-  ('77777777-7777-4777-8777-777777777773', 'rui@teste.com')
-on conflict do nothing;
+select pg_temp.seed_auth_user('77777777-7777-4777-8777-777777777771', 'joao@teste.com', 'João Pereira');
+select pg_temp.seed_auth_user('77777777-7777-4777-8777-777777777772', 'ana@teste.com', 'Ana Costa');
+select pg_temp.seed_auth_user('77777777-7777-4777-8777-777777777773', 'rui@teste.com', 'Rui Santos');
 
 insert into public.profiles (id, name, role)
 values
@@ -114,3 +137,12 @@ where not exists (
   select 1 from public.purchases p
   where p.id_user = v.id_user::uuid and p.id_film = f.id_film
 );
+
+-- 11. SEED DATA: conta de administrador (pode abrir o painel /admin/[id] de qualquer produtor)
+select pg_temp.seed_auth_user('88888888-8888-4888-8888-888888888888', 'admin@teste.com', 'Admin Roll');
+
+insert into public.profiles (id, name, role)
+values ('88888888-8888-4888-8888-888888888888', 'Admin Roll', 'admin')
+on conflict (id) do update
+set name = excluded.name,
+    role = excluded.role;

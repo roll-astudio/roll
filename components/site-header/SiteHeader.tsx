@@ -8,6 +8,7 @@ import Header from "../header/Header";
 import Nav from "../nav/Nav";
 import Button from "../button/Button";
 import { createClient } from "../../lib/supabase/client";
+import { getProducerIdForUser } from "../../lib/producers";
 import styles from "./SiteHeader.module.css";
 
 function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
@@ -42,18 +43,53 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState<{ userId: string; admin: boolean } | null>(null);
+  const showAdmin = isAdmin && isAdmin.userId === userId ? isAdmin.admin : false;
+  const [producer, setProducer] = useState<{ userId: string; id: string | null } | null>(null);
+  const producerId = producer && producer.userId === userId ? producer.id : null;
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return;
     const supabase = createClient();
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       const user = session?.user;
+      setUserId(user?.id ?? null);
       setUserName(
         user ? String(user.user_metadata?.name || user.email || "") : null,
       );
     });
     return () => data.subscription.unsubscribe();
   }, []);
+
+  // Administradores têm um link para a página de gestão
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    createClient()
+      .from("profiles")
+      .select("role")
+      .eq("id", userId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!cancelled) setIsAdmin({ userId, admin: data?.role === "admin" });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  // Produtores têm um link para o seu painel de vendas
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    getProducerIdForUser(createClient(), userId).then((id) => {
+      if (!cancelled) setProducer({ userId, id });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
   const closeMenu = () => setMobileMenuOpen(false);
   const isActive = (path: string) => pathname === path;
 
@@ -100,6 +136,16 @@ export default function SiteHeader() {
         <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
       </Link>
       <div className={styles.headerTools}>
+        {showAdmin && (
+          <Link href="/gestao" className={styles.panelLink}>
+            Gestão
+          </Link>
+        )}
+        {producerId && (
+          <Link href={`/admin/${producerId}`} className={styles.panelLink}>
+            Painel
+          </Link>
+        )}
         {userName && <span className={styles.userName}>{userName}</span>}
         <Link
           href="/conta" prefetch={false}

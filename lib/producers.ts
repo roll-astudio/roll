@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export type ProducerFilm = {
   slug: string;
@@ -58,4 +58,18 @@ export async function getProducerByUsername(
         : [],
     ),
   };
+}
+
+// Id da produtora associada a uma conta (null se a conta não é de um produtor)
+export async function getProducerIdForUser(
+  client: SupabaseClient,
+  userId: string,
+): Promise<string | null> {
+  const { data } = await client
+    .from("producers")
+    .select("id_producer")
+    .eq("id_user", userId)
+    .limit(1)
+    .maybeSingle();
+  return data?.id_producer ?? null;
 }

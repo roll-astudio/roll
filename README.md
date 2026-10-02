@@ -51,3 +51,16 @@ Os dados de seed estão em `supabase/seed.sql`.
 ```bash
 npx supabase db reset --linked
 ```
+
+### Contas de teste
+
+O seed cria contas que fazem login com email e password (a password de todas está em `supabase/seed.sql`, constante `DEV_PASSWORD` — só para desenvolvimento).
+
+| Email | Tipo | Notas |
+| --- | --- | --- |
+| `admin@teste.com` | Admin | Abre o `/admin/[id]` de qualquer produtor |
+| `astudio@teste.com` | Produtor | A Studio — aparece o link "Painel" no topo |
+| `universal@teste.com` | Produtor | Universal |
+| `produtor@teste.com` | Produtor | Produtora Geral |
+| `marta@teste.com` | Cliente | Já tem filmes comprados |
+| `joao@teste.com`, `ana@teste.com`, `rui@teste.com` | Cliente | Compras em vários meses |

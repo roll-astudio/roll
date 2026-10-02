@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import SiteHeader from "../../../components/site-header/SiteHeader";
 import { getProducerDashboard, isValidMonth } from "../../../lib/admin";
+import { getProducerIdForUser } from "../../../lib/producers";
+import { createClient } from "../../../lib/supabase/server";
 import MonthFilter from "./MonthFilter";
 import styles from "./page.module.css";
 
@@ -24,6 +26,24 @@ export default async function AdminPage({
 }) {
   const { id } = await params;
   const { mes } = await searchParams;
+
+  // Só o produtor dono deste painel (ou um admin) pode ver as vendas
+  const supabase = await createClient();
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) redirect("/login");
+
+  if ((await getProducerIdForUser(supabase, auth.user.id)) !== id) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", auth.user.id)
+      .maybeSingle();
+    if (profile?.role !== "admin") {
+      const own = await getProducerIdForUser(supabase, auth.user.id);
+      redirect(own ? `/admin/${own}` : "/");
+    }
+  }
+
   const month = mes && isValidMonth(mes) ? mes : undefined;
   const dashboard = await getProducerDashboard(id, month);
 
