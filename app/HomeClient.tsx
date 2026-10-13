@@ -97,11 +97,6 @@ export default function HomeClient({
             className={styles.heroImage}
             style={{ backgroundImage: `url("${featured.image}")` }}
           />
-          <FilmPoster
-            className={styles.heroPoster}
-            image={featured.image}
-            title={featured.title}
-          />
           <div className={styles.heroContent}>
             <p className={styles.kicker}>
               <span /> Em destaque

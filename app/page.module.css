@@ -27,39 +27,38 @@
   background: #ea1b57;
 }
 
-/* Destaque: versão condensada da página do filme, em largura total */
+/* Destaque: capa a ocupar o ecrã todo, com a imagem esbatida para o texto sobressair */
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: 160px minmax(0, 560px);
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 48px 4%;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100svh - 72px);
+  padding: 48px 4% 64px;
   overflow: hidden;
   background: #0c0c0c;
 }
 
-/* A capa muito desfocada e escurecida dá ambiente; o texto nunca lê sobre a imagem nítida */
 .heroImage {
   position: absolute;
-  inset: -40px;
+  inset: 0;
   background-position: center;
   background-size: cover;
-  filter: blur(40px) brightness(0.3) saturate(1.2);
+  opacity: 0.45;
 }
 
-.heroPoster {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+/* Gradiente por baixo do texto e a fundir com o resto da página */
+.hero::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.55) 55%, #000 100%);
+  content: "";
 }
 
 .heroContent {
   position: relative;
   z-index: 1;
   min-width: 0;
+  max-width: 640px;
 }
 
 .kicker, .sectionEyebrow {
@@ -90,8 +89,8 @@
 }
 
 .heroContent h1 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.08;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.05;
   letter-spacing: -0.02em;
   margin-top: 10px;
 }
@@ -289,16 +288,12 @@
     bottom: -18px;
   }
   .hero {
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 18px;
-    padding: 28px 6%;
-  }
-  .heroContent h1 {
-    font-size: 1.35rem;
+    min-height: calc(100svh - 60px);
+    padding: 28px 6% 40px;
   }
   .hero .description {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
