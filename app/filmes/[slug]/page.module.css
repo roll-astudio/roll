@@ -40,7 +40,7 @@
   bottom: -24px;
   left: 0;
   height: 2px;
-  background: #ea1b57;
+  background: var(--primary);
   content: "";
 }
 
@@ -87,7 +87,7 @@
   width: min(100%, calc((100vh - 114px) * 16 / 9));
   margin: 0 auto;
   aspect-ratio: 16 / 9;
-  --media-accent-color: #ea1b57;
+  --media-accent-color: var(--primary);
   --controls-backdrop-color: rgba(8, 8, 8, 0.76);
 }
 
@@ -106,7 +106,7 @@
   height: 6px;
   margin-right: 6px;
   border-radius: 50%;
-  background: #ea1b57;
+  background: var(--primary);
 }
 
 .owned {
@@ -121,10 +121,10 @@
   font-weight: 700;
 }
 
-.owned span { color: #ea1b57; font-size: 16px; }
+.owned span { color: var(--primary); font-size: 16px; }
 
 .catalogLink:hover {
-  color: #ea1b57;
+  color: var(--primary);
 }
 
 .brand {
@@ -147,7 +147,7 @@
 .brand span,
 .eyebrow,
 .sectionTitle em {
-  color: #ea1b57;
+  color: var(--primary);
 }
 
 .headerLabel {
@@ -371,4 +371,4 @@
 }
 
 .producer a:hover,
-.producer a:focus-visible { color: #ea1b57; }
+.producer a:focus-visible { color: var(--primary); }

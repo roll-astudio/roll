@@ -78,13 +78,13 @@
   display: grid;
   place-items: center;
   color: #fff;
-  background: #ec0750;
+  background: var(--primary);
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .headerTools .logoutButton:hover,
 .headerTools .logoutButton:focus-visible {
-  background: #ff2468;
+  background: var(--primary-hover);
 }
 
 .accountLink:hover,

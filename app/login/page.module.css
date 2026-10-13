@@ -21,7 +21,7 @@
   line-height: .98;
 }
 
-.title em { color: #ec0750; font-style: normal; }
+.title em { color: var(--primary); font-style: normal; }
 
 .form label {
   display: flex;
@@ -45,9 +45,9 @@
   text-transform: none;
 }
 
-.form input:focus-visible { outline: 2px solid #ec0750; outline-offset: 1px; }
+.form input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
 
-.error { margin: 0; color: #ff6b8b; font-size: .95rem; }
+.error { margin: 0; color: #ff6b73; font-size: .95rem; }
 
 .submit { margin-top: 6px; }
 

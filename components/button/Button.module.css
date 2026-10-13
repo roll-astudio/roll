@@ -35,14 +35,14 @@
 }
 
 .primary {
-  background: #ec0750;
+  background: var(--primary);
   color: #fff;
-  box-shadow: 0 14px 30px rgba(236, 7, 80, 0.24);
+  box-shadow: 0 14px 30px rgba(196, 15, 26, 0.24);
 }
 
 .primary:hover:not(:disabled),
 .primary:focus-visible {
-  background: #ff1f63;
+  background: var(--primary-hover);
 }
 
 .secondary {

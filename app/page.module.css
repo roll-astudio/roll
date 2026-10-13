@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(233, 27, 85, 0.16), transparent 28%),
+    radial-gradient(circle at top, rgba(196, 15, 26, 0.16), transparent 28%),
     linear-gradient(180deg, #090909 0%, #000 100%);
   color: #f4f2ee;
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
@@ -24,7 +24,7 @@
   right: 0;
   bottom: -24px;
   height: 2px;
-  background: #ea1b57;
+  background: var(--primary);
 }
 
 /* Destaque: capa a ocupar o ecrã todo, com a imagem esbatida para o texto sobressair */
@@ -76,7 +76,7 @@
 .kicker span, .sectionEyebrow::before {
   width: 42px;
   height: 1px;
-  background: #ea1b57;
+  background: var(--primary);
   content: "";
   display: inline-block;
 }
@@ -96,7 +96,7 @@
 }
 
 .heroContent h1 em, .catalogHead h2 em {
-  color: #ea1b57;
+  color: var(--primary);
   font-style: normal;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .filters .filterActive {
-  background: #ec0750;
+  background: var(--primary);
   color: #fff;
   font-weight: 700;
 }

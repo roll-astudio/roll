@@ -13,7 +13,7 @@
 .sectionEyebrow::before {
   width: 42px;
   height: 1px;
-  background: #ea1b57;
+  background: var(--primary);
   content: "";
   display: inline-block;
 }
@@ -26,7 +26,7 @@
 }
 
 .about h2 em {
-  color: #ea1b57;
+  color: var(--primary);
   font-style: normal;
 }
 

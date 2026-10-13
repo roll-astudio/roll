@@ -21,7 +21,7 @@
   line-height: .98;
 }
 
-.title em { color: #ec0750; font-style: normal; }
+.title em { color: var(--primary); font-style: normal; }
 
 .lead {
   margin-top: 17px;
@@ -77,7 +77,7 @@
 .table td { font-size: 1.05rem; }
 .table .num { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; }
 .table tfoot td { font-weight: 700; }
-.table a:hover { color: #ec0750; }
+.table a:hover { color: var(--primary); }
 
 .empty {
   padding: 28px 0;
@@ -144,7 +144,7 @@
   .stats { grid-template-columns: 1fr; }
 }
 
-.panelOpen { color: #ec0750; font-weight: 700; font-size: .95rem; }
+.panelOpen { color: var(--primary); font-weight: 700; font-size: .95rem; }
 .panelOpen:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .subnav { display: flex; gap: 8px; margin-bottom: 36px; }
@@ -160,7 +160,7 @@
 }
 
 .subnav a:hover, .subnav a:focus-visible { background: rgba(255, 255, 255, .16); }
-.subnav .subnavActive { background: #ec0750; color: #fff; }
+.subnav .subnavActive { background: var(--primary); color: #fff; }
 
 .users { display: grid; gap: 14px; }
 
@@ -198,7 +198,7 @@
 }
 
 .userFilms li:last-child { border-bottom: 0; padding-bottom: 0; }
-.userFilms a:hover { color: #ec0750; }
+.userFilms a:hover { color: var(--primary); }
 .userFilms .date { flex: none; width: 70px; color: #939497; }
 .userFilms .price { margin-left: auto; font-variant-numeric: tabular-nums; }
 
@@ -237,6 +237,6 @@
 
 .form input:focus-visible,
 .form select:focus-visible,
-.form textarea:focus-visible { outline: 2px solid #ec0750; outline-offset: 1px; }
+.form textarea:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
 
-.error { margin: 0; color: #ff6b8b; font-size: .95rem; }
+.error { margin: 0; color: #ff6b73; font-size: .95rem; }

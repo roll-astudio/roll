@@ -21,7 +21,7 @@
   line-height: .98;
 }
 
-.title em { color: #ec0750; font-style: normal; }
+.title em { color: var(--primary); font-style: normal; }
 
 .lead {
   margin-top: 17px;

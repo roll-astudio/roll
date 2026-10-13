@@ -13,7 +13,7 @@
 .sectionEyebrow::before {
   width: 42px;
   height: 1px;
-  background: #ea1b57;
+  background: var(--primary);
   content: "";
   display: inline-block;
 }

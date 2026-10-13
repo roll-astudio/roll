@@ -21,7 +21,7 @@
   line-height: .98;
 }
 
-.title em { color: #ec0750; font-style: normal; }
+.title em { color: var(--primary); font-style: normal; }
 
 .lead {
   margin-top: 17px;
@@ -88,7 +88,7 @@
 .table td { font-size: 1.05rem; }
 .table .num { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; }
 .table tfoot td { font-weight: 700; }
-.table a:hover { color: #ec0750; }
+.table a:hover { color: var(--primary); }
 
 .empty {
   padding: 28px 0;
