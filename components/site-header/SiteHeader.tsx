@@ -140,7 +140,7 @@ export default function SiteHeader() {
         </Link>
       </Nav>
       <Link className={styles.brand} href="/" aria-label="Roll — início">
-        <Image src="/logos/ROLL_CORES.png" alt="Roll" width={160} height={65} />
+        <Image src="/logos/ROLL_BRANCO.png" alt="Roll" width={160} height={65} />
       </Link>
       <div className={styles.headerTools}>
         {showAdmin && (
