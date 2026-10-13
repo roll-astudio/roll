@@ -53,11 +53,20 @@ export default async function ManagementPage({
     .filter((producer) => !producerId || producer.id === producerId)
     .map((producer) => {
       const producerSales = sales.filter((sale) => sale.producerId === producer.id);
+      const producerFilms = films.filter((film) => film.producerId === producer.id);
+      const total = producerSales.reduce((sum, sale) => sum + sale.price, 0);
+      // Cada filme tem a sua percentagem, por isso soma-se filme a filme
+      const payout = producerFilms.reduce(
+        (sum, film) => sum + (film.total * film.share) / 100,
+        0,
+      );
       return {
         ...producer,
-        films: films.filter((film) => film.producerId === producer.id).length,
+        films: producerFilms.length,
         buyers: producerSales.length,
-        total: producerSales.reduce((sum, sale) => sum + sale.price, 0),
+        total,
+        payout,
+        income: total - payout,
       };
     });
 
@@ -109,6 +118,8 @@ export default async function ManagementPage({
                   <th className={styles.num}>Filmes</th>
                   <th className={styles.num}>Compras</th>
                   <th className={styles.num}>Total</th>
+                  <th className={styles.num}>A receber</th>
+                  <th className={styles.num}>A pagar ao produtor</th>
                   {month && <th className={styles.num}>Pagamento</th>}
                   <th className={styles.num}>Painel</th>
                 </tr>
@@ -124,6 +135,8 @@ export default async function ManagementPage({
                     <td className={styles.num}>{producer.films}</td>
                     <td className={styles.num}>{producer.buyers}</td>
                     <td className={styles.num}>{euro.format(producer.total)}</td>
+                    <td className={styles.num}>{euro.format(producer.income)}</td>
+                    <td className={styles.num}>{euro.format(producer.payout)}</td>
                     {month && (
                       <td className={styles.num}>
                         <form
