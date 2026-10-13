@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { DEFAULT_PRODUCER_SHARE } from "./shares";
 
 export type ManagementProducer = { id: string; name: string };
 
@@ -9,7 +10,7 @@ export type ManagementFilm = {
   title: string;
   producer: string;
   published: boolean;
-  share: number | null; // % acordada com o produtor
+  share: number; // % acordada com o produtor (30 por omissão)
   buyers: number;
   total: number;
 };
@@ -104,7 +105,7 @@ export async function getManagement(
         title: film.title,
         producer: producerName.get(film.id_producer) ?? "—",
         published: !!film.is_published,
-        share: film.producer_share == null ? null : Number(film.producer_share),
+        share: film.producer_share == null ? DEFAULT_PRODUCER_SHARE : Number(film.producer_share),
         buyers: sales.length,
         total: sales.reduce((sum, p) => sum + Number(p.price_paid), 0),
       };

@@ -56,7 +56,7 @@ export default async function AdminPage({
   const monthPaid = !!month && paidMonths.has(month);
 
   const totalBuyers = dashboard.films.reduce((sum, film) => sum + film.buyers, 0);
-  const totalPayout = dashboard.films.reduce((sum, film) => sum + (film.payout ?? 0), 0);
+  const totalPayout = dashboard.films.reduce((sum, film) => sum + film.payout, 0);
 
   return (
     <main className={styles.page}>
@@ -119,10 +119,10 @@ export default async function AdminPage({
                   </td>
                   <td className={styles.num}>{film.buyers}</td>
                   <td className={styles.num}>
-                    {film.share == null ? "—" : `${film.share.toLocaleString("pt-PT")}%`}
+                    {`${film.share.toLocaleString("pt-PT")}%`}
                   </td>
                   <td className={styles.num}>
-                    {film.payout == null ? "—" : euro.format(film.payout)}
+                    {euro.format(film.payout)}
                   </td>
                 </tr>
               ))}

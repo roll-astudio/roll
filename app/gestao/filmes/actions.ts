@@ -41,14 +41,18 @@ function parseFilmForm(formData: FormData) {
     image: String(formData.get("image") ?? "").trim(),
     video: String(formData.get("video") ?? "").trim(),
     trailer: String(formData.get("trailer") ?? "").trim(),
+    share: String(formData.get("share") ?? "").trim(),
   };
 
   let error: string | undefined;
   const price = Number(values.price.replace(",", "."));
+  const share = Number(values.share.replace(",", "."));
   if (!isUuidV4(values.producer)) error = "Escolhe a produtora.";
   else if (!values.title) error = "Escreve o nome do filme.";
   else if (!(FILM_CATEGORIES as readonly string[]).includes(values.category))
     error = "Escolhe a categoria.";
+  else if (!values.share || !Number.isFinite(share) || share < 0 || share > 100)
+    error = "Indica uma percentagem do produtor entre 0 e 100.";
   else if (!Number.isFinite(price) || price <= 0)
     error = "Indica um preço válido, por exemplo 12,90.";
   else if (!values.description) error = "Escreve uma pequena descrição.";
@@ -57,7 +61,7 @@ function parseFilmForm(formData: FormData) {
   else if (values.trailer && !parseMuxPlaybackId(values.trailer))
     error = "O URL do trailer no Mux não é válido.";
 
-  return { values, price, error };
+  return { values, price, share, error };
 }
 
 export async function createFilm(
@@ -65,7 +69,7 @@ export async function createFilm(
   formData: FormData,
 ): Promise<FilmFormState> {
   const supabase = await requireAdmin();
-  const { values, price, error: invalid } = parseFilmForm(formData);
+  const { values, price, share, error: invalid } = parseFilmForm(formData);
   if (invalid) return { error: invalid, values };
 
   const { data: producer } = await supabase
@@ -97,6 +101,7 @@ export async function createFilm(
     image: values.image,
     video_url: values.video,
     trailer_url: values.trailer || null,
+    producer_share: share,
     is_published: true,
     published_at: new Date().toISOString(),
   });
@@ -115,7 +120,7 @@ export async function updateFilm(
   const supabase = await requireAdmin();
   if (!isUuidV4(filmId)) redirect("/gestao");
 
-  const { values, price, error: invalid } = parseFilmForm(formData);
+  const { values, price, share, error: invalid } = parseFilmForm(formData);
   if (invalid) return { error: invalid, values };
 
   const { data: producer } = await supabase
@@ -137,6 +142,7 @@ export async function updateFilm(
       image: values.image,
       video_url: values.video,
       trailer_url: values.trailer || null,
+      producer_share: share,
     })
     .eq("id_film", filmId);
   if (error) return { error: "Não foi possível guardar as alterações.", values };
@@ -160,17 +166,4 @@ export async function setFilmPublished(filmId: string, published: boolean) {
 
   revalidatePath("/gestao");
   revalidatePath("/");
-}
-
-// Percentagem do produtor (0–100) para um filme; vazio limpa o valor
-export async function setFilmShare(filmId: string, formData: FormData) {
-  const supabase = await requireAdmin();
-  if (!isUuidV4(filmId)) return;
-
-  const raw = String(formData.get("share") ?? "").trim().replace(",", ".");
-  const share = raw === "" ? null : Number(raw);
-  if (share !== null && (!Number.isFinite(share) || share < 0 || share > 100)) return;
-
-  await supabase.from("films").update({ producer_share: share }).eq("id_film", filmId);
-  revalidatePath("/gestao");
 }
