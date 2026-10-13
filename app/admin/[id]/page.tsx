@@ -50,7 +50,7 @@ export default async function AdminPage({
   if (!dashboard) notFound();
 
   const totalBuyers = dashboard.films.reduce((sum, film) => sum + film.buyers, 0);
-  const totalAmount = dashboard.films.reduce((sum, film) => sum + film.total, 0);
+  const totalPayout = dashboard.films.reduce((sum, film) => sum + (film.payout ?? 0), 0);
 
   return (
     <main className={styles.page}>
@@ -79,6 +79,7 @@ export default async function AdminPage({
               <tr>
                 <th>Filme</th>
                 <th className={styles.num}>Compras</th>
+                <th className={styles.num}>%</th>
                 <th className={styles.num}>Total a receber</th>
               </tr>
             </thead>
@@ -93,7 +94,12 @@ export default async function AdminPage({
                     )}
                   </td>
                   <td className={styles.num}>{film.buyers}</td>
-                  <td className={styles.num}>{euro.format(film.total)}</td>
+                  <td className={styles.num}>
+                    {film.share == null ? "—" : `${film.share.toLocaleString("pt-PT")}%`}
+                  </td>
+                  <td className={styles.num}>
+                    {film.payout == null ? "—" : euro.format(film.payout)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -101,7 +107,8 @@ export default async function AdminPage({
               <tr>
                 <td>Total</td>
                 <td className={styles.num}>{totalBuyers}</td>
-                <td className={styles.num}>{euro.format(totalAmount)}</td>
+                <td></td>
+                <td className={styles.num}>{euro.format(totalPayout)}</td>
               </tr>
             </tfoot>
           </table>

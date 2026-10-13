@@ -5,7 +5,9 @@ export type AdminFilmStats = {
   title: string;
   slug: string;
   buyers: number;
-  total: number;
+  total: number; // vendas brutas
+  share: number | null; // % acordada com o produtor
+  payout: number | null; // valor a receber segundo a %
 };
 
 export type ProducerDashboard = {
@@ -36,7 +38,7 @@ export async function getProducerDashboard(
 
   const { data: films } = await supabase
     .from("films")
-    .select("id_film, title, slug")
+    .select("id_film, title, slug, producer_share")
     .eq("id_producer", id)
     .order("title");
 
@@ -63,11 +65,15 @@ export async function getProducerDashboard(
     months,
     films: (films ?? []).map((film) => {
       const sales = selected.filter((purchase) => purchase.id_film === film.id_film);
+      const total = sales.reduce((sum, purchase) => sum + Number(purchase.price_paid), 0);
+      const share = film.producer_share == null ? null : Number(film.producer_share);
       return {
         title: film.title,
         slug: film.slug ?? "",
         buyers: sales.length,
-        total: sales.reduce((sum, purchase) => sum + Number(purchase.price_paid), 0),
+        total,
+        share,
+        payout: share == null ? null : (total * share) / 100,
       };
     }),
   };
