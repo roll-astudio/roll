@@ -9,9 +9,10 @@ import Nav from "../nav/Nav";
 import Button from "../button/Button";
 import { createClient } from "../../lib/supabase/client";
 import { getProducerIdForUser } from "../../lib/producers";
+import { logout } from "../../app/login/actions";
 import styles from "./SiteHeader.module.css";
 
-function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
+function Icon({ name, size = 20 }: { name: "user" | "menu" | "logout"; size?: number }) {
   const paths = {
     user: (
       <>
@@ -20,6 +21,12 @@ function Icon({ name, size = 20 }: { name: "user" | "menu"; size?: number }) {
       </>
     ),
     menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+    logout: (
+      <>
+        <path d="M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4" />
+        <path d="M14 8l4 4-4 4M18 12H9" />
+      </>
+    ),
   };
 
   return (
@@ -154,6 +161,18 @@ export default function SiteHeader() {
         >
           <Icon name="user" size={19} />
         </Link>
+        {userId && (
+          <form action={logout}>
+            <button
+              type="submit"
+              className={styles.logoutButton}
+              aria-label="Terminar sessão"
+              title="Terminar sessão"
+            >
+              <Icon name="logout" size={19} />
+            </button>
+          </form>
+        )}
       </div>
     </Header>
   );
