@@ -103,7 +103,6 @@ export default async function AdminPage({
               <tr>
                 <th>Filme</th>
                 <th className={styles.num}>Compras</th>
-                <th className={styles.num}>% Roll</th>
                 <th className={styles.num}>Total a receber</th>
               </tr>
             </thead>
@@ -119,9 +118,6 @@ export default async function AdminPage({
                   </td>
                   <td className={styles.num}>{film.buyers}</td>
                   <td className={styles.num}>
-                    {`${film.share.toLocaleString("pt-PT")}%`}
-                  </td>
-                  <td className={styles.num}>
                     {euro.format(film.payout)}
                   </td>
                 </tr>
@@ -131,7 +127,6 @@ export default async function AdminPage({
               <tr>
                 <td>Total</td>
                 <td className={styles.num}>{totalBuyers}</td>
-                <td></td>
                 <td className={styles.num}>{euro.format(totalPayout)}</td>
               </tr>
             </tfoot>
