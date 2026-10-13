@@ -3,7 +3,7 @@
   align-items: center;
   gap: 10px;
   color: #e3dcd3;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 11px;
@@ -20,9 +20,9 @@
 
 .about h2 {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
   line-height: 0.94;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
 }
 
 .about h2 em {
@@ -128,7 +128,7 @@
   font-size: clamp(58px, 7vw, 100px);
   line-height: 0.9;
   font-weight: 400;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.03em;
 }
 
 .aboutHeader h2 em {

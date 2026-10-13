@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: #080808;
   color: #f4f2ee;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
   padding-top: 72px;
 }
 
@@ -132,7 +132,7 @@
   color: #fff;
   font-size: 30px;
   font-weight: 400;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.03em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,9 +243,9 @@
 .title,
 .sectionTitle {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
 }
 
 .title {

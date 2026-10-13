@@ -3,7 +3,7 @@
   align-items: center;
   gap: 10px;
   color: #e3dcd3;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 11px;
@@ -126,7 +126,7 @@
   font-size: clamp(55px, 7vw, 100px);
   line-height: 0.92;
   font-weight: 400;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.03em;
 }
 
 .contactHeadline h2 em {
