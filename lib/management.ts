@@ -9,6 +9,7 @@ export type ManagementFilm = {
   title: string;
   producer: string;
   published: boolean;
+  share: number | null; // % acordada com o produtor
   buyers: number;
   total: number;
 };
@@ -48,7 +49,7 @@ export async function getManagement(
 
   let filmQuery = supabase
     .from("films")
-    .select("id_film, id_producer, title, slug, is_published")
+    .select("id_film, id_producer, title, slug, is_published, producer_share")
     .order("title");
   if (producerId) filmQuery = filmQuery.eq("id_producer", producerId);
   const { data: filmRows } = await filmQuery;
@@ -94,6 +95,7 @@ export async function getManagement(
         title: film.title,
         producer: producerName.get(film.id_producer) ?? "—",
         published: !!film.is_published,
+        share: film.producer_share == null ? null : Number(film.producer_share),
         buyers: sales.length,
         total: sales.reduce((sum, p) => sum + Number(p.price_paid), 0),
       };

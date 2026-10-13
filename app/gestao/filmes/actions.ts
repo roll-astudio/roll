@@ -160,3 +160,16 @@ export async function setFilmPublished(filmId: string, published: boolean) {
   revalidatePath("/gestao");
   revalidatePath("/");
 }
+
+// Percentagem do produtor (0–100) para um filme; vazio limpa o valor
+export async function setFilmShare(filmId: string, formData: FormData) {
+  const supabase = await requireAdmin();
+  if (!isUuidV4(filmId)) return;
+
+  const raw = String(formData.get("share") ?? "").trim().replace(",", ".");
+  const share = raw === "" ? null : Number(raw);
+  if (share !== null && (!Number.isFinite(share) || share < 0 || share > 100)) return;
+
+  await supabase.from("films").update({ producer_share: share }).eq("id_film", filmId);
+  revalidatePath("/gestao");
+}

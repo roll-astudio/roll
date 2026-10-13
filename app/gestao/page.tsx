@@ -5,7 +5,7 @@ import { getManagement } from "../../lib/management";
 import { isUuidV4 } from "../../lib/users";
 import { createClient } from "../../lib/supabase/server";
 import Button from "../../components/button/Button";
-import { setFilmPublished } from "./filmes/actions";
+import { setFilmPublished, setFilmShare } from "./filmes/actions";
 import Filters from "./Filters";
 import GestaoNav from "./GestaoNav";
 import styles from "./page.module.css";
@@ -148,6 +148,8 @@ export default async function ManagementPage({
                     <th>Produtor</th>
                     <th className={styles.num}>Compras</th>
                     <th className={styles.num}>Total</th>
+                    <th className={styles.num}>%</th>
+                    <th className={styles.num}>A receber</th>
                     <th className={styles.num}></th>
                     <th className={styles.num}>Estado</th>
                   </tr>
@@ -165,6 +167,26 @@ export default async function ManagementPage({
                       <td className={styles.muted}>{film.producer}</td>
                       <td className={styles.num}>{film.buyers}</td>
                       <td className={styles.num}>{euro.format(film.total)}</td>
+                      <td className={styles.num}>
+                        <form className={styles.shareForm} action={setFilmShare.bind(null, film.id)}>
+                          <input
+                            name="share"
+                            type="text"
+                            inputMode="decimal"
+                            placeholder="—"
+                            defaultValue={film.share == null ? "" : String(film.share).replace(".", ",")}
+                            aria-label={`Percentagem do produtor em ${film.title}`}
+                            className={styles.shareInput}
+                          />
+                          <span aria-hidden="true">%</span>
+                          <button type="submit" className={styles.shareSave}>
+                            Guardar
+                          </button>
+                        </form>
+                      </td>
+                      <td className={styles.num}>
+                        {film.share == null ? "—" : euro.format((film.total * film.share) / 100)}
+                      </td>
                       <td className={styles.num}>
                         <Button
                           variant="secondary"

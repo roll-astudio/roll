@@ -202,6 +202,25 @@
 .userFilms .date { flex: none; width: 70px; color: #939497; }
 .userFilms .price { margin-left: auto; font-variant-numeric: tabular-nums; }
 
+.shareForm { display: inline-flex; align-items: center; gap: 6px; }
+.shareInput {
+  width: 64px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 6px;
+  background: #101214;
+  color: #f5f5f5;
+  text-align: right;
+}
+.shareSave {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .1);
+  color: #c9c7c2;
+  font-size: 13px;
+}
+.shareSave:hover, .shareSave:focus-visible { background: rgba(255, 255, 255, .2); }
+
 .small { padding: 8px 16px; font-size: 13px; gap: 8px; }
 
 .switch {
