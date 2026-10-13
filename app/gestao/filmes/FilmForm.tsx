@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import Button from "../../../components/button/Button";
+import { FILM_CATEGORIES } from "../../../lib/categories";
 import type { FilmFormState } from "./actions";
 import styles from "./page.module.css";
 
@@ -41,6 +42,20 @@ export default function FilmForm({
       <label>
         Nome do filme
         <input name="title" type="text" defaultValue={v.title} required />
+      </label>
+
+      <label>
+        Categoria
+        <select name="category" defaultValue={v.category ?? ""} required>
+          <option value="" disabled>
+            Escolhe a categoria
+          </option>
+          {FILM_CATEGORIES.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </label>
 
       <label>

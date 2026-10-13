@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "../../../lib/admin-auth";
+import { FILM_CATEGORIES } from "../../../lib/categories";
 import { isUuidV4 } from "../../../lib/users";
 
 export type FilmFormState = {
@@ -33,6 +34,7 @@ function parseFilmForm(formData: FormData) {
   const values = {
     producer: String(formData.get("producer") ?? ""),
     title: String(formData.get("title") ?? "").trim(),
+    category: String(formData.get("category") ?? ""),
     price: String(formData.get("price") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     image: String(formData.get("image") ?? "").trim(),
@@ -44,6 +46,8 @@ function parseFilmForm(formData: FormData) {
   const price = Number(values.price.replace(",", "."));
   if (!isUuidV4(values.producer)) error = "Escolhe a produtora.";
   else if (!values.title) error = "Escreve o nome do filme.";
+  else if (!(FILM_CATEGORIES as readonly string[]).includes(values.category))
+    error = "Escolhe a categoria.";
   else if (!Number.isFinite(price) || price <= 0)
     error = "Indica um preço válido, por exemplo 12,90.";
   else if (!values.description) error = "Escreve uma pequena descrição.";
@@ -83,6 +87,7 @@ export async function createFilm(
   const { error } = await supabase.from("films").insert({
     id_producer: values.producer,
     title: values.title,
+    category: values.category,
     slug,
     year: new Date().getFullYear(),
     price: price.toFixed(2),
@@ -124,6 +129,7 @@ export async function updateFilm(
     .update({
       id_producer: values.producer,
       title: values.title,
+      category: values.category,
       price: price.toFixed(2),
       description: values.description,
       long_description: values.description,

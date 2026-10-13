@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
 import Button from "../components/button/Button";
 import Card from "../components/card/Card";
 import FilmPoster from "../components/film-poster/FilmPoster";
 import SiteHeader from "../components/site-header/SiteHeader";
+import { CATEGORY_FILTERS, categoryGroup } from "../lib/categories";
 import type { Film } from "../lib/films";
 
 function Icon({
@@ -79,6 +81,11 @@ export default function HomeClient({
   featured: Film | null;
   ownedSlugs: string[];
 }) {
+  const [filter, setFilter] = useState<string | null>(null);
+  const visibleFilms = filter
+    ? films.filter((film) => categoryGroup(film.category) === filter)
+    : films;
+
   // Produtoras com filmes na lista, com o número de filmes de cada uma
   const producers = new Map<string, { name: string; count: number }>();
   for (const film of films) {
@@ -129,9 +136,33 @@ export default function HomeClient({
       <section className={styles.catalog}>
         <div className={styles.catalogHead}>
           <h2>Filmes</h2>
+          <div className={styles.filters} role="group" aria-label="Filtrar por categoria">
+            <button
+              type="button"
+              className={filter === null ? styles.filterActive : undefined}
+              aria-pressed={filter === null}
+              onClick={() => setFilter(null)}
+            >
+              Todos
+            </button>
+            {CATEGORY_FILTERS.map(({ key, label }) => (
+              <button
+                key={key}
+                type="button"
+                className={filter === key ? styles.filterActive : undefined}
+                aria-pressed={filter === key}
+                onClick={() => setFilter(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
+        {visibleFilms.length === 0 && (
+          <p className={styles.emptyFilter}>Ainda não há títulos nesta categoria.</p>
+        )}
         <div className={styles.grid}>
-          {films.map((film) => (
+          {visibleFilms.map((film) => (
             <Link
               className={styles.cardLink}
               key={film.slug}

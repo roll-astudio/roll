@@ -190,6 +190,34 @@
   letter-spacing: -0.02em;
 }
 
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.filters button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #d6d0c9;
+  font-size: 14px;
+}
+
+.filters button:hover,
+.filters button:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.filters .filterActive {
+  background: #ec0750;
+  color: #fff;
+  font-weight: 700;
+}
+
+.emptyFilter { color: #939497; }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
