@@ -83,7 +83,9 @@
 
 .muxPlayer {
   display: block;
-  width: 100%;
+  /* Cabe no ecrã com a barra do leitor, para o botão de ecrã completo ficar visível sem scroll (72px cabeçalho + 42px barra) */
+  width: min(100%, calc((100vh - 114px) * 16 / 9));
+  margin: 0 auto;
   aspect-ratio: 16 / 9;
   --media-accent-color: #ea1b57;
   --controls-backdrop-color: rgba(8, 8, 8, 0.76);
