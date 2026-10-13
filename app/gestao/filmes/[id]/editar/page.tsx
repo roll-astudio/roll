@@ -18,7 +18,7 @@ export default async function EditFilmPage({
 
   const { data: film } = await supabase
     .from("films")
-    .select("id_film, id_producer, title, price, description, image, video_url")
+    .select("id_film, id_producer, title, price, description, image, video_url, trailer_url")
     .eq("id_film", id)
     .maybeSingle();
   if (!film) notFound();
@@ -52,6 +52,7 @@ export default async function EditFilmPage({
             description: film.description ?? "",
             image: film.image ?? "",
             video: film.video_url ?? "",
+            trailer: film.trailer_url ?? "",
           }}
           producers={(producers ?? []).map((p) => ({
             id: p.id_producer as string,

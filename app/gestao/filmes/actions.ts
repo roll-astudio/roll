@@ -37,6 +37,7 @@ function parseFilmForm(formData: FormData) {
     description: String(formData.get("description") ?? "").trim(),
     image: String(formData.get("image") ?? "").trim(),
     video: String(formData.get("video") ?? "").trim(),
+    trailer: String(formData.get("trailer") ?? "").trim(),
   };
 
   let error: string | undefined;
@@ -48,6 +49,8 @@ function parseFilmForm(formData: FormData) {
   else if (!values.description) error = "Escreve uma pequena descrição.";
   else if (!isHttpUrl(values.image)) error = "O URL da imagem não é válido.";
   else if (!isHttpUrl(values.video)) error = "O URL do vídeo no Mux não é válido.";
+  else if (values.trailer && !isHttpUrl(values.trailer))
+    error = "O URL do trailer não é válido.";
 
   return { values, price, error };
 }
@@ -87,6 +90,7 @@ export async function createFilm(
     long_description: values.description,
     image: values.image,
     video_url: values.video,
+    trailer_url: values.trailer || null,
     is_published: true,
     published_at: new Date().toISOString(),
   });
@@ -125,6 +129,7 @@ export async function updateFilm(
       long_description: values.description,
       image: values.image,
       video_url: values.video,
+      trailer_url: values.trailer || null,
     })
     .eq("id_film", filmId);
   if (error) return { error: "Não foi possível guardar as alterações.", values };

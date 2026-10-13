@@ -11,6 +11,7 @@ export type Film = {
   description: string;
   longDescription: string;
   videoUrl: string;
+  trailerUrl: string;
   published: boolean;
   producer: { name: string; username: string } | null;
 };
@@ -32,6 +33,7 @@ type SupabaseFilm = {
   long_description?: string;
   longDescription?: string;
   video_url?: string | null;
+  trailer_url?: string | null;
   is_published?: boolean | null;
   producers?:
     | { company_name?: string; username?: string | null }
@@ -68,6 +70,7 @@ export async function getFilms(includeUnpublished = false): Promise<Film[]> {
     description: film.description ?? "",
     longDescription: film.long_description ?? film.longDescription ?? "",
     videoUrl: film.video_url ?? "",
+    trailerUrl: film.trailer_url ?? "",
     published: !!film.is_published,
     producer:
       producer?.company_name && producer.username

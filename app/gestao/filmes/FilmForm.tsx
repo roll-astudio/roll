@@ -82,6 +82,16 @@ export default function FilmForm({
         />
       </label>
 
+      <label>
+        URL do trailer (YouTube, opcional)
+        <input
+          name="trailer"
+          type="url"
+          placeholder="https://www.youtube.com/watch?v=…"
+          defaultValue={v.trailer}
+        />
+      </label>
+
       {state.error && (
         <p className={styles.error} role="alert">
           {state.error}
