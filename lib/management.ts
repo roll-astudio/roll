@@ -29,6 +29,7 @@ export type Management = {
   producers: ManagementProducer[];
   months: string[]; // "YYYY-MM", mais recente primeiro
   paid: Set<string>; // "idProdutor:YYYY-MM" dos meses já pagos
+  payoutByMonth: Map<string, number>; // "idProdutor:YYYY-MM" → valor a pagar ao produtor (todas as vendas)
   films: ManagementFilm[];
   sales: ManagementSale[];
 };
@@ -92,10 +93,24 @@ export async function getManagement(
 
   const filmById = new Map(filmList.map((film) => [film.id_film, film]));
 
+  // Valor devido ao produtor em cada mês, com a % de cada filme (ignora o filtro de mês)
+  const payoutByMonth = new Map<string, number>();
+  for (const purchase of allPurchases) {
+    const film = filmById.get(purchase.id_film);
+    if (!film) continue;
+    const share = film.roll_share == null ? DEFAULT_ROLL_SHARE : Number(film.roll_share);
+    const key = `${film.id_producer}:${String(purchase.purchased_at).slice(0, 7)}`;
+    payoutByMonth.set(
+      key,
+      (payoutByMonth.get(key) ?? 0) + (Number(purchase.price_paid) * (100 - share)) / 100,
+    );
+  }
+
   return {
     producers,
     months,
     paid,
+    payoutByMonth,
     films: filmList.map((film) => {
       const sales = purchases.filter((p) => p.id_film === film.id_film);
       return {

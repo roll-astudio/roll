@@ -53,7 +53,12 @@ export default async function AdminPage({
   if (!dashboard) notFound();
 
   const paidMonths = new Set(dashboard.paidMonths);
-  const monthPaid = !!month && paidMonths.has(month);
+  const paidAmount = dashboard.monthlyPayouts
+    .filter((row) => paidMonths.has(row.month))
+    .reduce((sum, row) => sum + row.payout, 0);
+  const pendingAmount = dashboard.monthlyPayouts
+    .filter((row) => !paidMonths.has(row.month))
+    .reduce((sum, row) => sum + row.payout, 0);
 
   const totalBuyers = dashboard.films.reduce((sum, film) => sum + film.buyers, 0);
   const totalPayout = dashboard.films.reduce((sum, film) => sum + film.payout, 0);
@@ -80,22 +85,6 @@ export default async function AdminPage({
               : monthLabel(value),
           }))}
         />
-
-        {month && (
-          <div className={styles.payment}>
-            <span className={monthPaid ? styles.paid : styles.unpaid}>
-              {monthPaid ? "✓ " : ""}
-              {monthLabel(month)} {monthPaid ? "pago" : "por pagar"}
-            </span>
-            {isAdmin && (
-              <form action={setMonthPaid.bind(null, id, month, !monthPaid)}>
-                <button type="submit" className={styles.paymentButton}>
-                  {monthPaid ? "Desmarcar como pago" : "Marcar como pago"}
-                </button>
-              </form>
-            )}
-          </div>
-        )}
 
         {dashboard.films.length > 0 ? (
           <table className={styles.table}>
@@ -133,6 +122,52 @@ export default async function AdminPage({
           </table>
         ) : (
           <p className={styles.empty}>Ainda não tens filmes.</p>
+        )}
+
+        {dashboard.monthlyPayouts.length > 0 && (
+          <section className={styles.payments} aria-labelledby="payments-title">
+            <h2 id="payments-title" className={styles.sectionTitle}>Pagamentos</h2>
+            <p className={styles.paymentSummary}>
+              <span className={styles.paid}>Já pago: {euro.format(paidAmount)}</span>
+              <span>Por pagar: {euro.format(pendingAmount)}</span>
+            </p>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Mês</th>
+                  <th className={styles.num}>A receber</th>
+                  <th className={styles.num}>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dashboard.monthlyPayouts.map((row) => {
+                  const isPaid = paidMonths.has(row.month);
+                  return (
+                    <tr key={row.month}>
+                      <td>{monthLabel(row.month)}</td>
+                      <td className={styles.num}>{euro.format(row.payout)}</td>
+                      <td className={styles.num}>
+                        {isAdmin ? (
+                          <form action={setMonthPaid.bind(null, id, row.month, !isPaid)}>
+                            <button
+                              type="submit"
+                              className={`${styles.paymentButton} ${isPaid ? styles.paymentButtonOn : ""}`}
+                            >
+                              {isPaid ? "✓ Pago" : "Marcar como pago"}
+                            </button>
+                          </form>
+                        ) : (
+                          <span className={isPaid ? styles.paid : styles.unpaid}>
+                            {isPaid ? "✓ Pago" : "Por pagar"}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </section>
         )}
       </section>
     </main>

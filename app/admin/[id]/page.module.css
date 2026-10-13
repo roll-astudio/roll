@@ -40,7 +40,9 @@
   letter-spacing: -0.03em;
 }
 
-.payment { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 24px; }
+.payments { margin-top: 56px; }
+.paymentSummary { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 20px; color: #c9c7c2; }
+
 .paid { color: #4ade80; font-weight: 700; }
 .unpaid { color: #939497; }
 .paymentButton {
@@ -51,6 +53,7 @@
   font-size: .9rem;
   font-weight: 700;
 }
+.paymentButtonOn { background: rgba(74, 222, 128, .15); color: #4ade80; }
 .paymentButton:hover, .paymentButton:focus-visible { background: rgba(255, 255, 255, .2); }
 
 .filter {

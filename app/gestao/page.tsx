@@ -42,11 +42,23 @@ export default async function ManagementPage({
 
   const producerId = produtor && isUuidV4(produtor) ? produtor : undefined;
   const month = mes && /^\d{4}-(0[1-9]|1[0-2])$/.test(mes) ? mes : undefined;
-  const { producers, months, paid, films, sales } = await getManagement(
+  const { producers, months, paid, payoutByMonth, films, sales } = await getManagement(
     supabase,
     producerId,
     month,
   );
+
+  // Já pago / por pagar a cada produtora, em todos os meses (ignora o filtro de mês)
+  const paymentTotals = (id: string) => {
+    let paidAmount = 0;
+    let pendingAmount = 0;
+    for (const [key, amount] of payoutByMonth) {
+      if (!key.startsWith(`${id}:`)) continue;
+      if (paid.has(key)) paidAmount += amount;
+      else pendingAmount += amount;
+    }
+    return { paidAmount, pendingAmount };
+  };
 
   // Resumo por produtora (respeita os filtros ativos)
   const producerRows = producers
@@ -67,6 +79,7 @@ export default async function ManagementPage({
         total,
         payout,
         income: total - payout,
+        ...paymentTotals(producer.id),
       };
     });
 
@@ -120,6 +133,8 @@ export default async function ManagementPage({
                   <th className={styles.num}>Total</th>
                   <th className={styles.num}>A receber</th>
                   <th className={styles.num}>A pagar ao produtor</th>
+                  <th className={styles.num}>Já pago</th>
+                  <th className={styles.num}>Por pagar</th>
                   {month && <th className={styles.num}>Pagamento</th>}
                   <th className={styles.num}>Painel</th>
                 </tr>
@@ -137,6 +152,8 @@ export default async function ManagementPage({
                     <td className={styles.num}>{euro.format(producer.total)}</td>
                     <td className={styles.num}>{euro.format(producer.income)}</td>
                     <td className={styles.num}>{euro.format(producer.payout)}</td>
+                    <td className={styles.num}>{euro.format(producer.paidAmount)}</td>
+                    <td className={styles.num}>{euro.format(producer.pendingAmount)}</td>
                     {month && (
                       <td className={styles.num}>
                         <form

@@ -15,6 +15,7 @@ export type ProducerDashboard = {
   name: string;
   months: string[]; // "YYYY-MM", mais recente primeiro
   paidMonths: string[]; // meses já pagos ao produtor
+  monthlyPayouts: { month: string; payout: number }[]; // valor a receber por mês, mais recente primeiro
   films: AdminFilmStats[];
 };
 
@@ -67,8 +68,28 @@ export async function getProducerDashboard(
     ? all.filter((purchase) => String(purchase.purchased_at).startsWith(month))
     : all;
 
+  const shareByFilm = new Map(
+    (films ?? []).map((film) => [
+      film.id_film,
+      film.roll_share == null ? DEFAULT_ROLL_SHARE : Number(film.roll_share),
+    ]),
+  );
+  const payoutByMonth = new Map<string, number>();
+  for (const purchase of all) {
+    const share = shareByFilm.get(purchase.id_film) ?? DEFAULT_ROLL_SHARE;
+    const key = String(purchase.purchased_at).slice(0, 7);
+    payoutByMonth.set(
+      key,
+      (payoutByMonth.get(key) ?? 0) + (Number(purchase.price_paid) * (100 - share)) / 100,
+    );
+  }
+
   return {
     name: producer.company_name,
+    monthlyPayouts: months.map((value) => ({
+      month: value,
+      payout: payoutByMonth.get(value) ?? 0,
+    })),
     months,
     paidMonths: (payments ?? []).map((row) => row.month as string),
     films: (films ?? []).map((film) => {
