@@ -202,6 +202,18 @@
 .userFilms .date { flex: none; width: 70px; color: #939497; }
 .userFilms .price { margin-left: auto; font-variant-numeric: tabular-nums; }
 
+.payButton {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: #c9c7c2;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.payButton:hover, .payButton:focus-visible { background: rgba(255, 255, 255, .2); }
+.payButtonOn { background: rgba(74, 222, 128, .15); color: #4ade80; }
+
 .shareForm { display: inline-flex; align-items: center; gap: 6px; }
 .shareInput {
   width: 64px;

@@ -27,6 +27,7 @@ export type ManagementSale = {
 export type Management = {
   producers: ManagementProducer[];
   months: string[]; // "YYYY-MM", mais recente primeiro
+  paid: Set<string>; // "idProdutor:YYYY-MM" dos meses já pagos
   films: ManagementFilm[];
   sales: ManagementSale[];
 };
@@ -54,6 +55,13 @@ export async function getManagement(
   if (producerId) filmQuery = filmQuery.eq("id_producer", producerId);
   const { data: filmRows } = await filmQuery;
   const filmList = filmRows ?? [];
+
+  const { data: paymentRows } = await supabase
+    .from("producer_payments")
+    .select("id_producer, month");
+  const paid = new Set(
+    (paymentRows ?? []).map((row) => `${row.id_producer}:${row.month}`),
+  );
 
   const filmIds = filmList.map((film) => film.id_film);
   const { data: purchaseRows } = filmIds.length
@@ -86,6 +94,7 @@ export async function getManagement(
   return {
     producers,
     months,
+    paid,
     films: filmList.map((film) => {
       const sales = purchases.filter((p) => p.id_film === film.id_film);
       return {

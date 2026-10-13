@@ -40,6 +40,19 @@
   letter-spacing: -0.03em;
 }
 
+.payment { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 24px; }
+.paid { color: #4ade80; font-weight: 700; }
+.unpaid { color: #939497; }
+.paymentButton {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: #f5f5f5;
+  font-size: .9rem;
+  font-weight: 700;
+}
+.paymentButton:hover, .paymentButton:focus-visible { background: rgba(255, 255, 255, .2); }
+
 .filter {
   display: inline-flex;
   align-items: center;

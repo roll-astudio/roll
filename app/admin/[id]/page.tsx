@@ -4,6 +4,7 @@ import SiteHeader from "../../../components/site-header/SiteHeader";
 import { getProducerDashboard, isValidMonth } from "../../../lib/admin";
 import { getProducerIdForUser } from "../../../lib/producers";
 import { createClient } from "../../../lib/supabase/server";
+import { setMonthPaid } from "../../gestao/pagamentos";
 import MonthFilter from "./MonthFilter";
 import styles from "./page.module.css";
 
@@ -32,13 +33,15 @@ export default async function AdminPage({
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) redirect("/login");
 
+  let isAdmin = false;
   if ((await getProducerIdForUser(supabase, auth.user.id)) !== id) {
     const { data: profile } = await supabase
       .from("profiles")
       .select("role")
       .eq("id", auth.user.id)
       .maybeSingle();
-    if (profile?.role !== "admin") {
+    isAdmin = profile?.role === "admin";
+    if (!isAdmin) {
       const own = await getProducerIdForUser(supabase, auth.user.id);
       redirect(own ? `/admin/${own}` : "/");
     }
@@ -48,6 +51,9 @@ export default async function AdminPage({
   const dashboard = await getProducerDashboard(id, month);
 
   if (!dashboard) notFound();
+
+  const paidMonths = new Set(dashboard.paidMonths);
+  const monthPaid = !!month && paidMonths.has(month);
 
   const totalBuyers = dashboard.films.reduce((sum, film) => sum + film.buyers, 0);
   const totalPayout = dashboard.films.reduce((sum, film) => sum + (film.payout ?? 0), 0);
@@ -69,9 +75,27 @@ export default async function AdminPage({
           selected={month}
           months={dashboard.months.map((value) => ({
             value,
-            label: monthLabel(value),
+            label: paidMonths.has(value)
+              ? `${monthLabel(value)} · pago`
+              : monthLabel(value),
           }))}
         />
+
+        {month && (
+          <div className={styles.payment}>
+            <span className={monthPaid ? styles.paid : styles.unpaid}>
+              {monthPaid ? "✓ " : ""}
+              {monthLabel(month)} {monthPaid ? "pago" : "por pagar"}
+            </span>
+            {isAdmin && (
+              <form action={setMonthPaid.bind(null, id, month, !monthPaid)}>
+                <button type="submit" className={styles.paymentButton}>
+                  {monthPaid ? "Desmarcar como pago" : "Marcar como pago"}
+                </button>
+              </form>
+            )}
+          </div>
+        )}
 
         {dashboard.films.length > 0 ? (
           <table className={styles.table}>

@@ -13,6 +13,7 @@ export type AdminFilmStats = {
 export type ProducerDashboard = {
   name: string;
   months: string[]; // "YYYY-MM", mais recente primeiro
+  paidMonths: string[]; // meses já pagos ao produtor
   films: AdminFilmStats[];
 };
 
@@ -50,6 +51,11 @@ export async function getProducerDashboard(
         .in("id_film", filmIds)
     : { data: [] };
 
+  const { data: payments } = await supabase
+    .from("producer_payments")
+    .select("month")
+    .eq("id_producer", id);
+
   const all = purchases ?? [];
   const months = [
     ...new Set(all.map((purchase) => String(purchase.purchased_at).slice(0, 7))),
@@ -63,6 +69,7 @@ export async function getProducerDashboard(
   return {
     name: producer.company_name,
     months,
+    paidMonths: (payments ?? []).map((row) => row.month as string),
     films: (films ?? []).map((film) => {
       const sales = selected.filter((purchase) => purchase.id_film === film.id_film);
       const total = sales.reduce((sum, purchase) => sum + Number(purchase.price_paid), 0);

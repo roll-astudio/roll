@@ -5,6 +5,7 @@ import { getManagement } from "../../lib/management";
 import { isUuidV4 } from "../../lib/users";
 import { createClient } from "../../lib/supabase/server";
 import Button from "../../components/button/Button";
+import { setMonthPaid } from "./pagamentos";
 import { setFilmPublished, setFilmShare } from "./filmes/actions";
 import Filters from "./Filters";
 import GestaoNav from "./GestaoNav";
@@ -41,7 +42,7 @@ export default async function ManagementPage({
 
   const producerId = produtor && isUuidV4(produtor) ? produtor : undefined;
   const month = mes && /^\d{4}-(0[1-9]|1[0-2])$/.test(mes) ? mes : undefined;
-  const { producers, months, films, sales } = await getManagement(
+  const { producers, months, paid, films, sales } = await getManagement(
     supabase,
     producerId,
     month,
@@ -108,6 +109,7 @@ export default async function ManagementPage({
                   <th className={styles.num}>Filmes</th>
                   <th className={styles.num}>Compras</th>
                   <th className={styles.num}>Total</th>
+                  {month && <th className={styles.num}>Pagamento</th>}
                   <th className={styles.num}>Painel</th>
                 </tr>
               </thead>
@@ -122,6 +124,27 @@ export default async function ManagementPage({
                     <td className={styles.num}>{producer.films}</td>
                     <td className={styles.num}>{producer.buyers}</td>
                     <td className={styles.num}>{euro.format(producer.total)}</td>
+                    {month && (
+                      <td className={styles.num}>
+                        <form
+                          action={setMonthPaid.bind(
+                            null,
+                            producer.id,
+                            month,
+                            !paid.has(`${producer.id}:${month}`),
+                          )}
+                        >
+                          <button
+                            type="submit"
+                            className={`${styles.payButton} ${paid.has(`${producer.id}:${month}`) ? styles.payButtonOn : ""}`}
+                          >
+                            {paid.has(`${producer.id}:${month}`)
+                              ? `✓ ${monthLabel(month)} pago`
+                              : "Marcar como pago"}
+                          </button>
+                        </form>
+                      </td>
+                    )}
                     <td className={styles.num}>
                       <Link
                         className={styles.panelOpen}
