@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { DEFAULT_PRODUCER_SHARE } from "./shares";
+import { DEFAULT_ROLL_SHARE } from "./shares";
 import { isUuidV4 } from "./users";
 
 export type AdminFilmStats = {
@@ -7,8 +7,8 @@ export type AdminFilmStats = {
   slug: string;
   buyers: number;
   total: number; // vendas brutas
-  share: number; // % acordada com o produtor (30 por omissão)
-  payout: number; // valor a receber segundo a %
+  share: number; // % que a Roll recebe (30 por omissão)
+  payout: number; // valor a receber pelo produtor (o que sobra depois da % da Roll)
 };
 
 export type ProducerDashboard = {
@@ -40,7 +40,7 @@ export async function getProducerDashboard(
 
   const { data: films } = await supabase
     .from("films")
-    .select("id_film, title, slug, producer_share")
+    .select("id_film, title, slug, roll_share")
     .eq("id_producer", id)
     .order("title");
 
@@ -74,14 +74,14 @@ export async function getProducerDashboard(
     films: (films ?? []).map((film) => {
       const sales = selected.filter((purchase) => purchase.id_film === film.id_film);
       const total = sales.reduce((sum, purchase) => sum + Number(purchase.price_paid), 0);
-      const share = film.producer_share == null ? DEFAULT_PRODUCER_SHARE : Number(film.producer_share);
+      const share = film.roll_share == null ? DEFAULT_ROLL_SHARE : Number(film.roll_share);
       return {
         title: film.title,
         slug: film.slug ?? "",
         buyers: sales.length,
         total,
         share,
-        payout: (total * share) / 100,
+        payout: (total * (100 - share)) / 100,
       };
     }),
   };

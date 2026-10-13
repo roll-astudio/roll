@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import Button from "../../../components/button/Button";
 import { FILM_CATEGORIES } from "../../../lib/categories";
-import { DEFAULT_PRODUCER_SHARE } from "../../../lib/shares";
+import { DEFAULT_ROLL_SHARE } from "../../../lib/shares";
 import type { FilmFormState } from "./actions";
 import styles from "./page.module.css";
 
@@ -72,13 +72,13 @@ export default function FilmForm({
       </label>
 
       <label>
-        Percentagem do produtor (%)
+        Percentagem da Roll (%)
         <input
           name="share"
           type="text"
           inputMode="decimal"
           placeholder="30"
-          defaultValue={v.share ?? String(DEFAULT_PRODUCER_SHARE)}
+          defaultValue={v.share ?? String(DEFAULT_ROLL_SHARE)}
           required
         />
       </label>

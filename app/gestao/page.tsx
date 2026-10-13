@@ -57,7 +57,7 @@ export default async function ManagementPage({
       const total = producerSales.reduce((sum, sale) => sum + sale.price, 0);
       // Cada filme tem a sua percentagem, por isso soma-se filme a filme
       const payout = producerFilms.reduce(
-        (sum, film) => sum + (film.total * film.share) / 100,
+        (sum, film) => sum + (film.total * (100 - film.share)) / 100,
         0,
       );
       return {
@@ -184,7 +184,7 @@ export default async function ManagementPage({
                     <th>Produtor</th>
                     <th className={styles.num}>Compras</th>
                     <th className={styles.num}>Total</th>
-                    <th className={styles.num}>%</th>
+                    <th className={styles.num}>% Roll</th>
                     <th className={styles.num}>A receber</th>
                     <th className={styles.num}>A pagar ao produtor</th>
                     <th className={styles.num}></th>
@@ -208,10 +208,10 @@ export default async function ManagementPage({
                         {film.share.toLocaleString("pt-PT")}%
                       </td>
                       <td className={styles.num}>
-                        {euro.format((film.total * (100 - film.share)) / 100)}
+                        {euro.format((film.total * film.share) / 100)}
                       </td>
                       <td className={styles.num}>
-                        {euro.format((film.total * film.share) / 100)}
+                        {euro.format((film.total * (100 - film.share)) / 100)}
                       </td>
                       <td className={styles.num}>
                         <Button

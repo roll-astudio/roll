@@ -52,7 +52,7 @@ function parseFilmForm(formData: FormData) {
   else if (!(FILM_CATEGORIES as readonly string[]).includes(values.category))
     error = "Escolhe a categoria.";
   else if (!values.share || !Number.isFinite(share) || share < 0 || share > 100)
-    error = "Indica uma percentagem do produtor entre 0 e 100.";
+    error = "Indica a percentagem da Roll entre 0 e 100.";
   else if (!Number.isFinite(price) || price <= 0)
     error = "Indica um preço válido, por exemplo 12,90.";
   else if (!values.description) error = "Escreve uma pequena descrição.";
@@ -101,7 +101,7 @@ export async function createFilm(
     image: values.image,
     video_url: values.video,
     trailer_url: values.trailer || null,
-    producer_share: share,
+    roll_share: share,
     is_published: true,
     published_at: new Date().toISOString(),
   });
@@ -142,7 +142,7 @@ export async function updateFilm(
       image: values.image,
       video_url: values.video,
       trailer_url: values.trailer || null,
-      producer_share: share,
+      roll_share: share,
     })
     .eq("id_film", filmId);
   if (error) return { error: "Não foi possível guardar as alterações.", values };

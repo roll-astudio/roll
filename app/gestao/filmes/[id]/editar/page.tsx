@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import SiteHeader from "../../../../../components/site-header/SiteHeader";
 import { requireAdmin } from "../../../../../lib/admin-auth";
-import { DEFAULT_PRODUCER_SHARE } from "../../../../../lib/shares";
+import { DEFAULT_ROLL_SHARE } from "../../../../../lib/shares";
 import { isUuidV4 } from "../../../../../lib/users";
 import GestaoNav from "../../../GestaoNav";
 import { updateFilm } from "../../actions";
@@ -19,7 +19,7 @@ export default async function EditFilmPage({
 
   const { data: film } = await supabase
     .from("films")
-    .select("id_film, id_producer, title, category, price, description, image, video_url, trailer_url, producer_share")
+    .select("id_film, id_producer, title, category, price, description, image, video_url, trailer_url, roll_share")
     .eq("id_film", id)
     .maybeSingle();
   if (!film) notFound();
@@ -50,7 +50,7 @@ export default async function EditFilmPage({
             producer: film.id_producer,
             title: film.title,
             category: film.category ?? "",
-            share: String(film.producer_share ?? DEFAULT_PRODUCER_SHARE).replace(".", ","),
+            share: String(film.roll_share ?? DEFAULT_ROLL_SHARE).replace(".", ","),
             price: Number(film.price).toFixed(2).replace(".", ","),
             description: film.description ?? "",
             image: film.image ?? "",

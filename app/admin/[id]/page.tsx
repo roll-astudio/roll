@@ -103,7 +103,7 @@ export default async function AdminPage({
               <tr>
                 <th>Filme</th>
                 <th className={styles.num}>Compras</th>
-                <th className={styles.num}>%</th>
+                <th className={styles.num}>% Roll</th>
                 <th className={styles.num}>Total a receber</th>
               </tr>
             </thead>
