@@ -43,7 +43,18 @@ export default async function BuyPage({
             <p>
               {film.category} · {film.year} · {film.duration}
             </p>
+            <p className={styles.synopsis}>{film.description}</p>
             <p className={styles.price}>{film.price}</p>
+            {film.trailerUrl && (
+              <a
+                className={styles.trailer}
+                href={film.trailerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ▶ Ver trailer
+              </a>
+            )}
           </div>
         </div>
 
