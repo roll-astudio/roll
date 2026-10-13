@@ -49,7 +49,7 @@
 
 .footerLabel {
   margin-bottom: 8px;
-  color: #b51c3d;
+  color: var(--primary);
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -76,7 +76,7 @@
 }
 
 .socials a:hover, .socials a:focus-visible {
-  border-color: #b51c3d;
+  border-color: var(--primary);
   color: #fff;
   transform: translateY(-2px);
 }
@@ -106,7 +106,7 @@
 }
 
 .footerBottom a span {
-  color: #b51c3d;
+  color: var(--primary);
   font-size: 14px;
   margin-left: 5px;
 }
