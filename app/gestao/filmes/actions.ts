@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "../../../lib/admin-auth";
 import { FILM_CATEGORIES } from "../../../lib/categories";
+import { parseMuxPlaybackId } from "../../../lib/mux-playback-id";
 import { isUuidV4 } from "../../../lib/users";
 
 export type FilmFormState = {
@@ -53,8 +54,8 @@ function parseFilmForm(formData: FormData) {
   else if (!values.description) error = "Escreve uma pequena descrição.";
   else if (!isHttpUrl(values.image)) error = "O URL da imagem não é válido.";
   else if (!isHttpUrl(values.video)) error = "O URL do vídeo no Mux não é válido.";
-  else if (values.trailer && !isHttpUrl(values.trailer))
-    error = "O URL do trailer não é válido.";
+  else if (values.trailer && !parseMuxPlaybackId(values.trailer))
+    error = "O URL do trailer no Mux não é válido.";
 
   return { values, price, error };
 }

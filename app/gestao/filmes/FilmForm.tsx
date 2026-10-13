@@ -98,11 +98,11 @@ export default function FilmForm({
       </label>
 
       <label>
-        URL do trailer (YouTube, opcional)
+        URL do trailer no Mux (opcional)
         <input
           name="trailer"
           type="url"
-          placeholder="https://www.youtube.com/watch?v=…"
+          placeholder="https://stream.mux.com/…"
           defaultValue={v.trailer}
         />
       </label>

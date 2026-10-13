@@ -3,7 +3,9 @@ import Button from "../../../../components/button/Button";
 import SiteHeader from "../../../../components/site-header/SiteHeader";
 import { getFilmBySlug } from "../../../../lib/films";
 import { createClient } from "../../../../lib/supabase/server";
+import { parseMuxPlaybackId } from "../../../../lib/mux-playback-id";
 import { confirmPurchase } from "./actions";
+import TrailerPlayer from "./TrailerPlayer";
 import styles from "./page.module.css";
 
 export default async function BuyPage({
@@ -22,6 +24,8 @@ export default async function BuyPage({
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) redirect("/login");
+
+  const trailerId = film.trailerUrl ? parseMuxPlaybackId(film.trailerUrl) : null;
 
   return (
     <main className={styles.page}>
@@ -45,18 +49,10 @@ export default async function BuyPage({
             </p>
             <p className={styles.synopsis}>{film.description}</p>
             <p className={styles.price}>{film.price}</p>
-            {film.trailerUrl && (
-              <a
-                className={styles.trailer}
-                href={film.trailerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ▶ Ver trailer
-              </a>
-            )}
           </div>
         </div>
+
+        {trailerId && <TrailerPlayer playbackId={trailerId} title={film.title} />}
 
         {erro && (
           <p className={styles.error} role="alert">
