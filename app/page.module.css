@@ -4,7 +4,7 @@
     radial-gradient(circle at top, rgba(233, 27, 85, 0.16), transparent 28%),
     linear-gradient(180deg, #090909 0%, #000 100%);
   color: #f4f2ee;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   padding-top: 72px;
 }
 
@@ -67,11 +67,11 @@
   align-items: center;
   gap: 10px;
   color: #e3dcd3;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .kicker span, .sectionEyebrow::before {
@@ -84,7 +84,7 @@
 
 .heroContent h1, .catalogHead h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Arial, sans-serif;
   line-height: 0.94;
   letter-spacing: -0.05em;
 }
@@ -126,7 +126,7 @@
   background: rgba(36, 166, 84, 0.2);
   color: #80f0a7;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .description {
@@ -187,7 +187,7 @@
   margin: 0;
   color: #fff;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.02em;
 }
 
@@ -220,7 +220,7 @@
   color: #fff;
   font-size: 18px;
   line-height: 1.2;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.02em;
 }
 
@@ -333,7 +333,7 @@
 
 .owned {
   color: #4ade80;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .producers {
@@ -359,7 +359,7 @@
   background: rgba(255, 255, 255, 0.04);
   color: #fff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 

@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: #080808;
   color: #f4f2ee;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   padding-top: 72px;
 }
 
@@ -118,7 +118,7 @@
   border-radius: 999px;
   color: #f2dce3;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .owned span { color: #ea1b57; font-size: 16px; }
@@ -131,7 +131,7 @@
   justify-self: center;
   color: #fff;
   font-size: 30px;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.08em;
   display: flex;
   align-items: center;
@@ -243,7 +243,7 @@
 .title,
 .sectionTitle {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Arial, sans-serif;
   font-weight: 400;
   letter-spacing: -0.05em;
 }

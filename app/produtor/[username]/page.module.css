@@ -61,7 +61,7 @@
   overflow: hidden;
   color: #f0f0f1;
   font-size: clamp(.95rem, 1.15vw, 1.2rem);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -.025em;
   line-height: 1.2;
   text-overflow: ellipsis;

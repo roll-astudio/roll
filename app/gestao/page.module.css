@@ -73,7 +73,7 @@
   text-align: left;
 }
 
-.table th { color: #939497; font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.table th { color: #939497; font-size: .8rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
 .table td { font-size: 1.05rem; }
 .table .num { text-align: right; padding-left: 24px; padding-right: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .table tfoot td { font-weight: 700; }
@@ -135,7 +135,7 @@
   background: rgba(255, 255, 255, .1);
   color: #c9c7c2;
   font-size: .75rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .badgeOn { background: rgba(74, 222, 128, .15); color: #4ade80; }
@@ -144,7 +144,7 @@
   .stats { grid-template-columns: 1fr; }
 }
 
-.panelOpen { color: #ec0750; font-weight: 600; font-size: .95rem; }
+.panelOpen { color: #ec0750; font-weight: 700; font-size: .95rem; }
 .panelOpen:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .subnav { display: flex; gap: 8px; margin-bottom: 36px; }
@@ -155,7 +155,7 @@
   background: rgba(255, 255, 255, .08);
   color: #c9c7c2;
   font-size: .95rem;
-  font-weight: 600;
+  font-weight: 700;
   transition: background .2s ease;
 }
 
