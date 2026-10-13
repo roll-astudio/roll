@@ -173,6 +173,7 @@ export default async function ManagementPage({
                     <th className={styles.num}>Total</th>
                     <th className={styles.num}>%</th>
                     <th className={styles.num}>A receber</th>
+                    <th className={styles.num}>A pagar ao produtor</th>
                     <th className={styles.num}></th>
                     <th className={styles.num}>Estado</th>
                   </tr>
@@ -192,6 +193,9 @@ export default async function ManagementPage({
                       <td className={styles.num}>{euro.format(film.total)}</td>
                       <td className={styles.num}>
                         {film.share.toLocaleString("pt-PT")}%
+                      </td>
+                      <td className={styles.num}>
+                        {euro.format((film.total * (100 - film.share)) / 100)}
                       </td>
                       <td className={styles.num}>
                         {euro.format((film.total * film.share) / 100)}
