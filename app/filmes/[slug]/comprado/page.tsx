@@ -3,20 +3,35 @@ import Button from "../../../../components/button/Button";
 import SiteHeader from "../../../../components/site-header/SiteHeader";
 import { getFilmBySlug } from "../../../../lib/films";
 import { createClient } from "../../../../lib/supabase/server";
+import { fulfillCheckoutSession, getStripe } from "../../../../lib/stripe";
 import styles from "../comprar/page.module.css";
 
 export default async function PurchaseSuccessPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ session_id?: string }>;
 }) {
   const { slug } = await params;
+  const { session_id } = await searchParams;
   const film = await getFilmBySlug(slug);
   if (!film) notFound();
 
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) redirect("/login");
+
+  // O webhook pode chegar depois do redirect: confirma a sessão no Stripe
+  // e regista a compra aqui se ainda não existir (é idempotente).
+  if (session_id) {
+    try {
+      const session = await getStripe().checkout.sessions.retrieve(session_id);
+      if (session.metadata?.id_user === auth.user.id) await fulfillCheckoutSession(session);
+    } catch (error) {
+      console.error("Stripe session", error);
+    }
+  }
 
   // Só mostra o sucesso a quem realmente comprou o filme
   const { data: purchase } = await supabase
